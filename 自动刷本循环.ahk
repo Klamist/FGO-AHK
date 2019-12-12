@@ -289,12 +289,12 @@ wstart:
 return
 
 ;从者放技能
-ssk(si,sk,st:=0)
+ssk(si,st:=0)
 {
 	skc:=[ 80,200,320, 480,600,720, 880,1000,1120 ]
 	skt:=[ 400,800,1200 ]
 	;技能位置
-	temp:=skc[(si-1)*3+sk]
+	temp:=skc[si]
 	click,%temp%,750
 	sleep 200
 	;指向位置
