@@ -412,8 +412,10 @@ attack()
 	loop,5
 	{
 		if(cj!=ci)
-		temp:=ccoord[cj]
-		click,%temp%,640
+		{
+			temp:=ccoord[cj]
+			click,%temp%,640
+		}
 	}
 	sleep 130
 	
@@ -421,8 +423,10 @@ attack()
 	loop,5
 	{
 		if(ck!=ci)
-		temp:=ccoord[ck]
-		click,%temp%,640
+		{
+			temp:=ccoord[ck]
+			click,%temp%,640
+		}
 	}
 	sleep 130
 	
