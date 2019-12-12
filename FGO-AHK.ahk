@@ -195,8 +195,8 @@ support:
 	loop,50
 	{
 		click,1060,200
-		sleep 200
-		pixc(1000,740,0xD6D6D7,1,1)
+		sleep 500
+		click,1000,740
 		pixc(800,300,0xECF4FC,1)
 		if(supcheck(passby,supser,scraft,obreak,tskill))
 			return
@@ -213,7 +213,7 @@ supcheck(passby,supser,scraft,obreak,tskill)
 	if(ncheck(supser,scraft,obreak,tskill))
 		return 1
 	spy:=280
-	passby:=passby*3+3
+	passby:=6-passby*3
 	loop,%passby%
 	{
 		spy:=spy+100
@@ -254,7 +254,7 @@ ncheck(supser,scraft,obreak,tskill)
 				PixelSearch, x,,238,y+38,238,y+38,0X405090,10,Fast RGB
 				if(!x and scraft=2)	;蒙娜丽莎 1504,275,0x8E5D02 238,313,0x415A9C
 					continue
-				PixelSearch, x,,240,y+56,240,y+56,0xFFFF70,20,Fast RGB
+				PixelSearch, x,,240,y+57,240,y+57,0xFFFF70,30,Fast RGB
 				if(!x and obreak)	;是否满破 1504,385,0x9D6900 240,441,0xFFFF7A
 					continue
 			}
