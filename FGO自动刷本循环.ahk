@@ -2,13 +2,11 @@
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetMouseDelay, 0 ; Removed mouse delay (as fast as possible).
 
-/*
-设置要求：请在个人空间、游戏设置，关闭助战再临状态展示，关闭有利职阶自动选择。
-指令卡面：自己的CBA/孔明，指令卡面均用“再临3”样式。
-战斗设置：技能使用无需确认。
+;设置要求：请在个人空间、游戏设置，关闭助战再临状态展示，关闭有利职阶自动选择。
+;指令卡面：自己的CBA/孔明，指令卡面均用“再临3”样式。
+;战斗设置：技能使用无需确认。
 
-刷本与吃苹果的情况，会记录在同目录下的fgo-ahk.log当中。
-*/
+;刷本与吃苹果的情况，会记录在同目录下的fgo-ahk.log当中。
 
 ;——————可调节参数——————
 ;刷本次数
