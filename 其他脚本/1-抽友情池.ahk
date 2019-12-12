@@ -2,7 +2,7 @@
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetMouseDelay, 0
 
-;进入友情池界面，开始运行即可，抽到爆仓/没友情点为止。
+;进入友情池界面，开始运行即可，抽到爆仓/没友情点为止。。
 ;抽几次十连？
 shoot:=200
 
