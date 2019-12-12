@@ -340,7 +340,10 @@ msk(sk,st:=0,sm:=0,sn:=0)
 		click,800,820
 	}
 	sleep 500
-	pixc(1400,700,0x0DBFDD,1)
+	if(st=4)
+		pixc(1400,700,0x0DBFDD,1)
+	else
+		pixc(1560,190,0xFED71E,1)
 	sleep 100
 }
 return
