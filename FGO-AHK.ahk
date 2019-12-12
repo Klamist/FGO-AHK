@@ -387,7 +387,7 @@ return
 ;出3卡平砍(尽量首红)
 attack()
 {
-	ccoord:=[ 87,407,726,1048,1373 ]
+	ccoord:=[ 247,567,886,1208,1533 ]
 	click,1400,800
 	sleep 500
 	
@@ -396,8 +396,12 @@ attack()
 	loop,5
 	{
 		xard:=ccoord[ci]
-		if(pixc(xard,575,0XA41818,0,1))
+		PixelSearch,x,,xard,775,xard,775,0xFF2D1C,10,Fast RGB
+		if(x)
+		{
+			click,%xard%,640
 			break
+		}
 		ci:=ci+1
 	}
 	if(ci=6)
@@ -415,7 +419,9 @@ attack()
 		{
 			temp:=ccoord[cj]
 			click,%temp%,640
+			break
 		}
+		cj:=cj+1
 	}
 	sleep 130
 	
@@ -426,7 +432,9 @@ attack()
 		{
 			temp:=ccoord[ck]
 			click,%temp%,640
+			break
 		}
+		ck:=ck+1
 	}
 	sleep 130
 	
