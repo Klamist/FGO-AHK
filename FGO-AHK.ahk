@@ -1,4 +1,4 @@
-﻿#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
+#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetMouseDelay, 0 ; Removed mouse delay (as fast as possible).
 SetBatchLines, -1 ; Make AHK run as fast as possible
@@ -61,6 +61,15 @@ $~\::Reload
 
 ; ] 键暂停(从当前操作暂停，再按一次从暂停处继续)
 $~]::Pause
+
+; Ctrl + - 键取消吃苹果(打到没AP结束)
+$~^-::
+capple:= 0
+sapple:= 0
+gapple:= 0
+kstone:= 0
+msgbox, 已改为AP清完即停止
+return
 
 ; [ 键启动(开始循环刷本)
 $~[::
