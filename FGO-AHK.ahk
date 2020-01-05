@@ -402,7 +402,7 @@ xjbd(n:=0)
 			nn:=nn+1
 			attack()
 			if(nn=n)
-				return
+				break
 		}
 		sleep 100
 	}
