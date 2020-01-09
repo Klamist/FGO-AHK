@@ -31,10 +31,10 @@ kstone:= 0 ;彩苹果，0=禁用，1=可用
 
 ;助战选择
 passby:= 0	;助战来源，0=不限，1=仅好友 ———— 若选路人助战，过本后自动申请好友
-supser:= 0	;从者选择，0=任意，1=CBA，2=孔明 ———— 设0不检测后三项
-scraft:= 0	;概念礼装，0=任意，1=下午茶，2=蒙娜丽莎 ———— 活动礼装请设0后用FGO自带筛选
-obreak:= 0	;礼装满破，0=随意，1=必须满破 ———— scraft设0不检测满破情况
-tskill:= 0	;英灵技能，0=随意，1=全技能满级，2=一三技能满级，3=仅三技能满级
+supser:= 0	;从者选择，0=任意，1=CBA，2=孔明 ———— 设0不检测技能等级
+tskill:= 0	;英灵技能，0=随意，1=全满级，2=一三技满，3=仅三技满
+scraft:= 0	;概念礼装，0=任意，1=下午茶，2=蒙娜丽莎 ———— 活动礼装请设0并用FGO自带筛选
+obreak:= 0	;礼装满破，0=随意，1=必须满破 ———— 礼装种类scraft=0时，不检测满破情况
 
 ;——————战斗流程——————
 order()
@@ -208,6 +208,7 @@ support:
 {
 	if(supser=1 or supser=2)
 		click,540,200 ;切术阶
+	sleep 200
 	if(supcheck(passby,supser,scraft,obreak,tskill))
 		return
 	;如果没有，刷新再找，重复50次
@@ -257,46 +258,46 @@ ncheck(supser,scraft,obreak,tskill)
 	y:=200
 	loop
 	{
-		y:=y+10
+		y:=y+100
 		;扫描从者栏位
-		PixelSearch, x,y,1504,y,1504,920,0x926100,15,Fast RGB
+		PixelSearch, x,y,1020,y,1020,930,0xEACA9A,10,Fast RGB
 		if(!y)
 			return 0
 		;匹配英灵
 		if(supser)
 		{
-			PixelSearch, x,,255,y,255,y,0x040228,10,Fast RGB
-			if(!x and supser=1) ;CBA 1504,505,0x8F5D00 255,505,0x040228
+			PixelSearch, x,,200,y-95,200,y-95,0x5C295C,10,Fast RGB
+			if(!x and supser=1) ;1020,367,0xE1CB98 CBA 200,272,0x5C295C
 				continue
-			PixelSearch, x,,255,y+12,255,y+12,0xFBDF96,10,Fast RGB
-			if(!x and supser=2)	;孔明 1504,425,0x8E5D02 255,437,0xFBDF96
+			PixelSearch, x,,255,y-70,255,y-70,0xFBDF93,10,Fast RGB
+			if(!x and supser=2)	;孔明 1020,481,0xEDCB98 255,411,0xFBDF93
 				continue
-			;礼装种类与满破情况
-			if(scraft)
-			{
-				PixelSearch, x,,106,y+40,106,y+40,0xF5DBD4,10,Fast RGB
-				if(!x and scraft=1)	;下午茶 1504,505,0x8F5D00 106,545,0xF5DBD4
-					continue
-				PixelSearch, x,,238,y+38,238,y+38,0X405090,10,Fast RGB
-				if(!x and scraft=2)	;蒙娜丽莎 1504,275,0x8E5D02 238,313,0x415A9C
-					continue
-				PixelSearch, x,,240,y+57,240,y+57,0xFFFF70,30,Fast RGB
-				if(!x and obreak)	;是否满破 1504,385,0x9D6900 240,441,0xFFFF7A
-					continue
-			}
 			;检测技能等级
-			if(tskill) ;1504,385,0x9D6900
+			if(tskill) ;1020,489,0xEECC99
 			{
-				PixelSearch, x,,1079,y+50,1079,y+50,0XFFFFFF,10,Fast RGB
-				if(!x and tskill<3)	;一技能 1079,435,0xFFFFFF
+				PixelSearch, x,,1079,y-30,1079,y-30,0XFFFFFF,10,Fast RGB
+				if(!x and tskill<3)	;一技能 1079,469,0xFFFFFF
 					continue
-				PixelSearch, x,,1176,y+50,1176,y+50,0XFFFFFF,10,Fast RGB
-				if(!x and tskill=1)	;二技能 1176,435,0xFFFFFF
+				PixelSearch, x,,1176,y-30,1176,y-30,0XFFFFFF,10,Fast RGB
+				if(!x and tskill=1)	;二技能 1176,469,0xFFFFFF
 					continue
-				PixelSearch, x,,1273,y+50,1273,y+50,0XFFFFFF,10,Fast RGB
-				if(!x and tskill>0)	;三技能 1273,435,0XFFFFFF
+				PixelSearch, x,,1273,y-30,1273,y-30,0XFFFFFF,10,Fast RGB
+				if(!x and tskill>0)	;三技能 1273,469,0XFFFFFF
 					continue
 			}
+		}
+		;礼装种类与满破情况
+		if(scraft)
+		{
+			PixelSearch, x,,111,y-50,111,y-50,0xF4CBD3,10,Fast RGB
+			if(!x and scraft=1)	;下午茶 1020,378,0xEECC98 111,328,0xF4CBD3
+				continue
+			PixelSearch, x,,240,y-37,240,y-37,0x425B94,10,Fast RGB
+			if(!x and scraft=2)	;蒙娜丽莎 1020,489,0xEECC99 240,452,0x425B94
+				continue
+			PixelSearch, x,,240,y-20,240,y-20,0xFFFF70,30,Fast RGB
+			if(!x and obreak)	;是否满破 1020,489,0xEECC99 240,469,0xFFFF7B
+				continue
 		}
 		click,1000,%y%
 		return 1
