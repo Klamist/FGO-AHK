@@ -15,6 +15,7 @@ FGO客户端设置要求：
 1. 在个人空间、游戏设置，关闭助战再临状态展示，关闭有利职阶自动选择。
 2. 自己的CBA/孔明，指令卡面均用“再临3”样式。
 3. 技能使用无需确认。
+4. 若你开了插件APP，请隐藏它们的小图标，否则可能会挡住脚本识别像素点。
 
 注：请确保MUMU模拟器的显示设置符合要求。详见《使用方法.txt》
 
@@ -98,7 +99,7 @@ gosub,mumu
 loop ,%cycle%
 {
 	;等待检测处于free本选择界面
-	pixc(100,60,0XF6F6F6,1)
+	pixc(206,903,0xFDFDFC,1)
 	
 	;点击副本
 	click,900,300
@@ -238,23 +239,22 @@ supcheck(passby,supser,scraft,obreak,tskill)
 {
 	if(pixc(1234,567,0x2C363A))
 		return 0
-	if(ncheck(supser,scraft,obreak,tskill))
+	if(ncheck(passby,supser,scraft,obreak,tskill))
 		return 1
 	spy:=280
-	passby:=6-passby*3
-	loop,%passby%
+	loop,6
 	{
 		spy:=spy+100
 		click,1550,%spy%
 		sleep 200
-		if(ncheck(supser,scraft,obreak,tskill))
+		if(ncheck(passby,supser,scraft,obreak,tskill))
 			return 1
 	}
 	return 0
 }
 
 ;检测本页助战
-ncheck(supser,scraft,obreak,tskill)
+ncheck(passby,supser,scraft,obreak,tskill)
 {
 	y:=200
 	loop
@@ -264,6 +264,13 @@ ncheck(supser,scraft,obreak,tskill)
 		PixelSearch, x,y,1020,y,1020,930,0xEACA9A,10,Fast RGB
 		if(!y)
 			return 0
+		;检测是否好友
+		if(passby)
+		{
+			PixelSearch, x,,1450,y-13,1450,y-13,0xE4FEA5,10,Fast RGB
+			if(!x) ;1020,501,0xE1C8A0 1450,448,0xE4FEA5
+				continue
+		}
 		;匹配英灵
 		if(supser)
 		{
