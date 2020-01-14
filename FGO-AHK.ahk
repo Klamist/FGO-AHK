@@ -267,7 +267,7 @@ ncheck(passby,supser,scraft,obreak,tskill)
 		;检测是否好友
 		if(passby)
 		{
-			PixelSearch, x,,1450,y-13,1450,y-13,0xE4FEA5,10,Fast RGB
+			PixelSearch, x,,1450,y-53,1450,y-53,0xE4FEA5,10,Fast RGB
 			if(!x) ;1020,501,0xE1C8A0 1450,448,0xE4FEA5
 				continue
 		}
