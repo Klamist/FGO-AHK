@@ -318,7 +318,7 @@ ncheck(passby,supser,scraft,obreak,tskill)
 wstart:
 {
 	sleep 500
-	pixc(1400,730,0x03D8F7,1)
+	pixc(1400,700,0x0DBFDD,1)
 	sleep 50
 }
 return
