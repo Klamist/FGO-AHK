@@ -318,7 +318,13 @@ ncheck(passby,supser,scraft,obreak,tskill)
 wstart:
 {
 	sleep 500
-	pixc(1400,700,0x0DBFDD,1)
+	loop
+	{
+		PixelSearch, xws,,1400,700,1400,700,0x0EBEDD,2,Fast RGB
+		if(xws)
+			break
+		sleep 100
+	}
 	sleep 50
 }
 return
