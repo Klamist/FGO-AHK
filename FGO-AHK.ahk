@@ -21,18 +21,17 @@ FGO客户端设置要求：
 
 日志记录：
 刷本与吃苹果的情况，会记录在同目录下的fgo-ahk.log当中。
-
 */
 
 ;——————可调节参数——————
 ;刷本次数
-cycle:= 10 ;总共刷几次本，填正整数
+cycle:= 10	;总共刷几次本，填正整数
 
 ;体力恢复(吃苹果按铜银金彩顺序尝试)
-capple:= 0 ;铜苹果，0=禁用，1=可用
-sapple:= 0 ;银苹果，0=禁用，1=可用
-gapple:= 0 ;金苹果，0=禁用，1=可用
-kstone:= 0 ;彩苹果，0=禁用，1=可用
+capple:= 0	;铜苹果，0=禁用，1=可用
+sapple:= 0	;银苹果，0=禁用，1=可用
+gapple:= 0	;金苹果，0=禁用，1=可用
+kstone:= 0	;彩苹果，0=禁用，1=可用
 
 ;助战选择
 passby:= 0	;助战来源，0=不限，1=仅好友 ———— 若选路人助战，过本后自动申请好友
@@ -41,6 +40,13 @@ tskill:= 0	;英灵技能，0=随意，1=全满级，2=一三技满，3=仅三技
 scraft:= 0	;概念礼装，0=任意，1=下午茶，2=蒙娜丽莎 ———— 活动礼装请设0并用FGO自带筛选
 obreak:= 0	;礼装满破，0=随意，1=必须满破 ———— 礼装种类scraft=0时，不检测满破情况
 
+;调试模式
+global debug:= 0	;0=关闭，1=在fgo-ahk.log中记载详细运行过程（会导致脚本运行较慢）
+;像素误差
+global wucha:= 0	;0=精准运行，正整数=允许的像素误差范围。
+                  	;如果脚本有时会卡住，可以加入像素误差，一般5-10即可，不能过大。
+
+					
 ;——————战斗流程——————
 order()
 {
@@ -75,13 +81,12 @@ $~\::Reload
 ; ] 键暂停(从当前操作暂停，再按一次从暂停处继续)
 $~]::Pause
 
-; Ctrl + - 键取消吃苹果(打到没AP结束)
-$~^-::
+; Ctrl + 0 键取消吃苹果(打到没AP就结束)
+$~^0::
 capple:= 0
 sapple:= 0
 gapple:= 0
 kstone:= 0
-msgbox, 已改为AP清完即停止
 return
 
 ; [ 键启动(开始循环刷本)
@@ -109,7 +114,7 @@ loop ,%cycle%
 	loop
 	{
 		sleep 100
-		if(pixc(1270,400,0xE4E4ED) and apok)
+		if(pixc(1270,430,0xDFDFE7) and apok)
 		{
 			gosub,eat
 			apok:=0
@@ -149,16 +154,33 @@ return
 ;循环探测指定像素点颜色，pl是否循环，lc=识别到后是否单击这个像素
 pixc(x,y,color,pl:=0,lc:=0)
 {
+	dpix:=0x307521
+	if(debug)
+	{
+		dpn:=Format("{1:4d},{2:4d},0x{3:06X}",x,y,color)
+		FileAppend,%dpn%`n,fgo-ahk.log
+	}
 	loop
 	{
-		PixelGetColor,pix,x,y,RGB
-		if(pix=color)
+		PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
+		if(xtmp)
 		{
 			if(lc)
 				click,%x%,%y%
 			return 1
 		}
-		else if(!pl)
+		else if(debug)
+		{
+			PixelGetColor,pix,x,y,RGB
+			if(dpix!=pix)
+			{
+				dpix:=pix
+				dpn:=Format("----,----,0x{3:06X}",x,y,dpix)
+				FileAppend,%dpn%`n,fgo-ahk.log
+			}
+			sleep 450
+		}
+		if(!pl)
 			return 0
 		sleep 50
 	}
