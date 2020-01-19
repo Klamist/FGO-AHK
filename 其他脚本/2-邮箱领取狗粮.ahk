@@ -77,8 +77,8 @@ selexp:
 	{
 		y:=y+10
 		bingo:=0
-		PixelSearch, x,y,436,y,436,930,0xFDFDFD,5,Fast RGB
-		if(y)
+		PixelSearch, x,y,436,y,436,935,0xFDFDFD,5,Fast RGB
+		if(y and y<935)
 		{
 			PixelSearch, x,,258,y+24,258,y+24,0xAB990C,20,Fast RGB
 			if(!x) ;不是金狗粮必选
@@ -120,7 +120,7 @@ selexp:
 				}
 			}
 		}
-		if(!y or y>930)
+		else
 			break
 	}
 return
