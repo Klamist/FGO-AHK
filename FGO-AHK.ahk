@@ -283,7 +283,7 @@ ncheck(passby,supser,scraft,obreak,tskill)
 	{
 		y:=y+100
 		;扫描从者栏位
-		PixelSearch, x,y,1020,y,1020,930,0xEACA9A,10,Fast RGB
+		PixelSearch, x,y,1020,y,1020,935,0xEACA9A,10,Fast RGB
 		if(!y)
 			return 0
 		;检测是否好友
