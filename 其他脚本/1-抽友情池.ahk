@@ -41,16 +41,10 @@ loop
 	{
 		click,950,880
 		if(pixc(950,740,0xD2D2D2,0,1))
-		{
-			sleep 100
 			break
-		}
 		if(pixc(894,633,0XD1D1D2))
-		{
-			msgbox 抽爆了！
 			exit
-		}
-		sleep 50
+		sleep 200
 	}
 }
 return
