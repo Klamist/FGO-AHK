@@ -346,10 +346,10 @@ ncheck(passby,supser,scraft,obreak,tskill)
 			PixelSearch, x,,111,y-50,111,y-50,0xF9D8D8,10,Fast RGB
 			if(!x and scraft=1)	;下午茶 1020,369,0xEECC98 111,319,0xF9D8D8
 				continue
-			PixelSearch, x,,240,y-45,240,y-45,0x516A7B,10,Fast RGB
-			if(!x and scraft=2)	;贝拉丽莎 1020,456,0xEECC99 240,411,0x516A7B
+			PixelSearch, x,,174,y-40,174,y-40,0xFDDCCC,10,Fast RGB
+			if(!x and scraft=2)	;贝拉丽莎 1024,501,0xE0C69F 174,461,0xFDDCCC
 				continue
-			PixelSearch, x,,240,y-20,240,y-20,0xFFFF5D,30,Fast RGB
+			PixelSearch, x,,240,y-20,240,y-20,0xFFFF72,30,Fast RGB
 			if(!x and obreak)	;是否满破 1020,501,0xE1C8A0 240,469,0xFFFF7B
 				continue
 		}
