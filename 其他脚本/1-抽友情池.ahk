@@ -24,7 +24,7 @@ $~[::
 gosub,mumu
 
 ;检测处于友情池界面
-pixc(900,700,0x0B8ED6,1)
+pixc(835,90,0xA2E447,1)
 sleep 50
 click,1030,730
 sleep 300
@@ -40,18 +40,21 @@ loop
 	loop
 	{
 		click,950,880
-		if(pixc(950,740,0xD2D2D2))
+		if(pixc(1040,710,0xF9F9F9))
 		{
-			sleep 150
+			sleep 100
 			click,950,740
-			break
+			sleep 100
+			click,950,740
+			sleep 100
+			click,950,740
 		}
-		if(pixc(894,633,0XD1D1D2))
+		if(pixc(788,518,0xFF0000))
 		{
 			msgbox 抽爆了
 			exit
 		}
-		sleep 50
+		sleep 100
 	}
 }
 return
@@ -63,8 +66,8 @@ pixc(x,y,color,pl:=0,lc:=0)
 {
 	loop
 	{
-		PixelGetColor,pix,x,y,RGB
-		if(pix=color)
+		PixelSearch,xtmp,,x,y,x,y,color,3,Fast RGB
+		if(xtmp)
 		{
 			if(lc)
 				click,%x%,%y%

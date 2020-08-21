@@ -23,13 +23,13 @@ gosub,mumu
 loop
 {
 	;检测处于喂礼装界面
-	pixc(1220,600,0xEFF7F7,1)
+	pixc(745,908,0xF7DF19,1)
 	sleep 50
 	click,650,330
 	sleep 200
 	
 	;选择礼装
-	pixc(100,60,0xF6F6F6,1)
+	pixc(100,60,0xF5F5F5,1)
 	sleep 200
 	Click,175,350,down
 	sleep 600
@@ -40,27 +40,19 @@ loop
 	click,1400,880
 	
 	;确认喂
-	pixc(1250,650,0xF1F9F9,1)
+	pixc(745,908,0xF7DF19,1)
 	sleep 50
 	click,1380,880
 	sleep 300
 	click,1050,770
+	sleep 500
 	
-	;黑屏监测
-	pixc(1099,767,0X000000,1)
 	;连点直到出去。
 	loop
 	{
-		click,323,697
-		if(!pixc(1100,767,0X000000))
+		if(pixc(745,908,0xF7DF19))
 			break
-		sleep 100
-	}
-	loop
-	{
-		click,814,687
-		if(pixc(1290,670,0xF7F7FF))
-			break
+		click,800,600
 		sleep 100
 	}
 }
@@ -73,8 +65,8 @@ pixc(x,y,color,pl:=0,lc:=0)
 {
 	loop
 	{
-		PixelGetColor,pix,x,y,RGB
-		if(pix=color)
+		PixelSearch,xtmp,,x,y,x,y,color,3,Fast RGB
+		if(xtmp)
 		{
 			if(lc)
 				click,%x%,%y%
