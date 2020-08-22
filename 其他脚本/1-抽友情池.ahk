@@ -52,7 +52,7 @@ loop
 			sleep 100
 			click,950,740
 		}
-		if(pixc(759,528,0xFF0000))
+		if(pixc(470,780,0x317090))
 		{
 			msgbox 抽爆了
 			exit
