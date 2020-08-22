@@ -1,14 +1,16 @@
 ﻿#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetMouseDelay, 0
-SetBatchLines, -1 ; Make AHK run as fast as possible
 
-;进入友情池界面，开始运行即可，抽到爆仓/没友情点为止。
-;在圣晶石池子界面，本脚本无法运行。
 
-;口口口口口口口口口口口口口口口口口口口
-;不建议修改之后的代码，除非你感觉自己懂
-;口口口口口口口口口口口口口口口口口口口
+/*
+使用方法：
+进入友情池抽取界面，启动脚本，会自动抽到爆仓。
+
+注意事项：
+每日首次免费请先自己抽掉。
+*/
+
 
 ; Ctrl + \ 退出脚本
 $~^\::ExitApp
@@ -21,6 +23,7 @@ $~]::Pause
 
 ; [ 键启动:
 $~[::
+
 gosub,mumu
 
 ;检测处于友情池界面
@@ -49,7 +52,7 @@ loop
 			sleep 100
 			click,950,740
 		}
-		if(pixc(788,518,0xFF0000))
+		if(pixc(759,528,0xFF0000))
 		{
 			msgbox 抽爆了
 			exit
