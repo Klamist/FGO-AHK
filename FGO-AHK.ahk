@@ -160,10 +160,11 @@ loop
 	loop
 	{
 		click,1300,845
-		pixc(870,740,0xD6D6D6,0,1)
-		pixc(303,803,0xD4D4D4,0,1)
-		if(pixc(988,224,0xFFFFFF))
+		pixc(870,740,0xD7D7D7,0,1)
+		pixc(303,803,0xD6D6D6,0,1)
+		if(pixc(1041,314,0xFFFFFF))
 		{
+			sleep 200
 			click,950,750
 			break
 		}
