@@ -6,8 +6,8 @@ FGO-AHK只是充满逻辑的连点器罢了<br>
 ### Github下载方法：<br>
 (电脑浏览器)页面右侧绿色按钮Download Zip下载压缩包<br>
 ### 问题反馈&交流：
-在github提交issue<br>
 QQ群：1076324554<br>
+也可以在github提交issue<br>
 ## 自动循环刷本功能
 1. 检测位于free本选择界面，点击右侧第一位副本<br>
 2. 可设置允许吃哪种苹果，自动补充体力<br>
