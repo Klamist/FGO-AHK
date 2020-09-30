@@ -3,23 +3,6 @@ SendMode Input ; Recommended for new scripts due to its superior speed and relia
 SetMouseDelay, 0 ; Removed mouse delay (as fast as possible).
 SetBatchLines, -1 ; Make AHK run as fast as possible
 
-/*
-使用方法：
-1. 根据要刷的副本，自行配置编队，并在后文中设置好相应的参数、战斗流程。
-2. 点击副本，在助战界面设置好职阶、礼装筛选，然后退回。
-3. 在副本选择界面，将要刷的副本调整到位于列表首位，按运行热键即可。
-
-FGO客户端设置要求：
-1. 在个人空间、游戏设置，关闭助战再临状态展示，关闭有利职阶自动选择。
-2. 战斗设置中，技能使用无需确认。
-3. 若你开了插件APP，请隐藏它们的小图标，否则可能会挡住脚本识别像素点。
-4. FREE本若有首通奖励，请先自己打完第一局，之后可连续出击时再用脚本。
-
-其他要求参见《使用方法.txt》
-
-日志记录：
-刷本与吃苹果的情况，会记录在同目录下的fgo-ahk.log当中。
-*/
 
 ;——————可调节参数——————
 ;刷本次数
@@ -78,10 +61,7 @@ $~^\::ExitApp
 ; \ 键重置(相当于关闭脚本再打开)
 $~\::Reload
 
-; ] 键暂停(从当前操作暂停，再按一次从暂停处继续)
-$~]::Pause
-
-; Ctrl + 0 键取消吃苹果(运行中途改为没AP就停)
+; Ctrl + 0 键 取消吃苹果
 $~^0::
 capple:= 0
 sapple:= 0
@@ -89,9 +69,12 @@ gapple:= 0
 kstone:= 0
 return
 
+; ] 键暂停(从当前操作暂停，再按一次从暂停处继续)
+$~]::Pause
+
 ; [ 键启动(开始循环刷本)
 $~[::
-
+{
 
 ;口口口口口口口口口口口口口口口口
 ;以后的代码，不建议修改，除非你懂
@@ -173,6 +156,7 @@ loop
 	}
 }
 MsgBox 打完了！
+}
 return
 
 ;================================以下均为可调用子程序/子段落================================
@@ -225,7 +209,7 @@ eat:
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
 	}
-	if(pixc(750,560,0xF4ECDB) and sapple)
+	else if(pixc(750,560,0xF4ECDB) and sapple)
 	{
 		click,750,560
 		sleep 400
@@ -233,7 +217,7 @@ eat:
 		FileAppend,吃了银苹果`n,fgo-ahk.log
 		return
 	}
-	if(pixc(750,375,0xF4ECDB) and gapple)
+	else if(pixc(750,375,0xF4ECDB) and gapple)
 	{
 		click,750,375
 		sleep 400
@@ -241,7 +225,7 @@ eat:
 		FileAppend,吃了金苹果`n,fgo-ahk.log
 		return
 	}
-	if(pixc(750,190,0xF4ECDB) and kstone)
+	else if(pixc(750,190,0xF4ECDB) and kstone)
 	{
 		click,750,190
 		sleep 400
