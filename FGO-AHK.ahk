@@ -11,8 +11,9 @@ SetBatchLines, -1 ; Make AHK run as fast as possible
 
 FGO客户端设置要求：
 1. 在个人空间、游戏设置，关闭助战再临状态展示，关闭有利职阶自动选择。
-2. 技能使用无需确认。
-3. 若你开了插件APP，请隐藏它们的小图标，否则可能会挡住脚本识别像素点。本脚本不支持高倍加速作战。
+2. 战斗设置中，技能使用无需确认。
+3. 若你开了插件APP，请隐藏它们的小图标，否则可能会挡住脚本识别像素点。
+4. FREE本若有首通奖励，请先自己打完第一局，之后可连续出击时再用脚本。
 
 其他要求参见《使用方法.txt》
 
@@ -40,11 +41,11 @@ obreak:= 0	;礼装满破，0=随意，1=必须满破 ———— 礼装种类sc
 
 ;调试模式
 global debug:= 0	;0=关闭，1=在fgo-ahk.log中记录像素不匹配的情况（会导致脚本运行较慢）
-;像素误差
+;像素容差
 global wucha:= 1	;0=精准运行，正整数=允许的像素误差范围。此项不影响脚本运行速度。2.6版本推荐留1防止智障。
                   	;如果脚本有时会卡住，排除FGO内部问题、MUMU窗口问题后，可以增加像素误差，一般到5-10即可，不能过大。
 
-					
+
 ;——————战斗流程——————
 order()
 {
@@ -321,47 +322,82 @@ ncheck(passby,supser,scraft,obreak,tskill)
 		;匹配英灵
 		if(supser)
 		{
-			PixelSearch, x,,255,y-80,255,y-80,0x02022B,10,Fast RGB
-			if(!x and supser=1) ;CBA 1020,455,0xF0CE9B 255,375,0x02022B
-				continue
-			PixelSearch, x,,255,y-70,255,y-70,0xF9E096,10,Fast RGB
-			if(!x and supser=2)	;孔明 1020,562,0xE5C99D 255,492,0xF9E096
-				continue
-			PixelSearch, x,,126,y-76,126,y-76,0xE4C4D4,10,Fast RGB
-			if(!x and supser=3)	;梅林 1030,648,0xE7D8B7 126,572,0xE4C4D4
-				continue
-			PixelSearch, x,,102,y-63,102,y-63,0xD5A384,10,Fast RGB
-			if(!x and supser=4)	;花嫁 1020,885,0xD3D4C4 102,822,0xD5A384
-				continue
-			PixelSearch, x,,255,y-66,255,y-66,0xB75444,10,Fast RGB
-			if(!x and supser=5)	;狐狸 1030,555,0xD3D4C5 255,489,0xB75444
-				continue
+			if(supser=1)
+			{
+				PixelSearch, x,,255,y-80,255,y-80,0x02022B,10,Fast RGB
+				if(!x) ;CBA 1020,455,0xF0CE9B 255,375,0x02022B
+					continue
+			}
+			else if(supser=2)
+			{
+				PixelSearch, x,,255,y-70,255,y-70,0xF9E096,10,Fast RGB
+				if(!x) ;孔明 1020,562,0xE5C99D 255,492,0xF9E096
+					continue
+			}
+			else if(supser=3)
+			{
+				PixelSearch, x,,126,y-76,126,y-76,0xE4C4D4,10,Fast RGB
+				if(!x) ;梅林 1030,648,0xE7D8B7 126,572,0xE4C4D4
+					continue
+			}
+			else if(supser=4)
+			{
+				PixelSearch, x,,102,y-63,102,y-63,0xD5A384,10,Fast RGB
+				if(!x) ;花嫁 1020,885,0xD3D4C4 102,822,0xD5A384
+					continue
+			}
+			else if(supser=5)
+			{
+				PixelSearch, x,,255,y-66,255,y-66,0xB75444,10,Fast RGB
+				if(!x) ;狐狸 1030,555,0xD3D4C5 255,489,0xB75444
+					continue
+			}
 			;检测技能等级
 			if(tskill[1] or tskill[2] or tskill[3]) ;1020,489,0xEECC99
 			{
-				PixelSearch, x,,1079,y-30,1079,y-30,0XFFFFFF,10,Fast RGB
-				if(!x and tskill[1])	;一技能 1079,469,0xFFFFFF
-					continue
-				PixelSearch, x,,1176,y-30,1176,y-30,0XFFFFFF,10,Fast RGB
-				if(!x and tskill[2])	;二技能 1176,469,0xFFFFFF
-					continue
-				PixelSearch, x,,1273,y-30,1273,y-30,0XFFFFFF,10,Fast RGB
-				if(!x and tskill[3])	;三技能 1273,469,0XFFFFFF
-					continue
+				if(tskill[1])
+				{
+					PixelSearch, x,,1079,y-30,1079,y-30,0XFFFFFF,10,Fast RGB
+					if(!x)	;一技能 1079,469,0xFFFFFF
+						continue
+				}
+				if(tskill[2])
+				{
+					PixelSearch, x,,1176,y-30,1176,y-30,0XFFFFFF,10,Fast RGB
+					if(!x)	;二技能 1176,469,0xFFFFFF
+						continue
+				}
+				if(tskill[3])
+				{
+					PixelSearch, x,,1273,y-30,1273,y-30,0XFFFFFF,10,Fast RGB
+					if(!x)	;三技能 1273,469,0XFFFFFF
+						continue
+				}
 			}
 		}
 		;礼装种类与满破情况
 		if(scraft)
 		{
-			PixelSearch, x,,111,y-50,111,y-50,0xFAD5D5,10,Fast RGB
-			if(!x and scraft=1)	;下午茶 1020,629,0xEECC98 111,319,0xF9D8D8
-				continue
-			PixelSearch, x,,174,y-41,174,y-41,0xFDD8D0,10,Fast RGB
-			if(!x and scraft=2)	;贝拉丽莎 1020,456,0xEECC99 174,461,0xFDD4D4
-				continue
-			PixelSearch, x,,240,y-20,240,y-20,0xFFFF75,22,Fast RGB
-			if(!x and obreak)	;是否满破 1020,629,0xEECC98 240,609,0xFCFC8A
-				continue
+			;礼装种类
+			if(scraft=1)
+			{
+				PixelSearch, x,,111,y-50,111,y-50,0xFAD5D5,10,Fast RGB
+				if(!x)	;下午茶 1020,629,0xEECC98 111,319,0xF9D8D8
+					continue
+			}
+			else if(scraft=2)
+			{
+				PixelSearch, x,,174,y-41,174,y-41,0xFDD8D0,10,Fast RGB
+				if(!x)	;贝拉丽莎 1020,456,0xEECC99 174,461,0xFDD4D4
+					continue
+			}
+			;是否满破
+			if(obreak)
+			{
+				PixelSearch, x,,240,y-20,240,y-20,0xFFFF75,22,Fast RGB
+				if(!x)	;满破星星 1020,629,0xEECC98 240,609,0xFCFC8A
+					continue
+			}
 		}
 		y:=y-30
 		click,1000,%y%
@@ -462,7 +498,7 @@ xjbd(n:=0)
 		if(pixc(130,270,0xEFC329))
 			return
 		;检测黑屏换面
-		if(pixc(480,880,0x000000) and n>0)
+		if(pixc(500,870,0x000000) and n>0)
 			break
 		;检测战斗界面是否又出现
 		if(pixc(1550,205,0xFAE203))
