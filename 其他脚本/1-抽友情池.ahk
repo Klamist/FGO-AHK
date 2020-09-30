@@ -2,7 +2,6 @@
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetMouseDelay, 0
 
-
 /*
 使用方法：
 进入友情池抽取界面，启动脚本，会自动抽到爆仓。
@@ -10,7 +9,6 @@ SetMouseDelay, 0
 注意事项：
 每日首次免费请先自己抽掉。
 */
-
 
 ; Ctrl + \ 退出脚本
 $~^\::ExitApp

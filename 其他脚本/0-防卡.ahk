@@ -2,12 +2,15 @@
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+/*
+检测意外卡死。
 
-;检测意外卡死。当鼠标60秒无操作，会打开MP3播放。
-;请在同文件夹内，放一个MP3文件，改名alarm.mp3当闹钟。
-;请确保你电脑打开MP3文件后，会自动播放。
+在同文件夹内，放一个MP3文件，改名alarm.mp3当闹钟。确保你电脑打开MP3文件后，会自动播放。
 
-;热键与自动刷本AHK相同，打开两份ahk，然后去刷图即可。
+热键与自动刷本AHK相同，打开两份ahk，然后去刷图即可。
+
+当鼠标60秒无操作，会打开MP3播放。
+*/
 
 ; Ctrl + \ 退出脚本
 $~^\::ExitApp

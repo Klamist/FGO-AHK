@@ -1,11 +1,15 @@
-﻿SetMouseDelay, 0
-SetBatchLines, -1 ; Make AHK run as fast as possible
-/*
-进入礼装强化界面，选择一个主礼装后，开启脚本。
-自动点击、拖选礼装，然后强化，直到没有礼装可选。
+﻿#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
+SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
+SetMouseDelay, 0
 
-请提前锁定有用的礼装。
-脚本只会选取前排的礼装，请设置强化素材界面的排序方式，推荐按稀有度倒序。
+/*
+使用方法：
+进入礼装强化界面，选择一个主礼装后，开启脚本。
+自动点击、拖选最前面的20个礼装，然后强化，直到没有礼装可选。
+
+注意事项：
+1. 请提前锁定有用的礼装。
+2. 请设置强化素材界面的排序方式，推荐开启智能筛选，按稀有度，升序排列。反正就是让需要喂的礼装都在最前面
 */
 
 ; Ctrl + \ 退出脚本
@@ -36,7 +40,12 @@ loop
 	MouseMove,1000,700,10
 	sleep 100
 	Click,up
-	sleep 100
+	sleep 300
+	if(pixc(1360,860,0x727272))
+	{
+		Msgbox 喂光了！
+		Exit
+	}
 	click,1400,880
 	
 	;确认喂

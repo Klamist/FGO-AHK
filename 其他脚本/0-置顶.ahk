@@ -3,8 +3,10 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
-;自动置顶mumu窗口，用于长时间挂机防止弹窗干扰
-;热键与刷本AHK相同，刷图时启用即可。
+/*
+自动置顶mumu窗口，用于长时间挂机防止杂碎软件弹窗干扰。
+热键与刷本AHK相同，刷图时启用即可。
+*/
 
 ; Ctrl + \ 退出脚本
 $~^\::ExitApp
@@ -21,6 +23,6 @@ loop
 {
 	if(!WinActive(ahk_exe NemuPlayer.exe))
 		WinActivate, ahk_class Qt5QWindowIcon
-	sleep 300
+	sleep 3000
 }
 return
