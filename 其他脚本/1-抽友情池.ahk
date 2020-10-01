@@ -3,12 +3,17 @@ SendMode Input ; Recommended for new scripts due to its superior speed and relia
 SetMouseDelay, 0
 
 /*
-使用方法：
-进入友情池抽取界面，启动脚本，会自动抽到爆仓。
+功能：
+自动抽取友情池到爆仓或没友情点。
 
-注意事项：
+用法：
+进入友情池抽取界面，启动脚本即可。
+
+注意：
 每日首次免费请先自己抽掉。
 */
+
+
 
 ; Ctrl + \ 退出脚本
 $~^\::ExitApp
