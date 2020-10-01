@@ -17,7 +17,7 @@ kstone:= 0	;彩苹果，0=禁用，1=可用
 
 ;助战选择
 passby:= 0	;助战来源，0=不限，1=仅好友 ———— 若选路人助战，过本后自动申请好友
-supser:= 0	;从者选择，0=任意，1=CBA，2=孔明，3=梅林，4=花嫁，5=狐狸 ———— 设0不检测技能等级
+supser:= 0	;从者选择，0=任意，1=CBA，2=孔明，3=梅林，4=花嫁，5=狐狸，6=骑莫 ———— 设0不检测技能等级
 tskill:= [ 0,0,0 ]	;英灵技能，0=任意，1=必须满级，三个技能位可分别设置。
 scraft:= 0	;概念礼装，0=任意，1=下午茶，2=贝拉丽莎 ———— 活动礼装请设0并用FGO自带筛选
 obreak:= 0	;礼装满破，0=随意，1=必须满破 ———— 礼装种类scraft=0时，不检测满破情况
@@ -119,7 +119,7 @@ loop
 			gosub,eat
 			apok:=1
 		}
-		if(pixc(800,305,0xECF4FC) or pixc(1234,567,0x2C363A))
+		if(pixc(800,305,0xECF4FC) or pixc(1234,567,0x2B3638))
 			break
 	}
 	
@@ -253,7 +253,7 @@ support:
 		click,1000,740
 		loop
 		{
-			if(pixc(800,305,0xECF4FC) or pixc(1234,567,0x2C363A))
+			if(pixc(800,305,0xECF4FC) or pixc(1234,567,0x2B3638))
 				break
 			sleep 100
 		}
@@ -269,7 +269,7 @@ return
 ;助战列表自动翻页检测
 supcheck(passby,supser,scraft,obreak,tskill)
 {
-	if(pixc(1234,567,0x2C363A))
+	if(pixc(1234,567,0x2B3638))
 		return 0
 	if(ncheck(passby,supser,scraft,obreak,tskill))
 		return 1
@@ -334,6 +334,12 @@ ncheck(passby,supser,scraft,obreak,tskill)
 			{
 				PixelSearch, x,,255,y-66,255,y-66,0xB75444,10,Fast RGB
 				if(!x) ;狐狸 1030,555,0xD3D4C5 255,489,0xB75444
+					continue
+			}
+			else if(supser=6)
+			{
+				PixelSearch, x,,80,y-62,80,y-62,0xA3EDDC,10,Fast RGB
+				if(!x) ;骑莫 1030,752,0xD3D4C5 80,690,0xA3EDDC
 					continue
 			}
 			;检测技能等级
