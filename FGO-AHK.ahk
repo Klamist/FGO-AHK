@@ -245,8 +245,8 @@ support:
 {
 	if(supcheck(passby,supser,scraft,obreak,tskill))
 		return
-	;如果没有，刷新再找，重复50次
-	loop,50
+	;如果没有，刷新再找
+	loop
 	{
 		click,1060,200
 		sleep 500
