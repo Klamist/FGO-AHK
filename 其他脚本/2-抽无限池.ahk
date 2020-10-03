@@ -82,14 +82,14 @@ pixc(x,y,color,pl:=0,lc:=0)
 {
 	loop
 	{
-		PixelGetColor,pix,x,y,RGB
-		if(pix=color)
+		PixelSearch,xtmp,,x,y,x,y,color,3,Fast RGB
+		if(xtmp)
 		{
-			if(lc=1)
+			if(lc)
 				click,%x%,%y%
 			return 1
 		}
-		else if(pl=0)
+		else if(!pl)
 			return 0
 		sleep 100
 	}
