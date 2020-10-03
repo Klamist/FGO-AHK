@@ -16,12 +16,12 @@ SetBatchLines, -1 ; Make AHK run as fast as possible
 处于邮箱领取界面时，启动脚本即可。
 
 功能：
-从上到下勾选堆叠不足SN个的金狗粮(SN可设置)，以及堆叠1~3的银狗粮，并自动领取，直到邮箱翻完或爆仓。
+从上到下勾选堆叠不足SN个的金狗粮(SN可设置)，以及堆叠1~4的银狗粮，并自动领取，直到邮箱翻完或爆仓。
 */
 
 ;可调参数：
 SN:= 2	;保留堆叠数大于等于此值的狗粮。
-	;最高可设为4（即领取所有x1x2x3的狗粮）
+		;最高可设为5（即领取所有x1~4的狗粮）
 
 
 
@@ -120,8 +120,17 @@ selexp:
 						bingo:=1
 					break
 				}
-				;堆叠数3以上留着
-				;msgbox, xN
+				;判断堆叠x4
+				ImageSearch, x,, 445,y-20,480,y+20, *100 %A_WorkingDir%\xN\4.png
+				if(x)
+				{
+					;msgbox, x4
+					if(SN>4)
+						bingo:=1
+					break
+				}
+				;堆叠数大于4留着
+				;msgbox, x5+
 				bingo:=0
 				break
 			}
@@ -172,35 +181,3 @@ mumu:
 	}
 }
 return
-
-
-/*
-			PixelSearch, x,,259,y+24,259,y+24,0xECECEC,20,Fast RGB
-			if(!x) ;不是金狗粮必选 259,319,0xECECEC
-				;msgbox %y%,sil
-				bingo:=1
-			PixelSearch, x,,459,y+4,459,y+4,0xFFFFFF,20,Fast RGB
-			if(x and SN>1) ;x1 436,711,0xFEFEFE 459,714,0xFFFFFF
-				;msgbox %y%,x1
-				bingo:=1
-			PixelSearch, x,,450,y+12,450,y+12,0x383A3C,30,Fast RGB
-			if(x and SN>2) ;x2 436,591,0xFDFDFD 450,603,0x383A3C
-				;msgbox %y%,x2
-				bingo:=1
-			PixelSearch, x,,455,y-1,455,y-1,0x353637,30,Fast RGB
-			if(x and SN>3) ;x3 436,556,0xFEFEFE 455,555,0x353637
-				;msgbox %y%,x3
-				bingo:=1
-			PixelSearch, x,,451,y+2,451,y+2,0x333333,20,Fast RGB
-			if(x and SN>4) ;x4 436,736,0xFEFEFE 450,807,0x333333
-				;msgbox %y%,x4
-				bingo:=1
-			PixelSearch, x,,450,y-9,450,y-9,0x4E5153,20,Fast RGB
-			if(x and SN>5) ;x5 436,295,0xFFFFFF 450,286,0x4E5153
-				;msgbox %y%,x5
-				bingo:=1
-			PixelSearch, x,,479,y,479,y,0xFFFFFF,20,Fast RGB
-			if(x) ;取消 436,380,0xFDFDFD 479,295,0xFFFFFF
-				;msgbox %y%,xN0
-				bingo:=0
-*/
