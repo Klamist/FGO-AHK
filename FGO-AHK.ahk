@@ -204,7 +204,7 @@ eat:
 	if(pixc(750,745,0xF4ECDB) and capple)
 	{
 		click,750,745
-		sleep 400
+		sleep 500
 		click,1050,740
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
@@ -212,7 +212,7 @@ eat:
 	else if(pixc(750,560,0xF4ECDB) and sapple)
 	{
 		click,750,560
-		sleep 400
+		sleep 500
 		click,1050,740
 		FileAppend,吃了银苹果`n,fgo-ahk.log
 		return
@@ -220,7 +220,7 @@ eat:
 	else if(pixc(750,375,0xF4ECDB) and gapple)
 	{
 		click,750,375
-		sleep 400
+		sleep 500
 		click,1050,740
 		FileAppend,吃了金苹果`n,fgo-ahk.log
 		return
@@ -228,7 +228,7 @@ eat:
 	else if(pixc(750,190,0xF4ECDB) and kstone)
 	{
 		click,750,190
-		sleep 400
+		sleep 500
 		click,1050,740
 		FileAppend,吃了彩苹果`n,fgo-ahk.log
 		return
