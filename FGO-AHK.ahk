@@ -25,7 +25,7 @@ obreak:= 0	;礼装满破，0=随意，1=必须满破 ———— 礼装种类sc
 ;调试模式
 global debug:= 0	;0=关闭，1=在fgo-ahk.log中记录像素不匹配的情况（会导致脚本运行较慢）
 ;像素容差
-global wucha:= 1	;0=精准运行，正整数=允许的像素误差范围。此项不影响脚本运行速度。2.6版本推荐留1防止智障。
+global wucha:= 2	;0=精准运行，正整数=允许的像素误差范围。此项不影响脚本运行速度。2.6版本推荐留2防止智障。
                   	;如果脚本有时会卡住，排除FGO内部问题、MUMU窗口问题后，可以增加像素误差，一般到5-10即可，不能过大。
 
 
@@ -119,7 +119,7 @@ loop
 			gosub,eat
 			apok:=1
 		}
-		if(pixc(800,305,0xECF4FC) or pixc(1234,567,0x2B3638))
+		if(pixc(800,305,0xECF4FC) or pixc(978,590,0xFFFFFF))
 			break
 	}
 	
@@ -253,7 +253,7 @@ support:
 		click,1000,740
 		loop
 		{
-			if(pixc(800,305,0xECF4FC) or pixc(1234,567,0x2B3638))
+			if(pixc(800,305,0xECF4FC) or pixc(978,590,0xFFFFFF))
 				break
 			sleep 100
 		}
@@ -269,7 +269,7 @@ return
 ;助战列表自动翻页检测
 supcheck(passby,supser,scraft,obreak,tskill)
 {
-	if(pixc(1234,567,0x2B3638))
+	if(pixc(978,590,0xFFFFFF))
 		return 0
 	if(ncheck(passby,supser,scraft,obreak,tskill))
 		return 1
