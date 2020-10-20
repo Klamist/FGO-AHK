@@ -594,7 +594,7 @@ baoju(n1,n2:=0,n3:=0)
 		click,1120,640
 	sleep 140
 	
-	sleep 10000
+	sleep 5000
 	;等待可进行下一步操作
 	loop
 	{
@@ -604,7 +604,8 @@ baoju(n1,n2:=0,n3:=0)
 		;检测御主界面是否又出现
 		if(pixc(1550,205,0xFAE203))
 			break
-		sleep 100
+		sleep 200
+		click,1200,260
 	}
 }
 return
