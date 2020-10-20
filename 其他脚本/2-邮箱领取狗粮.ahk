@@ -23,7 +23,7 @@ SetBatchLines, -1 ; Make AHK run as fast as possible
 
 ;可调参数：
 SN:= 3	;保留堆叠数大于等于此值的狗粮。
-		;最高可设为5（即领取所有x1~4的狗粮）
+		;最高可设为7（即领取所有x1~6的狗粮）
 
 
 
@@ -131,8 +131,26 @@ selexp:
 						bingo:=1
 					break
 				}
-				;堆叠数大于4留着
-				;msgbox, x5+
+				;判断堆叠x5
+				ImageSearch, x,, 445,y-20,480,y+20, *100 %A_WorkingDir%\xN\5.png
+				if(x)
+				{
+					;msgbox, x5
+					if(SN>5)
+						bingo:=1
+					break
+				}
+				;判断堆叠x6
+				ImageSearch, x,, 445,y-20,480,y+20, *100 %A_WorkingDir%\xN\6.png
+				if(x)
+				{
+					;msgbox, x6
+					if(SN>6)
+						bingo:=1
+					break
+				}
+				;堆叠数大于6留着
+				;msgbox, x7+
 				bingo:=0
 				break
 			}
