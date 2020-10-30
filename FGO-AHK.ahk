@@ -605,7 +605,7 @@ baoju(n1,n2:=0,n3:=0)
 		if(pixc(1550,205,0xFAE203))
 			break
 		sleep 200
-		click,1200,260
+		;click,1200,260
 	}
 }
 return
