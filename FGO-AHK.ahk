@@ -492,8 +492,8 @@ xjbd(n:=0)
 			if(nn=n)
 				break
 		}
+		click,1212,121
 		sleep 100
-		click,1200,260
 	}
 	pixc(1550,205,0xFAE203,1)
 	sleep 100
@@ -566,7 +566,7 @@ baoju(n1,n2:=0,n3:=0)
 {
 	;打开选卡界面
 	click,1400,800
-	sleep 1770
+	sleep 1600
 	
 	;第一张选卡
 	if(n1)
@@ -599,8 +599,8 @@ baoju(n1,n2:=0,n3:=0)
 		;检测战斗界面是否又出现
 		if(pixc(1550,205,0xFAE203))
 			break
+		click,1212,121
 		sleep 100
-		click,1200,260
 	}
 }
 return
