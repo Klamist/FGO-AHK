@@ -119,7 +119,7 @@ loop
 			gosub,eat
 			apok:=1
 		}
-		if(pixc(800,305,0xECF4FC) or pixc(978,590,0xFFFFFF))
+		if(pixc(1030,300,0xDCE6EE) or pixc(978,590,0xFFFFFF))
 			break
 	}
 	
@@ -253,7 +253,7 @@ support:
 		click,1000,740
 		loop
 		{
-			if(pixc(800,305,0xECF4FC) or pixc(978,590,0xFFFFFF))
+			if(pixc(1030,300,0xDCE6EE) or pixc(978,590,0xFFFFFF))
 				break
 			sleep 100
 		}
