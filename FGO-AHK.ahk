@@ -422,7 +422,7 @@ ssk(si,st:=0)
 		click,%temp%,600
 	}
 	sleep 500
-	pixc(1550,205,0xFAE203,1)
+	pixc(1450,290,0x1A2333,1)
 	sleep 100
 }
 return
@@ -461,7 +461,7 @@ msk(sk,st:=0,sm:=0,sn:=0)
 	if(st=4)
 		pixc(1400,718,0x02E9F9,1)
 	else
-		pixc(1550,205,0xFAE203,1)
+		pixc(1450,290,0x1A2333,1)
 	sleep 100
 }
 return
@@ -491,7 +491,7 @@ xjbd(n:=0)
 		if(pixc(500,870,0x000000) and n>0)
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1550,205,0xFAE203))
+		if(pixc(1450,290,0x1A2333))
 		{
 			nn:=nn+1
 			attack()
@@ -501,7 +501,7 @@ xjbd(n:=0)
 		click,1212,121
 		sleep 100
 	}
-	pixc(1550,205,0xFAE203,1)
+	pixc(1450,290,0x1A2333,1)
 	sleep 100
 }
 return
@@ -603,7 +603,7 @@ baoju(n1,n2:=0,n3:=0)
 		if(pixc(155,150,0xE5B419))
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1550,205,0xFAE203))
+		if(pixc(1450,290,0x1A2333))
 			break
 		click,1212,121
 		sleep 100
