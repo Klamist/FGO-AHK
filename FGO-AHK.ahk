@@ -414,7 +414,7 @@ ssk(si,st:=0)
 	;技能位置
 	temp:=skc[si]
 	click,%temp%,750
-	sleep 200
+	sleep 250
 	;指向位置
 	if(st)
 	{
@@ -435,11 +435,11 @@ msk(sk,st:=0,sm:=0,sn:=0)
 	change:=[ 170,420,670, 920,1170,1420 ]
 	;御主面板
 	click,1500,430
-	sleep 300
+	sleep 400
 	;技能位置
 	temp:=skc[sk]
 	click,%temp%,430
-	sleep 200
+	sleep 300
 	;指向位置
 	if(st and st<4)
 	{
@@ -451,10 +451,10 @@ msk(sk,st:=0,sm:=0,sn:=0)
 		sleep 100
 		temp:=change[sm]
 		click,%temp%,500
-		sleep 200
+		sleep 250
 		temp:=change[sn]
 		click,%temp%,500
-		sleep 200
+		sleep 250
 		click,800,820
 	}
 	sleep 500
@@ -472,7 +472,7 @@ target(n)
 	enemy:=[ 60,360,660 ]
 	temp:=enemy[n]
 	click,%temp%,90
-	sleep 200
+	sleep 300
 }
 return
 
@@ -532,7 +532,7 @@ attack()
 		ci:=5
 		click,1450,640
 	}
-	sleep 140
+	sleep 150
 	
 	;补选其他两张卡
 	cj:=1
@@ -546,7 +546,7 @@ attack()
 		}
 		cj:=cj+1
 	}
-	sleep 140
+	sleep 150
 	
 	ck:=cj+1
 	loop,5
@@ -559,7 +559,7 @@ attack()
 		}
 		ck:=ck+1
 	}
-	sleep 140
+	sleep 150
 	
 	sleep 2000
 }
@@ -579,21 +579,21 @@ baoju(n1,n2:=0,n3:=0)
 		npc(n1)
 	else
 		click,480,640
-	sleep 140
+	sleep 150
 	
 	;第二张选卡
 	if(n2)
 		npc(n2)
 	else
 		click,800,640
-	sleep 140
+	sleep 150
 	
 	;第三张选卡
 	if(n3)
 		npc(n3)
 	else 
 		click,1120,640
-	sleep 140
+	sleep 150
 	
 	sleep 5000
 	;等待可进行下一步操作
