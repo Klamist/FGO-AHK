@@ -164,9 +164,11 @@ return
 ;循环探测指定像素点颜色，pl是否循环，lc=识别到后是否单击这个像素
 pixc(x,y,color,pl:=0,lc:=0)
 {
-	dpix:=0x307521
+	mup()	
+	;调试模式：记录要求的像素点
 	if(debug)
 	{
+		dpix:=0x307521
 		dpn:=Format("{1:4d},{2:4d},0x{3:06X}",x,y,color)
 		FileAppend,%dpn%`n,fgo-ahk.log
 	}
@@ -182,6 +184,7 @@ pixc(x,y,color,pl:=0,lc:=0)
 		else if(debug)
 		{
 			PixelGetColor,pix,x,y,RGB
+			;记录不匹配的颜色
 			if(dpix!=pix)
 			{
 				dpix:=pix
@@ -630,5 +633,13 @@ mumu:
 		msgbox 未发现mumu窗口
 		exit
 	}
+}
+return
+
+;置顶mumu窗口
+mup()
+{
+	if(!WinActive(ahk_exe NemuPlayer.exe))
+		WinActivate, ahk_class Qt5QWindowIcon
 }
 return
