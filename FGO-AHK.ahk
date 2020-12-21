@@ -512,7 +512,7 @@ xjbd(n:=0)
 	loop
 	{
 		;检测战利品结算界面
-		if(pixc(155,150,0xE5B419))
+		if(pixc(155,150,0xE5B419) && pixc(1430,150,0x05ACF4))
 			return
 		;检测黑屏换面
 		if(pixc(500,870,0x000000) and n>0)
@@ -633,7 +633,7 @@ baoju(n1,n2:=0,n3:=0)
 	loop
 	{
 		;检测战利品结算界面
-		if(pixc(155,150,0xE5B419))
+		if(pixc(155,150,0xE5B419) && pixc(1430,150,0x05ACF4))
 			break
 		;检测战斗界面是否又出现
 		if(pixc(1450,290,0x1A2333) && pixc(1514,296,0xEEFFFF))
