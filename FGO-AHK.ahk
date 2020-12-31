@@ -119,18 +119,15 @@ loop
 			gosub,eat
 			apok:=1
 		}
-		if(pixc(1000,200,0x02B7F9) or pixc(978,590,0xFFFFFF))
+		if(pixc(1000,200,0x08B5F7) or pixc(978,590,0xFFFFFF))
 			break
 	}
 	
 	;挑选助战，进本等待开始
 	gosub,support
 	if(cyclist=0)
-	{
-		pixc(1500,850,0xF6F6F6,1,1)
-		sleep 5000
-	}
-	sleep 5000
+		pixc(1488,888,0xC4C8CC,1,1)
+	sleep 3000
 	
 	;记录刷本次数
 	cyclist:=cyclist+1
@@ -406,7 +403,7 @@ wstart:
 	sleep 500
 	loop
 	{
-		if(pixc(1400,718,0x02E9F9) && pixc(1514,296,0xEEFFFF))
+		if(pixc(1400,735,0x02D9F1) && pixc(1450,290,0x1A2333))
 			break
 		sleep 100
 	}
@@ -432,7 +429,7 @@ ssk(si,st:=0)
 	sleep 500
 	loop
 	{
-		if(pixc(1450,290,0x1A2333) && pixc(1514,296,0xEEFFFF))
+		if(pixc(1450,290,0x1A2333) && pixc(1514,292,0xFAFFFF))
 			break
 		sleep 100
 	}
@@ -475,7 +472,7 @@ msk(sk,st:=0,sm:=0,sn:=0)
 	{
 		loop
 		{
-			if(pixc(1400,718,0x02E9F9) && pixc(1514,296,0xEEFFFF))
+			if(pixc(1400,735,0x02D9F1) && pixc(1450,290,0x1A2333))
 				break
 			sleep 100
 		}
@@ -484,7 +481,7 @@ msk(sk,st:=0,sm:=0,sn:=0)
 	{
 		loop
 		{
-			if(pixc(1450,290,0x1A2333) && pixc(1514,296,0xEEFFFF))
+			if(pixc(1450,290,0x1A2333) && pixc(1514,292,0xFAFFFF))
 				break
 			sleep 100
 		}
@@ -518,7 +515,7 @@ xjbd(n:=0)
 		if(pixc(500,870,0x000000) and n>0)
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1450,290,0x1A2333) && pixc(1514,296,0xEEFFFF))
+		if(pixc(1450,290,0x1A2333) && pixc(1514,292,0xFAFFFF))
 		{
 			nn:=nn+1
 			attack()
@@ -531,7 +528,7 @@ xjbd(n:=0)
 	;检测回到界面
 	loop
 	{
-		if(pixc(1450,290,0x1A2333) && pixc(1514,296,0xEEFFFF))
+		if(pixc(1450,290,0x1A2333) && pixc(1514,292,0xFAFFFF))
 			break
 		sleep 100
 	}
@@ -636,7 +633,7 @@ baoju(n1,n2:=0,n3:=0)
 		if(pixc(155,150,0xE5B419) && pixc(1430,150,0x05ACF4))
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1450,290,0x1A2333) && pixc(1514,296,0xEEFFFF))
+		if(pixc(1450,290,0x1A2333) && pixc(1514,292,0xFAFFFF))
 			break
 		click,1212,121
 		sleep 100
