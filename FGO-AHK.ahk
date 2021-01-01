@@ -119,7 +119,7 @@ loop
 			gosub,eat
 			apok:=1
 		}
-		if((pixc(1000,200,0x08B5F7) && pixc(1337,310,0xFFFFFF)) or pixc(978,590,0xFFFFFF))
+		if((pixc(1000,200,0x08B5F7) && pixc(1500,320,0xE9B712)) or pixc(978,590,0xFFFFFF))
 			break
 	}
 	
@@ -528,7 +528,7 @@ xjbd(n:=0)
 	;检测回到界面
 	loop
 	{
-		if(pixc(1450,290,0x1A2333) && pixc(1514,292,0xFAFFFF))
+		if(pixc(1400,735,0x02D9F1) && pixc(1450,290,0x1A2333))
 			break
 		sleep 100
 	}
@@ -633,7 +633,7 @@ baoju(n1,n2:=0,n3:=0)
 		if(pixc(155,150,0xE5B419) && pixc(1430,150,0x05ACF4))
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1450,290,0x1A2333) && pixc(1514,292,0xFAFFFF))
+		if(pixc(1400,735,0x02D9F1) && pixc(1450,290,0x1A2333))
 			break
 		click,1212,121
 		sleep 100
