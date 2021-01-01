@@ -119,7 +119,7 @@ loop
 			gosub,eat
 			apok:=1
 		}
-		if(pixc(1000,200,0x08B5F7) or pixc(978,590,0xFFFFFF))
+		if((pixc(1000,200,0x08B5F7) && pixc(1337,310,0xFFFFFF)) or pixc(978,590,0xFFFFFF))
 			break
 	}
 	
