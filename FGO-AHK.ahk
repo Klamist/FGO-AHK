@@ -253,7 +253,7 @@ support:
 		click,1000,740
 		loop
 		{
-			if(pixc(1000,200,0x02B7F9) or pixc(978,590,0xFFFFFF))
+			if(pixc(1000,200,0x08B5F7) && pixc(1500,320,0xE9B712))
 				break
 			sleep 100
 		}
