@@ -407,7 +407,7 @@ wstart:
 			break
 		sleep 100
 	}
-	sleep 300
+	sleep 100
 }
 return
 
@@ -486,7 +486,7 @@ msk(sk,st:=0,sm:=0,sn:=0)
 			sleep 100
 		}
 	}
-	sleep 300
+	sleep 100
 }
 return
 
@@ -530,6 +530,7 @@ xjbd(n:=0)
 	{
 		if(pixc(1400,735,0x02D9F1) && pixc(1450,290,0x1A2333))
 			break
+		click,1212,121
 		sleep 100
 	}
 	sleep 300
