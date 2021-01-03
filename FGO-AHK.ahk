@@ -407,7 +407,7 @@ wstart:
 			break
 		sleep 100
 	}
-	sleep 100
+	sleep 300
 }
 return
 
@@ -486,7 +486,7 @@ msk(sk,st:=0,sm:=0,sn:=0)
 			sleep 100
 		}
 	}
-	sleep 100
+	sleep 300
 }
 return
 
@@ -532,7 +532,7 @@ xjbd(n:=0)
 			break
 		sleep 100
 	}
-	sleep 100
+	sleep 300
 }
 return
 
@@ -638,6 +638,7 @@ baoju(n1,n2:=0,n3:=0)
 		click,1212,121
 		sleep 100
 	}
+	sleep 300
 }
 return
 
