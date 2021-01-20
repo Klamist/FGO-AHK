@@ -16,11 +16,12 @@ gapple:= 0	;金苹果，0=禁用，1=可用
 kstone:= 0	;彩苹果，0=禁用，1=可用
 
 ;助战选择
-passby:= 0	;助战来源，0=不限，1=仅好友 ———— 若选路人助战，过本后自动申请好友
-supser:= 0	;从者选择，0=任意，1=CBA，2=孔明，3=梅林，4=花嫁，5=狐狸，6=仇凛 ———— 设0不检测技能等级
-tskill:= [ 0,0,0 ]	;英灵技能，0=任意，1=必须满级，三个技能位可分别设置。
-scraft:= 0	;概念礼装，0=任意，1=下午茶，2=贝拉丽莎 ———— 活动礼装请设0并用FGO自带筛选
-obreak:= 0	;礼装满破，0=随意，1=必须满破 ———— 礼装种类scraft=0时，不检测满破情况
+global passby:= 0	;助战来源，0=不限，1=仅好友 —— 若选路人助战，过本后自动申请好友
+global supser:= 0	;从者选择，0=任意，1=CBA，2=孔明，3=梅林，4=花嫁，5=狐狸，6=仇凛，7=狂娜 —— 设0不检测技能、宝具等级
+global tskill:= [ 0,0,0 ]	;英灵技能，0=任意级，1=必须满级 —— 三个技能位可各自设定
+global noblel:= 0	;宝具等级，0=任意，1~5为不低于该数字的等级 —— 仅passby:=1时才检测宝具等级
+global scraft:= 0	;概念礼装，0=任意，1=下午茶，2=贝拉丽莎，3=宝石翁 —— 活动礼装请设0并用FGO自带筛选
+global obreak:= 0	;礼装满破，0=随意，1=必须满破 —— 礼装种类scraft:=0时，不检测满破情况
 
 ;调试模式
 global debug:= 0	;0=关闭，1=在fgo-ahk.log中记录像素不匹配的情况（会导致脚本运行较慢）
@@ -243,7 +244,7 @@ return
 ;选择助战
 support:
 {
-	if(supcheck(passby,supser,scraft,obreak,tskill))
+	if(supcheck())
 		return
 	;如果没有，刷新再找
 	loop
@@ -257,7 +258,7 @@ support:
 				break
 			sleep 100
 		}
-		if(supcheck(passby,supser,scraft,obreak,tskill))
+		if(supcheck())
 			return
 		sleep 10000
 	}
@@ -267,11 +268,11 @@ support:
 return
 
 ;助战列表自动翻页检测
-supcheck(passby,supser,scraft,obreak,tskill)
+supcheck()
 {
 	if(pixc(978,590,0xFFFFFF))
 		return 0
-	if(ncheck(passby,supser,scraft,obreak,tskill))
+	if(ncheck())
 		return 1
 	spy:=280
 	loop,6
@@ -279,14 +280,14 @@ supcheck(passby,supser,scraft,obreak,tskill)
 		spy:=spy+100
 		click,1550,%spy%
 		sleep 200
-		if(ncheck(passby,supser,scraft,obreak,tskill))
+		if(ncheck())
 			return 1
 	}
 	return 0
 }
 
 ;检测本页助战
-ncheck(passby,supser,scraft,obreak,tskill)
+ncheck()
 {
 	y:=200
 	loop
@@ -308,38 +309,44 @@ ncheck(passby,supser,scraft,obreak,tskill)
 		{
 			if(supser=1)
 			{
-				PixelSearch, x,,255,y-80,255,y-80,0x02022B,10,Fast RGB
-				if(!x) ;CBA 1020,455,0xF0CE9B 255,375,0x02022B
+				ImageSearch, x,, 450,y-115,900,y-65, *100 %A_WorkingDir%\H\s1.png
+				if(!x) ;CBA 
 					continue
 			}
 			else if(supser=2)
 			{
-				PixelSearch, x,,255,y-70,255,y-70,0xF9E096,10,Fast RGB
-				if(!x) ;孔明 1020,562,0xE5C99D 255,492,0xF9E096
+				ImageSearch, x,, 450,y-115,900,y-65, *100 %A_WorkingDir%\H\s2.png
+				if(!x) ;孔明
 					continue
 			}
 			else if(supser=3)
 			{
-				PixelSearch, x,,126,y-76,126,y-76,0xE4C4D4,10,Fast RGB
-				if(!x) ;梅林 1030,648,0xE7D8B7 126,572,0xE4C4D4
+				ImageSearch, x,, 450,y-115,900,y-65, *100 %A_WorkingDir%\H\s3.png
+				if(!x) ;梅林
 					continue
 			}
 			else if(supser=4)
 			{
-				PixelSearch, x,,102,y-63,102,y-63,0xD5A384,10,Fast RGB
-				if(!x) ;花嫁 1020,885,0xD3D4C4 102,822,0xD5A384
+				ImageSearch, x,, 450,y-115,900,y-65, *100 %A_WorkingDir%\H\s4.png
+				if(!x) ;花嫁
 					continue
 			}
 			else if(supser=5)
 			{
-				PixelSearch, x,,255,y-66,255,y-66,0xB75444,10,Fast RGB
-				if(!x) ;狐狸 1030,555,0xD3D4C5 255,489,0xB75444
+				ImageSearch, x,, 450,y-115,900,y-65, *100 %A_WorkingDir%\H\s5.png
+				if(!x) ;狐狸
 					continue
 			}
 			else if(supser=6)
 			{
-				PixelSearch, x,,150,y-72,150,y-72,0xFF9C3F,10,Fast RGB
-				if(!x) ;仇凛 1030,502,0xD6D4C3 150,430,0xFF9C3F
+				ImageSearch, x,, 450,y-115,900,y-65, *100 %A_WorkingDir%\H\s6.png
+				if(!x) ;仇凛
+					continue
+			}
+			else if(supser=7)
+			{
+				ImageSearch, x,, 450,y-115,900,y-65, *100 %A_WorkingDir%\H\s7.png
+				if(!x) ;狂娜
 					continue
 			}
 			;检测技能等级
@@ -364,6 +371,25 @@ ncheck(passby,supser,scraft,obreak,tskill)
 						continue
 				}
 			}
+			;检测宝具等级
+			if(noblel)
+			{
+				ImageSearch, x,, 450,y-70,900,y-20, *100 %A_WorkingDir%\H\n1.png
+				if(x && noblel>1)
+					continue
+				ImageSearch, x,, 450,y-70,900,y-20, *100 %A_WorkingDir%\H\n2.png
+				if(x && noblel>2)
+					continue
+				ImageSearch, x,, 450,y-70,900,y-20, *100 %A_WorkingDir%\H\n3.png
+				if(x && noblel>3)
+					continue
+				ImageSearch, x,, 450,y-70,900,y-20, *100 %A_WorkingDir%\H\n4.png
+				if(x && noblel>4)
+					continue
+				ImageSearch, x,, 450,y-70,900,y-20, *100 %A_WorkingDir%\H\n5.png
+				if(x && noblel>5)
+					continue
+			}
 		}
 		;礼装种类与满破情况
 		if(scraft)
@@ -379,6 +405,12 @@ ncheck(passby,supser,scraft,obreak,tskill)
 			{
 				PixelSearch, x,,174,y-41,174,y-41,0xFDD8D0,10,Fast RGB
 				if(!x)	;贝拉丽莎 1020,456,0xEECC99 174,461,0xFDD4D4
+					continue
+			}
+			else if(scraft=3)
+			{
+				PixelSearch, x,,180,y-9,180,y-9,0xFBB751,10,Fast RGB
+				if(!x)	;宝石翁 694 180,685,0xFBB751
 					continue
 			}
 			;是否满破
