@@ -403,19 +403,19 @@ ncheck()
 			}
 			else if(scraft=2)
 			{
-				ImageSearch, x,, 450,y-115,900,y-65, *100 %A_WorkingDir%\H\c2.png
+				ImageSearch, x,, 220,y-40,260,y-10, *100 %A_WorkingDir%\H\c2.png
 				if(!x) ;贝拉丽莎
 					continue
 			}
 			else if(scraft=3)
 			{
-				ImageSearch, x,, 450,y-115,900,y-65, *100 %A_WorkingDir%\H\c3.png
+				ImageSearch, x,, 220,y-40,260,y-10, *100 %A_WorkingDir%\H\c3.png
 				if(!x) ;秉持风雅
 					continue
 			}
 			else if(scraft=4)
 			{
-				ImageSearch, x,, 450,y-115,900,y-65, *100 %A_WorkingDir%\H\c4.png
+				ImageSearch, x,, 220,y-40,260,y-10, *100 %A_WorkingDir%\H\c4.png
 				if(!x) ;私人指导
 					continue
 			}
