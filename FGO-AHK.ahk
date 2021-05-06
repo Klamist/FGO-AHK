@@ -372,7 +372,7 @@ ncheck()
 				}
 			}
 			;检测宝具等级
-			if(noblel)
+			if(noblel && passby)
 			{
 				ImageSearch, x,, 450,y-70,900,y-20, *100 %A_WorkingDir%\H\n1.png
 				if(x && noblel>1)
