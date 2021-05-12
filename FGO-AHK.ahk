@@ -583,7 +583,7 @@ xjbd(n:=0)
 		click,1212,121
 		sleep 100
 	}
-	sleep 300
+	sleep 500
 }
 return
 
