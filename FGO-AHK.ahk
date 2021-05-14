@@ -83,6 +83,8 @@ $~[::
 
 
 ;确认mumu窗口
+mup()
+sleep 300
 gosub,mumu
 click,900,300
 
