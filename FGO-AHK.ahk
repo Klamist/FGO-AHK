@@ -36,7 +36,7 @@ order()
 {
 gosub,wstart ;检测可以开始
 
-;可参照《战斗流程》文件夹内教程修改。若为空，则无限平砍
+;可参考《教程-2-自定义刷本流程》。为空则无限平砍。
 ;战斗流程可修定部分：
 {
 
@@ -49,7 +49,7 @@ gosub,wstart ;检测可以开始
 }
 ;自定义部分结束。
 
-xjbd(0) ;补刀+结算。若流程最后需要xjbd补刀，可以省略，用这句就行。
+xjbd(0) ;补刀+结算。若最后需要补刀，可以省略，用这句就行。
 }
 return
 
@@ -208,32 +208,28 @@ eat:
 	if(pixc(750,745,0xF4ECDB) and capple)
 	{
 		click,750,745
-		sleep 500
-		click,1050,740
+		pixc(945,762,0xDCDDDF,1,1)
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
 	}
 	else if(pixc(750,560,0xF4ECDB) and sapple)
 	{
 		click,750,560
-		sleep 500
-		click,1050,740
+		pixc(945,762,0xDCDDDF,1,1)
 		FileAppend,吃了银苹果`n,fgo-ahk.log
 		return
 	}
 	else if(pixc(750,375,0xF4ECDB) and gapple)
 	{
 		click,750,375
-		sleep 500
-		click,1050,740
+		pixc(945,762,0xDCDDDF,1,1)
 		FileAppend,吃了金苹果`n,fgo-ahk.log
 		return
 	}
 	else if(pixc(750,190,0xF4ECDB) and kstone)
 	{
 		click,750,190
-		sleep 500
-		click,1050,740
+		pixc(945,762,0xDCDDDF,1,1)
 		FileAppend,吃了彩苹果`n,fgo-ahk.log
 		return
 	}
