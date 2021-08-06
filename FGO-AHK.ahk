@@ -16,9 +16,9 @@ gapple:= 0	;金苹果，0=禁用，1=可用
 kstone:= 0	;彩苹果，0=禁用，1=可用
 
 ;助战选择
-;注意！选助战功能需要配合《H》文件夹(素材图)一起用，与脚本放到同一目录下就行。
+;注意！选助战功能需要配合《H》文件夹一起用，与FGO-AHK.ahk放到同一目录下就行
 global passby:= 0	;助战来源，0=不限，1=仅好友 —— 若选路人助战，过本后自动申请好友
-global supser:= 0	;从者选择，0=任意，1=CBA，2=孔明，3=梅林，4=花嫁，5=狐狸，6=仇凛，7=狂娜 —— 设0不检测技能、宝具等级
+global supser:= 0	;从者选择，0=任意，1=CBA，2=孔明，3=术呆，4=花嫁，5=狐狸，6=仇凛，7=狂娜，8=梅林 —— 设0不检测技能、宝具等级
 global tskill:= [ 0,0,0 ]	;英灵技能，0=任意级，1=必须满级 —— 三个技能位可各自设定
 global noblel:= 0	;宝具等级，0=任意，1~5为不低于该数字的等级 —— 仅passby:=1时才检测宝具等级
 global scraft:= 0	;概念礼装，0=任意，1=下午茶，2=贝拉丽莎，3=秉持风雅，4=私人指导，5=宝石，6=黑杯 —— 活动礼装请设0并用FGO自带筛选
@@ -321,7 +321,7 @@ ncheck()
 			else if(supser=3)
 			{
 				ImageSearch, x,, 450,y-115,900,y-65, *100 %A_WorkingDir%\H\s3.png
-				if(!x) ;梅林
+				if(!x) ;术呆
 					continue
 			}
 			else if(supser=4)
@@ -346,6 +346,12 @@ ncheck()
 			{
 				ImageSearch, x,, 450,y-115,900,y-65, *100 %A_WorkingDir%\H\s7.png
 				if(!x) ;狂娜
+					continue
+			}
+			else if(supser=8)
+			{
+				ImageSearch, x,, 450,y-115,900,y-65, *100 %A_WorkingDir%\H\s8.png
+				if(!x) ;梅林
 					continue
 			}
 			;检测技能等级
