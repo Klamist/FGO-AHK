@@ -1,12 +1,12 @@
 # FGO-AHK
-AHK宏编写的FGO自动脚本，简单易用难封号<br><br>
-**支持任意安卓模拟器的FGO国服**<br>
-**电脑分辨率不能低于1920x1080**<br>
+AHK宏编写的FGO自动脚本，简单易用难封号<br>
+- **支持任意安卓模拟器的FGO国服**<br>
+- **电脑分辨率需高于1600x900**<br>
 ## ！用法请看配套的3份教程.txt！
 FGO-AHK只是充满逻辑的连点器罢了<br>
 ### 下载方法：
-蓝奏云(密码ahk)(https://wwa.lanzoui.com/b0a45c0yb)<br>
-GitHub下载(https://github.com/Klamist/FGO-AHK/archive/refs/heads/master.zip)<br>
+- [蓝奏云(密码ahk)](https://wwa.lanzoui.com/b0a45c0yb)<br>
+- [GitHub下载](https://github.com/Klamist/FGO-AHK/archive/refs/heads/master.zip)<br>
 ### 问题反馈&交流：
 QQ群：1076324554<br>
 ## 自动循环刷本功能
