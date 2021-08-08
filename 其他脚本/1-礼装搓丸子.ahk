@@ -15,6 +15,13 @@ SetMouseDelay, 1
 	推荐开启智能筛选，按稀有度，升序排列。
 */
 
+;偏量设置
+cpx:= 0
+cpy:= 0
+;mumu模拟器为0和36
+;雷电模拟器为1和34（4K屏请用1和51）
+;其他模拟器请看《FGO-AHK参数说明》
+
 
 
 ; Ctrl + \ 退出脚本
@@ -32,41 +39,45 @@ gosub,mumu
 loop
 {
 	;检测处于喂礼装界面
-	pixc(745,908,0xFDDE03,1)
+	pixc(745,872,0xFDDE03,1)
 	sleep 50
-	click,650,330
+	sclick(650,294)
 	sleep 200
 	
 	;选择礼装
-	pixc(100,60,0xF7F7F7,1)
+	pixc(100,24,0xF7F7F7,1)
 	sleep 200
-	Click,175,350,down
+	tx:=175+cpx
+	ty:=314+cpy
+	Click,%tx%,%ty%,down
 	sleep 600
-	MouseMove,1000,700,10
+	tx:=1000+cpx
+	ty:=664+cpy
+	MouseMove,%tx%,%ty%,10
 	sleep 100
 	Click,up
 	sleep 300
-	if(pixc(1360,860,0x727272))
+	if(pixc(1360,824,0x727272))
 	{
 		Msgbox 喂光了！
 		Exit
 	}
-	click,1400,880
+	sclick(1400,844)
 	
 	;确认喂
-	pixc(745,908,0xFDDE03,1)
+	pixc(745,872,0xFDDE03,1)
 	sleep 50
-	click,1380,880
+	sclick(1380,844)
 	sleep 300
-	click,1050,770
+	sclick(1050,734)
 	sleep 500
 	
 	;连点直到出去。
 	loop
 	{
-		if(pixc(745,908,0xFDDE03))
+		if(pixc(745,872,0xFDDE03))
 			break
-		click,800,600
+		sclick(800,564)
 		sleep 100
 	}
 }
@@ -77,29 +88,31 @@ return
 ;循环探测指定像素点颜色，pl是否循环，lc=识别到后是否单击这个像素
 pixc(x,y,color,pl:=0,lc:=0)
 {
+	mup()
+	;加入偏量
+	x:=x+cpx
+	y:=y+cpy
+	
 	loop
 	{
-		PixelSearch,xtmp,,x,y,x,y,color,3,Fast RGB
+		PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
 		if(xtmp)
 		{
 			if(lc)
 				click,%x%,%y%
 			return 1
 		}
-		else if(!pl)
+		if(!pl)
 			return 0
 		sleep 100
 	}
 }
-return
 
-;检测MUMU模拟器窗口
-mumu:
+;带偏移量的click，输入FGO区域相对坐标，点击加偏量后的
+sclick(x,y)
 {
-	if WinActive("ahk_exe NemuPlayer.exe")=0
-	{
-		MsgBox 未发现mumu窗口
-		exit
-	}
+	x:=x+cpx
+	y:=y+cpy
+	click,%x%,%y%
+	return
 }
-return

@@ -13,6 +13,12 @@ SetMouseDelay, 0
 每日首次免费请先自己抽掉。
 */
 
+;偏量设置
+cpx:= 0
+cpy:= 0
+;mumu模拟器为0和36
+;雷电模拟器为1和34（4K屏请用1和51）
+;其他模拟器请看《FGO-AHK参数说明》
 
 
 ; Ctrl + \ 退出脚本
@@ -30,32 +36,31 @@ $~[::
 gosub,mumu
 
 ;检测处于友情池界面
-pixc(835,90,0xA2E447,1)
+pixc(835,54,0xA2E447,1)
 sleep 50
-click,1030,730
+sclick(1030,694)
 sleep 300
-click,1030,730
+sclick(1030,694)
 sleep 200
 
 ;循环抽卡
 loop
 {
 	;寻找黑屏
-	pixc(970,703,0X000000,1)
+	pixc(970,667,0X000000,1)
 	
 	loop
 	{
-		click,950,880
-		if(pixc(1040,710,0xF9F9F9))
+		sclick(950,844)
+		if(pixc(1040,674,0xF9F9F9))
 		{
-			sleep 100
-			click,950,740
-			sleep 100
-			click,950,740
-			sleep 100
-			click,950,740
+			loop,5
+			{
+				sleep 100
+				sclick(950,704)
+			}
 		}
-		if(pixc(470,780,0x317090))
+		if(pixc(470,744,0x317090))
 		{
 			msgbox 抽爆了
 			exit
@@ -70,29 +75,31 @@ return
 ;循环探测指定像素点颜色，pl是否循环，lc=识别到后是否单击这个像素
 pixc(x,y,color,pl:=0,lc:=0)
 {
+	mup()
+	;加入偏量
+	x:=x+cpx
+	y:=y+cpy
+	
 	loop
 	{
-		PixelSearch,xtmp,,x,y,x,y,color,3,Fast RGB
+		PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
 		if(xtmp)
 		{
 			if(lc)
 				click,%x%,%y%
 			return 1
 		}
-		else if(!pl)
+		if(!pl)
 			return 0
 		sleep 100
 	}
 }
-return
 
-;检测MUMU模拟器窗口
-mumu:
+;带偏移量的click，输入FGO区域相对坐标，点击加偏量后的
+sclick(x,y)
 {
-	if WinActive("ahk_exe NemuPlayer.exe")=0
-	{
-		MsgBox 未发现mumu窗口
-		exit
-	}
+	x:=x+cpx
+	y:=y+cpy
+	click,%x%,%y%
+	return
 }
-return
