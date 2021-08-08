@@ -14,12 +14,16 @@ SetMouseDelay, 0
 */
 
 ;偏量设置
-cpx:= 0
-cpy:= 0
+global cpx:= 0
+global cpy:= 0
 ;mumu模拟器为0和36
 ;雷电模拟器为1和34（4K屏请用1和51）
 ;其他模拟器请看《FGO-AHK参数说明》
 
+
+
+;像素容差
+global wucha:= 2
 
 ; Ctrl + \ 退出脚本
 $~^\::ExitApp
@@ -34,7 +38,7 @@ $~]::Pause
 $~[::
 
 ;检测处于友情池界面
-pixc(835,54,0xA2E447,1)
+pixc(834,53,0xA3E548,1)
 sleep 50
 sclick(1030,694)
 sleep 300
