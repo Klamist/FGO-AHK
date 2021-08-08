@@ -46,7 +46,6 @@ $~]::Pause
 
 ; [ 键启动
 $~[::
-gosub,mumu
 pixc(1286,278,0x0DCC99,1)
 tot:=0
 loop
