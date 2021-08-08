@@ -4,6 +4,7 @@ SetMouseDelay, 0 ; Removed mouse delay (as fast as possible).
 SetBatchLines, -1 ; Make AHK run as fast as possible
 
 ;各项的详细讲解请看《FGO-AHK参数说明》
+;模拟器部分的cpx和cpy参数必须精确设置
 
 ;刷本参数
 cycle:= 10 ;刷几次本
