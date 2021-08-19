@@ -4,6 +4,8 @@ SetMouseDelay,0
 SetBatchLines, -1 ; Make AHK run as fast as possible
 
 /*
+本脚本需配合《xN》文件夹一起使用，请确保目录内同时包含二者。
+
 功能：
 从上到下勾选堆叠不足SN个的金狗粮(SN可设置)，以及堆叠低于7的银狗粮，并自动领取，直到邮箱翻完或爆仓。
 
