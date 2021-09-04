@@ -703,6 +703,7 @@ baoju(n1,n2:=0,n3:=0)
 	sleep 150
 	
 	sleep 5000
+	
 	;等待可进行下一步操作
 	loop
 	{
@@ -715,7 +716,7 @@ baoju(n1,n2:=0,n3:=0)
 		sclick(1212,85)
 		sleep 100
 	}
-	sleep 300
+	sleep 600
 }
 return
 
