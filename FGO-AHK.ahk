@@ -598,7 +598,7 @@ xjbd(n:=0)
 			if(nn=n)
 				break
 		}
-		sclick(1111,111)
+		sclick(1111,70)
 		sleep 100
 	}
 	;检测回到界面
@@ -606,7 +606,7 @@ xjbd(n:=0)
 	{
 		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
 			break
-		sclick(1111,111)
+		sclick(1111,70)
 		sleep 100
 	}
 	sleep 600
@@ -713,7 +713,7 @@ baoju(n1,n2:=0,n3:=0)
 		;检测战斗界面是否又出现
 		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
 			break
-		sclick(1111,111)
+		sclick(1111,70)
 		sleep 100
 	}
 	sleep 600
