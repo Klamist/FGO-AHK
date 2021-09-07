@@ -14,8 +14,8 @@ SetMouseDelay, 0
 */
 
 ;偏量设置
-global cpx:= 1
-global cpy:= 51
+global cpx:= 0
+global cpy:= 0
 ;mumu模拟器为0和36
 ;雷电模拟器为1和34（4K屏请用1和51）
 ;夜神模拟器为2和32
