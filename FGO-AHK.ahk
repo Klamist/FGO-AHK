@@ -123,19 +123,19 @@ loop
 	loop
 	{
 		sleep 100
-		if(pixc(1270,364,0xE5E5ED) and !apok)
+		if(pixc(1269,349,0xE8EAF2) and !apok)
 		{
 			gosub,eat
 			apok:=1
 		}
-		if((pixc(1000,164,0x08B5F7) && pixc(1055,275,0x656565)) or pixc(978,554,0xFFFFFF))
+		if((pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363)) or pixc(978,554,0xFFFFFF))
 			break
 	}
 	
 	;挑选助战，进本等待开始
 	gosub,support
 	if(cyclist=0)
-		pixc(1488,852,0xC4C8CC,1,1)
+		pixc(1460,812,0xF1F1F1,1,1)
 	sleep 3000
 	
 	;记录刷本次数
@@ -149,10 +149,10 @@ loop
 	;进入结算环节，连点直到出去。
 	loop
 	{
-		sclick(1300,809)
+		sclick(1300,780)
 		pixc(870,704,0xD7D7D7,0,1)
 		pixc(303,767,0xD6D6D6,0,1)
-		if(pixc(1041,278,0xFFFFFF))
+		if(pixc(694,490,0xFFFFFF))
 		{
 			sleep 200
 			sclick(950,714)
@@ -222,31 +222,31 @@ sclick(x,y)
 ;按铜银金彩，依次尝试吃苹果
 eat:
 {
-	if(pixc(750,709,0xF4ECDB) and capple)
+	if(pixc(750,711,0xF5EDDC) and capple)
 	{
-		sclick(750,709)
-		pixc(945,726,0xDCDDDF,1,1)
+		sclick(750,711)
+		pixc(950,706,0xD1D1D2,1,1)
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
 	}
-	else if(pixc(750,524,0xF4ECDB) and sapple)
+	else if(pixc(750,526,0xF5EDDC) and sapple)
 	{
-		sclick(750,524)
-		pixc(945,726,0xDCDDDF,1,1)
+		sclick(750,526)
+		pixc(950,706,0xD1D1D2,1,1)
 		FileAppend,吃了银苹果`n,fgo-ahk.log
 		return
 	}
-	else if(pixc(750,339,0xF4ECDB) and gapple)
+	else if(pixc(750,342,0xF5EDDC) and gapple)
 	{
-		sclick(750,339)
-		pixc(945,726,0xDCDDDF,1,1)
+		sclick(750,342)
+		pixc(950,706,0xD1D1D2,1,1)
 		FileAppend,吃了金苹果`n,fgo-ahk.log
 		return
 	}
-	else if(pixc(750,154,0xF4ECDB) and kstone)
+	else if(pixc(750,158,0xF5EDDC) and kstone)
 	{
-		sclick(750,154)
-		pixc(945,726,0xDCDDDF,1,1)
+		sclick(750,158)
+		pixc(950,706,0xD1D1D2,1,1)
 		FileAppend,吃了彩苹果`n,fgo-ahk.log
 		return
 	}
@@ -265,12 +265,12 @@ support:
 	;如果没有，刷新再找
 	loop
 	{
-		sclick(1060,164)
+		sclick(1065,166)
 		sleep 500
-		sclick(1000,704)
+		sclick(1047,709)
 		loop
 		{
-			if(pixc(1000,164,0x08B5F7) && pixc(1055,275,0x656565))
+			if(pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363))
 				break
 			sleep 100
 		}
@@ -290,11 +290,11 @@ supcheck()
 		return 0
 	if(ncheck())
 		return 1
-	spy:=244
+	spy:=239
 	loop,6
 	{
-		spy:=spy+100
-		sclick(1550,spy)
+		spy:=spy+101
+		sclick(1570,spy)
 		sleep 200
 		if(ncheck())
 			return 1
@@ -305,19 +305,19 @@ supcheck()
 ;检测本页助战
 ncheck()
 {
-	y:=164+cpy
+	y:=cpy+100
 	loop
 	{
-		y:=y+100
+		y:=y+200
 		;扫描从者栏位
-		PixelSearch, ,y,1030+cpx,y,1030+cpx,920,0xDED5BB,13,Fast RGB
+		ImageSearch, ,y,1027+cpx,y,1033+cpx,940, *50 %A_WorkingDir%\H\0.png
 		if(!y)
 			return 0
 		;检测是否好友
 		if(passby)
 		{
-			PixelSearch, x,,1450+cpx,y-52,1450+cpx,y-52,0xE0FEAA,10,Fast RGB
-			if(!x) ;1020,501,0xE1C8A0 1450,450,0xDFFFAE
+			PixelSearch, x,,1434+cpx,y-56,1434+cpx,y-56,0xDBF9A5,10,Fast RGB
+			if(!x) ;515, 1434,408,0xDBF9A5
 				continue
 		}
 		;匹配英灵
@@ -325,49 +325,49 @@ ncheck()
 		{
 			if(supser=1)
 			{
-				ImageSearch, x,, 450+cpx,y-115,900+cpx,y-65, *100 %A_WorkingDir%\H\s1.png
-				if(!x) ;CBA 
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s1.png
+				if(!x) ;CBA
 					continue
 			}
 			else if(supser=2)
 			{
-				ImageSearch, x,, 450+cpx,y-115,900+cpx,y-65, *100 %A_WorkingDir%\H\s2.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s2.png
 				if(!x) ;孔明
 					continue
 			}
 			else if(supser=3)
 			{
-				ImageSearch, x,, 450+cpx,y-115,900+cpx,y-65, *100 %A_WorkingDir%\H\s3.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s3.png
 				if(!x) ;术呆
 					continue
 			}
 			else if(supser=4)
 			{
-				ImageSearch, x,, 450+cpx,y-115,900+cpx,y-65, *100 %A_WorkingDir%\H\s4.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s4.png
 				if(!x) ;花嫁
 					continue
 			}
 			else if(supser=5)
 			{
-				ImageSearch, x,, 450+cpx,y-115,900+cpx,y-65, *100 %A_WorkingDir%\H\s5.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s5.png
 				if(!x) ;狐狸
 					continue
 			}
 			else if(supser=6)
 			{
-				ImageSearch, x,, 450+cpx,y-115,900+cpx,y-65, *100 %A_WorkingDir%\H\s6.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s6.png
 				if(!x) ;仇凛
 					continue
 			}
 			else if(supser=7)
 			{
-				ImageSearch, x,, 450+cpx,y-115,900+cpx,y-65, *100 %A_WorkingDir%\H\s7.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s7.png
 				if(!x) ;狂娜
 					continue
 			}
 			else if(supser=8)
 			{
-				ImageSearch, x,, 450+cpx,y-115,900+cpx,y-65, *100 %A_WorkingDir%\H\s8.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s8.png
 				if(!x) ;梅林
 					continue
 			}
@@ -376,19 +376,19 @@ ncheck()
 			{
 				if(tskill[1])
 				{
-					PixelSearch, x,,1079+cpx,y-30,1079+cpx,y-30,0XFFFFFF,10,Fast RGB
-					if(!x)	;一技能 1079,469,0xFFFFFF
+					PixelSearch, x,,1079+cpx,y-25,1079+cpx,y-25,0XFFFFFF,10,Fast RGB
+					if(!x)	;一技能 108,469,0xFFFFFF
 						continue
 				}
 				if(tskill[2])
 				{
-					PixelSearch, x,,1176+cpx,y-30,1176+cpx,y-30,0XFFFFFF,10,Fast RGB
+					PixelSearch, x,,1176+cpx,y-25,1176+cpx,y-25,0XFFFFFF,10,Fast RGB
 					if(!x)	;二技能 1176,469,0xFFFFFF
 						continue
 				}
 				if(tskill[3])
 				{
-					PixelSearch, x,,1273+cpx,y-30,1273+cpx,y-30,0XFFFFFF,10,Fast RGB
+					PixelSearch, x,,1273+cpx,y-25,1273+cpx,y-25,0XFFFFFF,10,Fast RGB
 					if(!x)	;三技能 1273,469,0XFFFFFF
 						continue
 				}
@@ -396,19 +396,19 @@ ncheck()
 			;检测宝具等级
 			if(noblel && passby)
 			{
-				ImageSearch, x,, 450+cpx,y-70,900+cpx,y-20, *100 %A_WorkingDir%\H\n1.png
+				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_WorkingDir%\H\n1.png
 				if(x && noblel>1)
 					continue
-				ImageSearch, x,, 450+cpx,y-70,900+cpx,y-20, *100 %A_WorkingDir%\H\n2.png
+				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_WorkingDir%\H\n2.png
 				if(x && noblel>2)
 					continue
-				ImageSearch, x,, 450+cpx,y-70,900+cpx,y-20, *100 %A_WorkingDir%\H\n3.png
+				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_WorkingDir%\H\n3.png
 				if(x && noblel>3)
 					continue
-				ImageSearch, x,, 450+cpx,y-70,900+cpx,y-20, *100 %A_WorkingDir%\H\n4.png
+				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_WorkingDir%\H\n4.png
 				if(x && noblel>4)
 					continue
-				ImageSearch, x,, 450+cpx,y-70,900+cpx,y-20, *100 %A_WorkingDir%\H\n5.png
+				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_WorkingDir%\H\n5.png
 				if(x && noblel>5)
 					continue
 			}
@@ -419,25 +419,25 @@ ncheck()
 			;礼装种类
 			if(scraft=1)
 			{
-				ImageSearch, x,, 220+cpx,y-40,260+cpx,y-10, *100 %A_WorkingDir%\H\c1.png
+				ImageSearch, x,, 220+cpx,y-38,260+cpx,y-8, *100 %A_WorkingDir%\H\c1.png
 				if(!x) ;下午茶
 					continue
 			}
 			else if(scraft=2)
 			{
-				ImageSearch, x,, 220+cpx,y-40,260+cpx,y-10, *100 %A_WorkingDir%\H\c2.png
+				ImageSearch, x,, 220+cpx,y-38,260+cpx,y-8, *100 %A_WorkingDir%\H\c2.png
 				if(!x) ;贝拉丽莎
 					continue
 			}
 			else if(scraft=3)
 			{
-				ImageSearch, x,, 220+cpx,y-40,260+cpx,y-10, *100 %A_WorkingDir%\H\c3.png
+				ImageSearch, x,, 220+cpx,y-38,260+cpx,y-8, *100 %A_WorkingDir%\H\c3.png
 				if(!x) ;秉持风雅
 					continue
 			}
 			else if(scraft=4)
 			{
-				ImageSearch, x,, 220+cpx,y-40,260+cpx,y-10, *100 %A_WorkingDir%\H\c4.png
+				ImageSearch, x,, 220+cpx,y-38,260+cpx,y-8, *100 %A_WorkingDir%\H\c4.png
 				if(!x) ;私人指导
 					continue
 			}
@@ -456,8 +456,8 @@ ncheck()
 			;是否满破
 			if(obreak && scraft>4)
 			{
-				PixelSearch, x,,240+cpx,y-20,240+cpx,y-20,0xFFFF75,22,Fast RGB
-				if(!x)	;满破星星 1020,629,0xEECC98 240,609,0xFCFC8A
+				PixelSearch, x,,240+cpx,y-18,240+cpx,y-18,0xFFFF75,22,Fast RGB
+				if(!x)	;满破星星 240,446,0xFEFE62
 					continue
 			}
 		}
@@ -475,7 +475,7 @@ wstart:
 	sleep 500
 	loop
 	{
-		if(pixc(1400,699,0x02D9F1) && pixc(1450,254,0x1A2333))
+		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
 			break
 		sleep 100
 	}
@@ -492,18 +492,18 @@ ssk(si,st:=0)
 	skt:=[ 400,800,1200 ]
 	;技能位置
 	temp:=skc[si]
-	sclick(temp,714)
+	sclick(temp,720)
 	sleep 250
 	;指向位置
 	if(st)
 	{
 		temp:=skt[st]
-		sclick(temp,564)
+		sclick(temp,560)
 	}
 	sleep 500
 	loop
 	{
-		if(pixc(1450,254,0x1A2333) && pixc(1514,256,0xFAFFFF))
+		if(pixc(1450,257,0x1A2333) && pixc(1514,251,0xD6EFF2))
 			break
 		sleep 100
 	}
@@ -548,7 +548,7 @@ msk(sk,st:=0,sm:=0,sn:=0)
 	{
 		loop
 		{
-			if(pixc(1400,699,0x02D9F1) && pixc(1450,254,0x1A2333))
+			if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
 				break
 			sleep 100
 		}
@@ -557,7 +557,7 @@ msk(sk,st:=0,sm:=0,sn:=0)
 	{
 		loop
 		{
-			if(pixc(1450,254,0x1A2333) && pixc(1514,256,0xFAFFFF))
+			if(pixc(1450,257,0x1A2333) && pixc(1514,251,0xD6EFF2))
 				break
 			sleep 100
 		}
@@ -569,9 +569,9 @@ return
 ;切换目标
 target(n)
 {
-	enemy:=[ 60,360,660 ]
+	enemy:=[ 60,370,680 ]
 	temp:=enemy[n]
-	sclick(temp,54)
+	sclick(temp,50)
 	sleep 300
 }
 return
@@ -585,28 +585,28 @@ xjbd(n:=0)
 	loop
 	{
 		;检测战利品结算界面
-		if(pixc(155,114,0xE5B419) && pixc(1430,114,0x05ACF4))
+		if(pixc(153,69,0xE4B217) && pixc(1433,66,0x02B7F9))
 			return
 		;检测黑屏换面
 		if(pixc(500,834,0x000000) and n>0)
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1450,254,0x1A2333) && pixc(1514,256,0xFAFFFF))
+		if(pixc(1450,257,0x1A2333) && pixc(1514,251,0xD6EFF2))
 		{
 			nn:=nn+1
 			attack()
 			if(nn=n)
 				break
 		}
-		sclick(1212,85)
+		sclick(1111,111)
 		sleep 100
 	}
 	;检测回到界面
 	loop
 	{
-		if(pixc(1400,699,0x02D9F1) && pixc(1450,254,0x1A2333))
+		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
 			break
-		sclick(1212,85)
+		sclick(1111,111)
 		sleep 100
 	}
 	sleep 600
@@ -618,18 +618,18 @@ attack()
 {
 	;指令卡间隔 320,319,322,325
 	ccoord:=[ 213,533,852,1174,1499 ]
-	sclick(1400,764)
+	sclick(1400,760)
 	sleep 500
 	
 	;选1张红卡，如果没有就选最后一张 
 	ci:=1
 	loop,5
 	{
-		xard:=ccoord[ci] ;213,755,0xFA3F00
+		xard:=ccoord[ci] ;1175,770,0xFA3F00
 		PixelSearch,x,,xard+cpx,719+cpy,xard+cpx,719+cpy,0xFA3F00,10,Fast RGB
 		if(x)
 		{
-			sclick(xard,604)
+			sclick(xard,630)
 			break
 		}
 		ci:=ci+1
@@ -637,7 +637,7 @@ attack()
 	if(ci=6)
 	{
 		ci:=5
-		sclick(1450,604)
+		sclick(1450,630)
 	}
 	sleep 150
 	
@@ -648,7 +648,7 @@ attack()
 		if(cj!=ci)
 		{
 			temp:=ccoord[cj]
-			sclick(temp,604)
+			sclick(temp,630)
 			break
 		}
 		cj:=cj+1
@@ -661,7 +661,7 @@ attack()
 		if(ck!=ci)
 		{
 			temp:=ccoord[ck]
-			sclick(temp,604)
+			sclick(temp,630)
 			break
 		}
 		ck:=ck+1
@@ -678,28 +678,28 @@ return
 baoju(n1,n2:=0,n3:=0)
 {
 	;打开选卡界面
-	sclick(1400,764)
+	sclick(1400,760)
 	sleep 1600
 	
 	;第一张选卡
 	if(n1)
 		npc(n1)
 	else
-		sclick(480,604)
+		sclick(480,630)
 	sleep 150
 	
 	;第二张选卡
 	if(n2)
 		npc(n2)
 	else
-		sclick(800,604)
+		sclick(800,630)
 	sleep 150
 	
 	;第三张选卡
 	if(n3)
 		npc(n3)
 	else 
-		sclick(1120,604)
+		sclick(1120,630)
 	sleep 150
 	
 	sleep 5000
@@ -708,12 +708,12 @@ baoju(n1,n2:=0,n3:=0)
 	loop
 	{
 		;检测战利品结算界面
-		if(pixc(155,114,0xE5B419) && pixc(1430,114,0x05ACF4))
+		if(pixc(153,69,0xE4B217) && pixc(1433,66,0x02B7F9))
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1400,699,0x02D9F1) && pixc(1450,254,0x1A2333))
+		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
 			break
-		sclick(1212,85)
+		sclick(1111,111)
 		sleep 100
 	}
 	sleep 600
@@ -725,7 +725,7 @@ npc(n)
 {
 	npcard:=[ 480,800,1120 ]
 	temp:=npcard[n]
-	sclick(temp,264)
+	sclick(temp,270)
 }
 return
 
