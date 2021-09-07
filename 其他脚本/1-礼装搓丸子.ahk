@@ -16,8 +16,8 @@ SetMouseDelay, 1
 */
 
 ;偏量设置
-global cpx:= 0
-global cpy:= 0
+global cpx:= 1
+global cpy:= 51
 ;mumu模拟器为0和36
 ;雷电模拟器为1和34（4K屏请用1和51）
 ;夜神模拟器为2和32
@@ -42,13 +42,13 @@ $~[::
 loop
 {
 	;检测处于喂礼装界面
-	pixc(745,872,0xFDDE03,1)
+	pixc(745,872,0xECD917,1)
 	sleep 50
 	sclick(650,294)
 	sleep 200
 	
 	;选择礼装
-	pixc(100,24,0xF7F7F7,1)
+	pixc(40,300,0xFFEFDE,1)
 	sleep 200
 	tx:=175+cpx
 	ty:=314+cpy
@@ -60,25 +60,25 @@ loop
 	sleep 100
 	Click,up
 	sleep 300
-	if(pixc(1360,824,0x727272))
+	if(pixc(1360,840,0x6B6C6C))
 	{
 		Msgbox 喂光了！
 		Exit
 	}
-	sclick(1400,844)
+	sclick(1360,840)
 	
 	;确认喂
-	pixc(745,872,0xFDDE03,1)
+	pixc(745,872,0xECD917,1)
 	sleep 50
-	sclick(1380,844)
+	sclick(1360,840)
 	sleep 300
-	sclick(1050,734)
+	sclick(1050,740)
 	sleep 500
 	
 	;连点直到出去。
 	loop
 	{
-		if(pixc(745,872,0xFDDE03))
+		if(pixc(745,872,0xECD917))
 			break
 		sclick(800,564)
 		sleep 100

@@ -14,8 +14,8 @@ SetMouseDelay, 0
 */
 
 ;偏量设置
-global cpx:= 0
-global cpy:= 0
+global cpx:= 1
+global cpy:= 51
 ;mumu模拟器为0和36
 ;雷电模拟器为1和34（4K屏请用1和51）
 ;夜神模拟器为2和32
@@ -39,7 +39,7 @@ $~]::Pause
 $~[::
 
 ;检测处于友情池界面
-pixc(834,53,0xA3E548,1)
+pixc(840,40,0xE0FD9E,1)
 sleep 50
 sclick(1030,694)
 sleep 300
@@ -55,15 +55,15 @@ loop
 	loop
 	{
 		sclick(950,844)
-		if(pixc(1040,674,0xF9F9F9))
+		if(pixc(1034,680,0xF3F3F3))
 		{
 			loop,5
 			{
 				sleep 100
-				sclick(950,704)
+				sclick(950,700)
 			}
 		}
-		if(pixc(470,744,0x317090))
+		if(pixc(565,594,0xCFD0D0))
 		{
 			msgbox 抽爆了
 			exit
