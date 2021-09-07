@@ -152,7 +152,7 @@ loop
 		sclick(1300,780)
 		pixc(870,704,0xD7D7D7,0,1)
 		pixc(303,767,0xD6D6D6,0,1)
-		if(pixc(694,490,0xFFFFFF))
+		if(pixc(1040,350,0xFFFFFF))
 		{
 			sleep 200
 			sclick(950,714)
