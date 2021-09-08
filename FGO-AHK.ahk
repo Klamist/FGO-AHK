@@ -123,7 +123,7 @@ loop
 	loop
 	{
 		sleep 100
-		if(pixc(1269,349,0xE8EAF2) and !apok)
+		if(pixc(1269,481,0xECEDF5) and !apok)
 		{
 			gosub,eat
 			apok:=1
