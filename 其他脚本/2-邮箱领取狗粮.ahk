@@ -1,30 +1,25 @@
 ﻿#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
-SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
-SetMouseDelay,0
+SetMouseDelay, 1
+SetKeyDelay, 1
 SetBatchLines, -1 ; Make AHK run as fast as possible
 
 /*
 本脚本需配合《xN》文件夹一起使用，请确保目录内同时包含二者。
 
 功能：
-从上到下勾选堆叠不足SN个的金狗粮(SN可设置)，以及堆叠低于7的银狗粮，并自动领取，直到邮箱翻完或爆仓。
+从上到下勾选堆叠不足N个的金狗粮，以及堆叠低于6的银狗粮，并自动领取，直到邮箱翻完或爆仓。
 
 用法：
 按后文注意事项设置好后，处于邮箱领取界面时，启动脚本即可。
 
 注意：
-1. 请在模拟器的键位设置(工具栏里找键位盘)：
-	①鼠标在邮件区域向上拖动3个栏位宽度，设置为“=”键。
-	②鼠标点击狗粮区域，设为主键盘“-”键。
-	（xN文件夹内有“键位设置.png”可以参考。若要用其他键，请到后文中droll代码段落修改Send{}的内容）
-2. 请在礼物盒筛选功能中，去掉狗粮以外的所有内容，防止误领。
-3. 邮件顺序请从新到旧排列。
-4. 注意，目前四星、五星金狗粮无法区分，但五星狗粮堆叠超过指定值也会留着。
+1. 请在筛选功能中只留狗粮，防止误领。
+2. 邮件顺序请从新到旧排列。
+3. 五星狗粮全都保留。
 */
 
 ;可调参数：
-SN:= 3	;保留堆叠数大于等于此值的狗粮。
-		;最高可设为7（即领取所有x1~6的狗粮）
+SN:= 3	;金狗粮堆叠保留值，最高可设5（低于此值才领取）
 
 ;偏量设置
 global cpx:= 0
@@ -50,7 +45,7 @@ $~]::Pause
 
 ; [ 键启动
 $~[::
-pixc(1286,278,0x0DCC99,1)
+pixc(1285,626,0x930000,1)
 tot:=0
 loop
 {
@@ -60,27 +55,31 @@ loop
 	if(tot>95)
 	{
 		sleep 300
-		sclick(1380,464)
-		pixc(1286,278,0x0DCC99,1)
+		sclick(1380,470)
+		pixc(1285,626,0x930000,1)
 		tot:=0
 	}
-	if(pixc(1170,890,0xFFFFFF))
+	sleep 100
+	if(pixc(1172,843,0xFFFFE8))
 		break
 }
-sclick(1380,464)
+sclick(1380,470)
 return
 
 ;========可调用子程序========
 
 ;向下翻页
 droll:
-	send {=} ;mumu划动翻页热键
-	sleep 400
+	tx:=666+cpx
+	ty:=820+cpy
+	MouseMove,tx,ty,0
+	MouseClickDrag, left, tx,ty,tx,ty-500,30
+	sleep 200
+	
 	if(tot=0)
-		sleep 500
+		sleep 200
 	else
-		send {-} ;mumu区域单击热键
-	sleep 100
+		sclick(600,600)
 return
 
 
@@ -101,8 +100,18 @@ selexp:
 				;msgbox, 银
 				bingo:=1
 			}
+			
+			;判断堆叠数
 			loop
 			{
+				;判断五星狗粮
+				PixelSearch, x,,190+cpx,y,190+cpx,y,0xFFFFFF,10,Fast RGB
+				if(x)
+				{
+					;msgbox, 五星狗粮
+					bingo:=0
+					break
+				}
 				;判断堆叠x1
 				ImageSearch, x,, 445+cpx,y-20,480+cpx,y+20, *100 %A_WorkingDir%\xN\1.png
 				if(x)
@@ -139,6 +148,7 @@ selexp:
 						bingo:=1
 					break
 				}
+				/*
 				;判断堆叠x5
 				ImageSearch, x,, 445+cpx,y-20,480+cpx,y+20, *100 %A_WorkingDir%\xN\5.png
 				if(x)
@@ -157,8 +167,17 @@ selexp:
 						bingo:=1
 					break
 				}
-				;堆叠数大于6留着
-				;msgbox, x7+
+				;判断堆叠x7
+				ImageSearch, x,, 445+cpx,y-20,480+cpx,y+20, *100 %A_WorkingDir%\xN\7.png
+				if(x)
+				{
+					;msgbox, x7
+					if(SN>7)
+						bingo:=1
+					break
+				}
+				*/
+				;堆叠数更多的留着
 				bingo:=0
 				break
 			}
