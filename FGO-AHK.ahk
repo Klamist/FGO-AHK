@@ -132,7 +132,7 @@ loop
 			gosub,eat
 			apok:=1
 		}
-		if((pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363)) or pixc(978,554,0xFFFFFF))
+		if((pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363)) or pixc(879,541,0xFFFFFF))
 			break
 	}
 	
@@ -287,7 +287,7 @@ return
 ;助战列表自动翻页检测
 supcheck()
 {
-	if(pixc(978,554,0xFFFFFF))
+	if(pixc(879,541,0xFFFFFF))
 		return 0
 	if(ncheck())
 		return 1
