@@ -138,9 +138,6 @@ loop
 	
 	;挑选助战，进本等待开始
 	gosub,support
-	if(cyclist=0)
-		pixc(1460,812,0xF1F1F1,1,1)
-	sleep 3000
 	
 	;记录刷本次数
 	cyclist:=cyclist+1
@@ -476,11 +473,12 @@ ncheck()
 ;检测可以开始行动
 wstart:
 {
-	sleep 500
 	loop
 	{
 		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
 			break
+		if(pixc(1460,812,0xF1F1F1))
+			sclick(1460,812)
 		sleep 100
 	}
 	sleep 100
