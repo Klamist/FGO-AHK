@@ -92,7 +92,10 @@ $~[::
 mup()
 sleep 300
 gosub,checkmnq
-sclick(900,260)
+
+;如果在助战选择界面就直接选助战
+if(pixc(1560,817,0xD0D2D3))
+	sclick(900,260)
 
 ;生成日志记录
 FormatTime,now,A_Now,yyyy-MM-dd HH:mm:ss
