@@ -92,6 +92,7 @@ $~[::
 mup()
 sleep 300
 gosub,checkmnq
+gosub,himg
 
 ;如果在助战选择界面就直接选助战
 if(pixc(1560,817,0xD0D2D3))
@@ -752,6 +753,17 @@ checkmnq:
 			msgbox 未发现雷电窗口
 			exit
 		}
+	}
+}
+return
+
+;检测《H》文件夹是否存在
+himg:
+{
+	if !FileExist("H\0.png")
+	{
+		msgbox 未发现《H》文件夹
+		exit
 	}
 }
 return
