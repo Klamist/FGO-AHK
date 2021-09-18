@@ -267,11 +267,11 @@ support:
 	loop
 	{
 		sclick(1065,166)
-		sleep 500
+		sleep 700
 		sclick(1047,709)
 		loop
 		{
-			if(pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363))
+			if((pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363)) or pixc(879,541,0xFFFFFF))
 				break
 			sleep 100
 		}
