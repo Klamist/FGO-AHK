@@ -56,7 +56,12 @@ loop
 	{
 		sleep 300
 		sclick(1380,470)
-		pixc(1285,626,0x930000,1)
+		loop
+		{
+			if(pixc(1285,626,0x930000) && pixc(1281,276,0x0AD89E))
+				break
+			sleep 100
+		}
 		tot:=0
 	}
 	sleep 100
