@@ -67,7 +67,7 @@ loop,%cycle%
 	{
 		if(pixc(1087,168,0x5FA9F9))
 			break
-		if(pixc(598,737,0xD1D1D1))
+		if(pixc(646,699,0xD6D6D6))
 			break 2
 		sclick(428,540)
 		sleep 70
