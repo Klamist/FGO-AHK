@@ -475,6 +475,26 @@ wstart:
 {
 	loop
 	{
+		;雷电模拟器防闪退专用，FGO放在主页第一行第二个位置
+		if(pixc(670,50,0x212121) && pixc(970,50,0x212121))
+		{
+			sleep 500
+			ImageSearch, x,y,130,110,1440,450, *50 %A_WorkingDir%\H\fgo.png
+			click,%x%,%y%
+			sleep 1000
+			loop
+			{
+				sclick(1111,100)
+				sleep 300
+				if(pixc(619,469,0xFF0000) && pixc(1019,472,0xFF0000))
+				{
+					sleep 300
+					sclick(1052,685)
+					break
+				}
+			}
+		}
+		;检测出击按钮
 		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
 			break
 		if(pixc(1460,812,0xF1F1F1))
@@ -760,7 +780,7 @@ himg:
 {
 	if !FileExist("H\0.png")
 	{
-		msgbox 未发现《H》文件夹
+		msgbox 无法识别《H》的文件
 		exit
 	}
 }
