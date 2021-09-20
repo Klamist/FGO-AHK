@@ -566,23 +566,11 @@ msk(sk,st:=0,sm:=0,sn:=0)
 		sclick(800,784)
 	}
 	sleep 500
-	if(st=4)
+	loop
 	{
-		loop
-		{
-			if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
-				break
-			sleep 100
-		}
-	}
-	else
-	{
-		loop
-		{
-			if(pixc(1450,257,0x1A2333) && pixc(1514,251,0xD6EFF2))
-				break
-			sleep 100
-		}
+		if(pixc(1450,257,0x1A2333) && pixc(1514,251,0xD6EFF2))
+			break
+		sleep 100
 	}
 	sleep 100
 }
@@ -701,7 +689,7 @@ baoju(n1,n2:=0,n3:=0)
 {
 	;打开选卡界面
 	sclick(1400,760)
-	sleep 1600
+	sleep 2000
 	
 	;第一张选卡
 	if(n1)
