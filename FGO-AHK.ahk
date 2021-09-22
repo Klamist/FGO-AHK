@@ -481,46 +481,63 @@ ncheck()
 ;检测可以开始行动，clc是否自动连点
 wstart(clc:=0)
 {
+	res:=0 ;重启标记
 	loop
 	{
-		sleep 100
+		sleep 200
 		;如果在编队界面，点击进本
 		if(pixc(1460,812,0xF1F1F1))
 			sclick(1460,812)
 		;检测出击按钮
 		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
-			break
+		{
+			if(res)
+				return 1
+			else
+				return 0
+		}
 		;检测战利品结算界面
 		if(pixc(153,69,0xE4B217) && pixc(1433,66,0x02B7F9))
-			break
+			return 0
 		;雷电模拟器防闪退专用
 		if(pixc(670,50,0x212121) && pixc(970,50,0x212121))
 		{
-			sleep 500
-			ImageSearch, x,y,130,110,1440,450, *50 %A_WorkingDir%\H\fgo.png
-			click,%x%,%y%
-			sleep 1000
-			loop
-			{
-				sclick(1111,100)
-				sleep 300
-				if(pixc(619,469,0xFF0000) && pixc(1019,472,0xFF0000))
-				{
-					sleep 300
-					sclick(1052,685)
-					break
-				}
-			}
+			ldres()
+			res:=1
 		}
 		;点击一下
 		if(clc)
 			sclick(1111,100)
 	}
 }
+
+;雷电模拟器闪退后重启
+ldres()
+{
+	sleep 500
+	ImageSearch, x,y,130,110,1440,450, *50 %A_WorkingDir%\H\fgo.png
+	click,%x%,%y%
+	sleep 1000
+	loop
+	{
+		sclick(1111,100)
+		sleep 300
+		if(pixc(619,469,0xFF0000) && pixc(1019,472,0xFF0000))
+		{
+			sleep 300
+			sclick(1052,685)
+			break
+		}
+	}
+}
 return
+
+;================================================================================================
 
 ;从者放技能
 ssk(si,st:=0)
+{
+loop
 {
 	if(si>9 || si<0)
 		MsgBox 从者技能参数异常,请检查ssk(%si%...)
@@ -538,13 +555,17 @@ ssk(si,st:=0)
 	}
 	sleep 500
 	;等待回到操作界面
-	wstart()
-	sleep 100
+	if(wstart()=0)
+		break
+}
+sleep 100
 }
 return
 
 ;御主放技能
 msk(sk,st:=0,sm:=0,sn:=0)
+{
+loop
 {
 	if(sk>4 || sk<0)
 		MsgBox 御主技能参数异常,请检查msk(%sk%...)
@@ -577,8 +598,10 @@ msk(sk,st:=0,sm:=0,sn:=0)
 	}
 	sleep 500
 	;等待回到操作界面
-	wstart()
-	sleep 100
+	if(wstart()=0)
+		break
+}
+sleep 100
 }
 return
 
@@ -600,6 +623,7 @@ xjbd(n:=0)
 	nn:=0
 	loop
 	{
+		sleep 200
 		;检测战利品结算界面
 		if(pixc(153,69,0xE4B217) && pixc(1433,66,0x02B7F9))
 			return
@@ -614,11 +638,23 @@ xjbd(n:=0)
 			if(nn=n)
 				break
 		}
+		;雷电模拟器防闪退专用
+		if(pixc(670,50,0x212121) && pixc(970,50,0x212121))
+		{
+			ldres()
+			nn:=nn-1
+		}
+		;点击一下
 		sclick(1111,100)
-		sleep 100
 	}
 	;等待回到操作界面
-	wstart(1)
+	loop
+	{
+		if(wstart(1))
+			attack()
+		else
+			break
+	}
 	sleep 600
 }
 return
@@ -687,6 +723,8 @@ return
 ;宝具回合出卡
 baoju(n1,n2:=0,n3:=0)
 {
+loop
+{
 	;打开选卡界面
 	sclick(1400,760)
 	sleep 2000
@@ -714,9 +752,11 @@ baoju(n1,n2:=0,n3:=0)
 	
 	sleep 5000
 	
-	;等待下一步
-	wstart(1)
-	sleep 600
+	;等待回到操作界面
+	if(wstart()=0)
+		break
+}
+sleep 100
 }
 return
 
