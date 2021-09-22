@@ -65,8 +65,12 @@ loop,%cycle%
 	}
 	loop
 	{
+		;服务器断开010101
+		pixc(955,704,0xD1D1D2,0,1)
+		;抽光这池了
 		if(pixc(1087,168,0x5FA9F9))
 			break
+		;爆仓了
 		if(pixc(646,699,0xD6D6D6))
 			break 2
 		sclick(428,540)
