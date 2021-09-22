@@ -126,6 +126,8 @@ loop
 	loop
 	{
 		sleep 100
+		;服务器断开010101自动重连
+		pixc(955,704,0xD1D1D2,0,1)
 		if(pixc(1269,481,0xECEDF5) and !apok)
 		{
 			gosub,eat
@@ -150,16 +152,23 @@ loop
 	;进入结算环节，连点直到出去。
 	loop
 	{
+		sleep 100
 		sclick(1300,780)
+		
+		;加好友提示已满点确认
 		pixc(870,704,0xD3D4D4,0,1)
 		pixc(303,767,0xD4D4D4,0,1)
+		
+		;服务器断开010101自动重连
+		pixc(955,704,0xD1D1D2,0,1)
+		
+		;连续出击判定
 		if(pixc(1040,350,0xFFFFFF))
 		{
 			sleep 200
 			sclick(950,714)
 			break
 		}
-		sleep 100
 	}
 }
 MsgBox 打完了！
@@ -279,6 +288,9 @@ support:
 		sclick(1047,709)
 		loop
 		{
+			;服务器断开010101自动重连
+			pixc(955,704,0xD1D1D2,0,1)
+			
 			if((pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363)) or pixc(879,541,0xFFFFFF))
 				break
 			sleep 100
@@ -505,6 +517,8 @@ wstart(clc:=0)
 			ldres()
 			res:=1
 		}
+		;服务器断开010101自动重连
+		pixc(955,704,0xD1D1D2,0,1)
 		;点击一下
 		if(clc)
 			sclick(1111,100)
