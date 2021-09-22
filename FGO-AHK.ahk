@@ -753,7 +753,7 @@ loop
 	sleep 5000
 	
 	;等待回到操作界面
-	if(wstart()=0)
+	if(wstart(1)=0)
 		break
 }
 sleep 100
