@@ -37,7 +37,6 @@ global cpy:= 0 ;窗口y偏量
 ;——————战斗流程——————
 order()
 {
-gosub,wstart ;检测作战开始
 
 ;战斗流程（为空则无限平砍）：
 {
@@ -51,7 +50,7 @@ gosub,wstart ;检测作战开始
 }
 ;自定义结束。
 
-xjbd(0) ;补刀+结算。若最后需要补刀，可以省略，用这句就行。
+xjbd() ;补刀+结算。若最后需要补刀，可以省略，用这句就行。
 }
 return
 
@@ -145,6 +144,7 @@ loop
 	FileAppend,%cyclist%/%cycle% %now%`n,fgo-ahk.log
 	
 	;按照设定好的刷本流程执行
+	wstart()
 	order()
 	
 	;进入结算环节，连点直到出去。
@@ -226,28 +226,36 @@ eat:
 	if(pixc(750,711,0xF5EDDC) and capple)
 	{
 		sclick(750,711)
-		pixc(950,706,0xD1D1D2,1,1)
+		pixc(950,706,0xD1D1D2,1)
+		sleep 300
+		sclick(950,706)
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
 	}
 	else if(pixc(750,526,0xF5EDDC) and sapple)
 	{
 		sclick(750,526)
-		pixc(950,706,0xD1D1D2,1,1)
+		pixc(950,706,0xD1D1D2,1)
+		sleep 300
+		sclick(950,706)
 		FileAppend,吃了银苹果`n,fgo-ahk.log
 		return
 	}
 	else if(pixc(750,342,0xF5EDDC) and gapple)
 	{
 		sclick(750,342)
-		pixc(950,706,0xD1D1D2,1,1)
+		pixc(950,706,0xD1D1D2,1)
+		sleep 300
+		sclick(950,706)
 		FileAppend,吃了金苹果`n,fgo-ahk.log
 		return
 	}
 	else if(pixc(750,158,0xF5EDDC) and kstone)
 	{
 		sclick(750,158)
-		pixc(950,706,0xD1D1D2,1,1)
+		pixc(950,706,0xD1D1D2,1)
+		sleep 300
+		sclick(950,706)
 		FileAppend,吃了彩苹果`n,fgo-ahk.log
 		return
 	}
@@ -470,12 +478,22 @@ ncheck()
 
 ;================================================================================================
 
-;检测可以开始行动
-wstart:
+;检测可以开始行动，clc是否自动连点
+wstart(clc:=0)
 {
 	loop
 	{
-		;雷电模拟器防闪退专用，FGO放在主页第一行第二个位置
+		sleep 100
+		;如果在编队界面，点击进本
+		if(pixc(1460,812,0xF1F1F1))
+			sclick(1460,812)
+		;检测出击按钮
+		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
+			break
+		;检测战利品结算界面
+		if(pixc(153,69,0xE4B217) && pixc(1433,66,0x02B7F9))
+			break
+		;雷电模拟器防闪退专用
 		if(pixc(670,50,0x212121) && pixc(970,50,0x212121))
 		{
 			sleep 500
@@ -494,14 +512,10 @@ wstart:
 				}
 			}
 		}
-		;检测出击按钮
-		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
-			break
-		if(pixc(1460,812,0xF1F1F1))
-			sclick(1460,812)
-		sleep 100
+		;点击一下
+		if(clc)
+			sclick(1111,100)
 	}
-	sleep 100
 }
 return
 
@@ -523,12 +537,8 @@ ssk(si,st:=0)
 		sclick(temp,560)
 	}
 	sleep 500
-	loop
-	{
-		if(pixc(1450,257,0x1A2333) && pixc(1514,251,0xD6EFF2))
-			break
-		sleep 100
-	}
+	;等待回到操作界面
+	wstart()
 	sleep 100
 }
 return
@@ -566,12 +576,8 @@ msk(sk,st:=0,sm:=0,sn:=0)
 		sclick(800,784)
 	}
 	sleep 500
-	loop
-	{
-		if(pixc(1450,257,0x1A2333) && pixc(1514,251,0xD6EFF2))
-			break
-		sleep 100
-	}
+	;等待回到操作界面
+	wstart()
 	sleep 100
 }
 return
@@ -608,17 +614,11 @@ xjbd(n:=0)
 			if(nn=n)
 				break
 		}
-		sclick(1111,70)
+		sclick(1111,100)
 		sleep 100
 	}
-	;检测回到界面
-	loop
-	{
-		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
-			break
-		sclick(1111,70)
-		sleep 100
-	}
+	;等待回到操作界面
+	wstart(1)
 	sleep 600
 }
 return
@@ -714,18 +714,8 @@ baoju(n1,n2:=0,n3:=0)
 	
 	sleep 5000
 	
-	;等待可进行下一步操作
-	loop
-	{
-		;检测战利品结算界面
-		if(pixc(153,69,0xE4B217) && pixc(1433,66,0x02B7F9))
-			break
-		;检测战斗界面是否又出现
-		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
-			break
-		sclick(1111,70)
-		sleep 100
-	}
+	;等待下一步
+	wstart(1)
 	sleep 600
 }
 return
