@@ -747,7 +747,9 @@ loop
 {
 	;打开选卡界面
 	sclick(1400,760)
-	sleep 2000
+	sleep 1800
+	if(mnq=1)
+		sleep 800
 	
 	;第一张选卡
 	if(n1)
