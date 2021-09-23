@@ -127,11 +127,14 @@ loop
 	{
 		sleep 100
 		;服务器断开010101自动重连
-		pixc(955,704,0xD1D1D2,0,1)
+		if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
+			sclick(955,704)
 		if(pixc(1269,481,0xECEDF5) and !apok)
 		{
+			sleep 200
 			gosub,eat
 			apok:=1
+			sleep 500
 		}
 		if((pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363)) or pixc(879,541,0xFFFFFF))
 			break
@@ -160,7 +163,8 @@ loop
 		pixc(303,767,0xD4D4D4,0,1)
 		
 		;服务器断开010101自动重连
-		pixc(955,704,0xD1D1D2,0,1)
+		if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
+			sclick(955,704)
 		
 		;连续出击判定
 		if(pixc(1040,350,0xFFFFFF))
@@ -289,7 +293,8 @@ support:
 		loop
 		{
 			;服务器断开010101自动重连
-			pixc(955,704,0xD1D1D2,0,1)
+			if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
+				sclick(955,704)
 			
 			if((pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363)) or pixc(879,541,0xFFFFFF))
 				break
@@ -518,7 +523,8 @@ wstart(clc:=0)
 			res:=1
 		}
 		;服务器断开010101自动重连
-		pixc(955,704,0xD1D1D2,0,1)
+		if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
+			sclick(955,704)
 		;点击一下
 		if(clc)
 			sclick(1111,100)
