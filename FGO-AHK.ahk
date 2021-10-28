@@ -527,7 +527,7 @@ wstart(clc:=0)
 			sclick(955,704)
 		;点击一下
 		if(clc)
-			sclick(1111,100)
+			sclick(1111,66)
 	}
 }
 
@@ -540,7 +540,7 @@ ldres()
 	sleep 1000
 	loop
 	{
-		sclick(1111,100)
+		sclick(1111,66)
 		sleep 300
 		if(pixc(619,469,0xFF0000) && pixc(1019,472,0xFF0000))
 		{
@@ -665,7 +665,7 @@ xjbd(n:=0)
 			nn:=nn-1
 		}
 		;点击一下
-		sclick(1111,100)
+		sclick(1111,66)
 	}
 	;等待回到操作界面
 	loop
