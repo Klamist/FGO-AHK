@@ -48,7 +48,7 @@ $~[::
 loop,%cycle%
 {
 	;等待检测处于无限池界面
-	pixc(585,165,0x362E2E,1)
+	pixc(750,175,0x6192F1,1)
 	sleep 200
 	
 	;如果不能抽了，则停止
@@ -58,7 +58,7 @@ loop,%cycle%
 	;开始连抽，抽到光
 	loop
 	{
-		if(!pixc(585,165,0x362E2E))
+		if(!pixc(750,175,0x6192F1))
 			break
 		sclick(428,540)
 		sleep 70
@@ -68,7 +68,7 @@ loop,%cycle%
 		;服务器断开010101
 		pixc(900,720,0xD9DADB,0,1)
 		;抽光这池了
-		if(pixc(585,165,0x362E2E))
+		if(pixc(750,175,0x6192F1))
 			break
 		;爆仓了
 		if(pixc(1220,720,0xD9DADC))
