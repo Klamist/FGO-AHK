@@ -3,7 +3,7 @@ SendMode Input ; Recommended for new scripts due to its superior speed and relia
 SetMouseDelay,0
 
 /*
-目前适用于2021国服斯卡祭。
+目前适用于2021国服迦尔纳圣诞。
 
 功能：
 自动抽无限池、刷新，抽到爆仓或指定池数后停止。
@@ -12,7 +12,7 @@ SetMouseDelay,0
 在后文设置抽取的池数，设置模拟器偏量，进入无限池抽取界面，运行即可。
 
 注意：
-前10池最好别抽到没票，按整池抽，以防未抽完一池没票了但可以刷新。
+前10池最好别抽到没票，按整池抽，以防未抽完没票了但可以刷新。
 */
 
 cycle:= 2 ;自动抽取池数，想抽光就设置高一点，20池足以爆邮箱。
@@ -48,17 +48,17 @@ $~[::
 loop,%cycle%
 {
 	;等待检测处于无限池界面
-	pixc(1087,168,0x5FA9F9,1)
+	pixc(585,165,0x362E2E,1)
 	sleep 200
 	
 	;如果不能抽了，则停止
-	if(!pixc(409,554,0x0BB6F1))
+	if(!pixc(409,554,0x0AB6EF))
 		break
 	
 	;开始连抽，抽到光
 	loop
 	{
-		if(!pixc(1087,168,0x5FA9F9))
+		if(!pixc(585,165,0x362E2E))
 			break
 		sclick(428,540)
 		sleep 70
@@ -68,7 +68,7 @@ loop,%cycle%
 		;服务器断开010101
 		pixc(900,720,0xD9DADB,0,1)
 		;抽光这池了
-		if(pixc(1087,168,0x5FA9F9))
+		if(pixc(585,165,0x362E2E))
 			break
 		;爆仓了
 		if(pixc(1220,720,0xD9DADC))
