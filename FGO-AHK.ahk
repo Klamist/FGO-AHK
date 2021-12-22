@@ -37,9 +37,7 @@ global cpy:= 0 ;窗口y偏量
 ;——————战斗流程——————
 order()
 {
-
 ;战斗流程（为空则无限平砍）：
-{
 
 
 
@@ -47,7 +45,6 @@ order()
 
 
 
-}
 ;自定义结束。
 
 xjbd() ;补刀+结算。若最后需要补刀，可以省略，用这句就行。
@@ -129,14 +126,14 @@ loop
 		;服务器断开010101自动重连
 		if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
 			sclick(955,704)
-		if(pixc(1269,481,0xECEDF5) and !apok)
+		if(pixc(1269,481,0xECEDF5) && !apok)
 		{
 			sleep 200
 			gosub,eat
 			apok:=1
 			sleep 500
 		}
-		if((pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363)) or pixc(879,541,0xFFFFFF))
+		if((pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363)) || pixc(879,541,0xFFFFFF))
 			break
 	}
 	
@@ -202,6 +199,17 @@ pixc(x,y,kolor,pl:=0,lc:=0)
 		{
 			if(lc)
 				click,%x%,%y%
+			if(debug)
+			{
+				PixelGetColor,pix,x,y,RGB
+				;记录匹配到的颜色
+				if(dpix!=pix)
+				{
+					dpix:=pix
+					dpn:=Format("oooo,oooo,0x{3:06X}",dpix)
+					FileAppend,%dpn%`n,fgo-ahk.log
+				}
+			}
 			return 1
 		}
 		else if(debug)
@@ -211,7 +219,7 @@ pixc(x,y,kolor,pl:=0,lc:=0)
 			if(dpix!=pix)
 			{
 				dpix:=pix
-				dpn:=Format("----,----,0x{3:06X}",x-cpx,y-cpy,dpix)
+				dpn:=Format("----,----,0x{3:06X}",dpix)
 				FileAppend,%dpn%`n,fgo-ahk.log
 			}
 			sleep 450
@@ -236,7 +244,7 @@ sclick(x,y)
 ;按铜银金彩，依次尝试吃苹果
 eat:
 {
-	if(pixc(750,711,0xF5EDDC) and capple)
+	if(pixc(750,711,0xF5EDDC) && capple)
 	{
 		sclick(750,711)
 		pixc(950,706,0xD1D1D2,1)
@@ -245,7 +253,7 @@ eat:
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
 	}
-	else if(pixc(750,526,0xF5EDDC) and sapple)
+	else if(pixc(750,526,0xF5EDDC) && sapple)
 	{
 		sclick(750,526)
 		pixc(950,706,0xD1D1D2,1)
@@ -254,7 +262,7 @@ eat:
 		FileAppend,吃了银苹果`n,fgo-ahk.log
 		return
 	}
-	else if(pixc(750,342,0xF5EDDC) and gapple)
+	else if(pixc(750,342,0xF5EDDC) && gapple)
 	{
 		sclick(750,342)
 		pixc(950,706,0xD1D1D2,1)
@@ -263,7 +271,7 @@ eat:
 		FileAppend,吃了金苹果`n,fgo-ahk.log
 		return
 	}
-	else if(pixc(750,158,0xF5EDDC) and kstone)
+	else if(pixc(750,158,0xF5EDDC) && kstone)
 	{
 		sclick(750,158)
 		pixc(950,706,0xD1D1D2,1)
@@ -296,7 +304,7 @@ support:
 			if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
 				sclick(955,704)
 			
-			if((pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363)) or pixc(879,541,0xFFFFFF))
+			if((pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363)) || pixc(879,541,0xFFFFFF))
 				break
 			sleep 100
 		}
@@ -398,7 +406,7 @@ ncheck()
 					continue
 			}
 			;检测技能等级
-			if(tskill[1] or tskill[2] or tskill[3]) ;1020,489,0xEECC99
+			if(tskill[1] || tskill[2] || tskill[3]) ;1020,489,0xEECC99
 			{
 				if(tskill[1])
 				{
@@ -517,7 +525,7 @@ wstart(clc:=0)
 		if(pixc(153,69,0xE4B217) && pixc(1433,66,0x02B7F9))
 			return 0
 		;雷电模拟器防闪退专用
-		if(pixc(670,50,0x212121) && pixc(970,50,0x212121))
+		if(pixc(670,50,0x212121) && pixc(430,160,0xF4C51F))
 		{
 			ldres()
 			res:=1
@@ -600,7 +608,7 @@ loop
 	sclick(temp,394)
 	sleep 300
 	;指向位置
-	if(st and st<4)
+	if(st && st<4)
 	{
 		temp:=skt[st]
 		sclick(temp,600)
@@ -648,7 +656,7 @@ xjbd(n:=0)
 		if(pixc(153,69,0xE4B217) && pixc(1433,66,0x02B7F9))
 			return
 		;检测黑屏换面
-		if(pixc(500,834,0x000000) and n>0)
+		if(pixc(500,834,0x000000) && n>0)
 			break
 		;检测战斗界面是否又出现
 		if(pixc(1450,257,0x1A2333) && pixc(1514,251,0xD6EFF2))
@@ -659,7 +667,7 @@ xjbd(n:=0)
 				break
 		}
 		;雷电模拟器防闪退专用
-		if(pixc(670,50,0x212121) && pixc(970,50,0x212121))
+		if(pixc(670,50,0x212121) && pixc(430,160,0xF4C51F))
 		{
 			ldres()
 			nn:=nn-1
