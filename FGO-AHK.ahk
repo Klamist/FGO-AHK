@@ -64,7 +64,6 @@ $~\::Reload
 
 ; Ctrl + 0 键 禁用吃苹果
 $^0::
-;后几句别动
 capple:= 0
 sapple:= 0
 gapple:= 0
@@ -152,8 +151,8 @@ loop
 	;进入结算环节，连点直到出去。
 	loop
 	{
-		sleep 100
 		sclick(1300,780)
+		sleep 200
 		
 		;加好友提示已满点确认
 		pixc(870,704,0xD3D4D4,0,1)
