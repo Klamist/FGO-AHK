@@ -18,7 +18,7 @@ kstone:= 0 ;彩
 
 ;助战
 global passby:= 0 ;好友
-global supser:= 0 ;1斯2孔3呆4嫁5狐6凛7娜8梅
+global supser:= 0 ;1斯2孔3呆4自定义
 global tskill:= [ 0,0,0 ] ;技能
 global noblel:= 0 ;宝具
 global scraft:= 0 ;1茶2贝拉3秉4私人5宝石6杯
@@ -377,31 +377,7 @@ ncheck()
 			else if(supser=4)
 			{
 				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s4.png
-				if(!x) ;花嫁
-					continue
-			}
-			else if(supser=5)
-			{
-				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s5.png
-				if(!x) ;狐狸
-					continue
-			}
-			else if(supser=6)
-			{
-				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s6.png
-				if(!x) ;仇凛
-					continue
-			}
-			else if(supser=7)
-			{
-				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s7.png
-				if(!x) ;狂娜
-					continue
-			}
-			else if(supser=8)
-			{
-				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s8.png
-				if(!x) ;梅林
+				if(!x) ;自定义英灵，请将某人.png挪到H文件夹并改名s4.png
 					continue
 			}
 			;检测技能等级
