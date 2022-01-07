@@ -26,7 +26,7 @@ global obreak:= 0 ;满破
 
 ;附加功能
 global debug:= 0 ;调试
-global wucha:= 2 ;误差
+global wucha:= 3 ;误差
 
 ;模拟器
 global mnq:= 0 ;置顶0无1mumu2雷电
@@ -89,8 +89,8 @@ sleep 300
 gosub,checkmnq
 gosub,himg
 
-;如果在助战选择界面就直接选助战
-if(pixc(1560,817,0xD0D2D3))
+;如果在副本选择界面，点击第一位的副本
+if(pixc(1560,817,0xD1D2D3))
 	sclick(900,260)
 
 ;生成日志记录
@@ -125,14 +125,14 @@ loop
 		;服务器断开010101自动重连
 		if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
 			sclick(955,704)
-		if(pixc(1269,481,0xECEDF5) && !apok)
+		if(pixc(1269,480,0xEDEDF5) && !apok)
 		{
 			sleep 200
 			gosub,eat
 			apok:=1
 			sleep 500
 		}
-		if((pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363)) || pixc(879,541,0xFFFFFF))
+		if((pixc(1000,162,0x08B5F7) && pixc(1055,275,0x656565)) || pixc(878,541,0xFFFFFF))
 			break
 	}
 	
@@ -243,38 +243,38 @@ sclick(x,y)
 ;按铜银金彩，依次尝试吃苹果
 eat:
 {
-	if(pixc(750,711,0xF5EDDC) && capple)
+	if(pixc(750,711,0xF4ECDB) && capple)
 	{
 		sclick(750,711)
-		pixc(950,706,0xD1D1D2,1)
-		sleep 300
+		pixc(950,689,0xE5E5E5,1)
+		sleep 500
 		sclick(950,706)
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
 	}
-	else if(pixc(750,526,0xF5EDDC) && sapple)
+	else if(pixc(750,526,0xF4ECDB) && sapple)
 	{
 		sclick(750,526)
-		pixc(950,706,0xD1D1D2,1)
-		sleep 300
+		pixc(950,689,0xE5E5E5,1)
+		sleep 500
 		sclick(950,706)
 		FileAppend,吃了银苹果`n,fgo-ahk.log
 		return
 	}
-	else if(pixc(750,342,0xF5EDDC) && gapple)
+	else if(pixc(750,342,0xF4ECDB) && gapple)
 	{
 		sclick(750,342)
-		pixc(950,706,0xD1D1D2,1)
-		sleep 300
+		pixc(950,689,0xE5E5E5,1)
+		sleep 500
 		sclick(950,706)
 		FileAppend,吃了金苹果`n,fgo-ahk.log
 		return
 	}
-	else if(pixc(750,158,0xF5EDDC) && kstone)
+	else if(pixc(750,158,0xF4ECDB) && kstone)
 	{
 		sclick(750,158)
-		pixc(950,706,0xD1D1D2,1)
-		sleep 300
+		pixc(950,689,0xE5E5E5,1)
+		sleep 500
 		sclick(950,706)
 		FileAppend,吃了彩苹果`n,fgo-ahk.log
 		return
@@ -303,7 +303,7 @@ support:
 			if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
 				sclick(955,704)
 			
-			if((pixc(1000,180,0x05B2F4) && pixc(1055,275,0x636363)) || pixc(879,541,0xFFFFFF))
+			if((pixc(1000,162,0x08B5F7) && pixc(1055,275,0x656565)) || pixc(878,541,0xFFFFFF))
 				break
 			sleep 100
 		}
@@ -319,7 +319,7 @@ return
 ;助战列表自动翻页检测
 supcheck()
 {
-	if(pixc(879,541,0xFFFFFF))
+	if(pixc(878,541,0xFFFFFF))
 		return 0
 	if(ncheck())
 		return 1
@@ -349,8 +349,8 @@ ncheck()
 		;检测是否好友
 		if(passby)
 		{
-			PixelSearch, x,,1434+cpx,y-56,1434+cpx,y-56,0xDBF9A5,10,Fast RGB
-			if(!x) ;515, 1434,408,0xDBF9A5
+			PixelSearch, x,,1433+cpx,y-44,1433+cpx,y-44,0xBCEE72,20,Fast RGB
+			if(!x) ;515, 1433,471,0xBCEE72
 				continue
 		}
 		;匹配英灵
@@ -428,45 +428,45 @@ ncheck()
 			;礼装种类
 			if(scraft=1)
 			{
-				ImageSearch, x,, 220+cpx,y-38,260+cpx,y-8, *100 %A_WorkingDir%\H\c1.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *100 %A_WorkingDir%\H\c1.png
 				if(!x) ;下午茶
 					continue
 			}
 			else if(scraft=2)
 			{
-				ImageSearch, x,, 220+cpx,y-38,260+cpx,y-8, *100 %A_WorkingDir%\H\c2.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *100 %A_WorkingDir%\H\c2.png
 				if(!x) ;贝拉丽莎
 					continue
 			}
 			else if(scraft=3)
 			{
-				ImageSearch, x,, 220+cpx,y-38,260+cpx,y-8, *100 %A_WorkingDir%\H\c3.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *100 %A_WorkingDir%\H\c3.png
 				if(!x) ;秉持风雅
 					continue
 			}
 			else if(scraft=4)
 			{
-				ImageSearch, x,, 220+cpx,y-38,260+cpx,y-8, *100 %A_WorkingDir%\H\c4.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *100 %A_WorkingDir%\H\c4.png
 				if(!x) ;私人指导
 					continue
 			}
 			else if(scraft=5)
 			{
-				ImageSearch, x,, 190+cpx,y-40,230+cpx,y-10, *100 %A_WorkingDir%\H\c5.png
+				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *100 %A_WorkingDir%\H\c5.png
 				if(!x) ;万华镜
 					continue
 			}
 			else if(scraft=6)
 			{
-				ImageSearch, x,, 190+cpx,y-40,230+cpx,y-10, *100 %A_WorkingDir%\H\c6.png
+				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *100 %A_WorkingDir%\H\c6.png
 				if(!x) ;黑杯
 					continue
 			}
 			;是否满破
 			if(obreak && scraft>4)
 			{
-				PixelSearch, x,,240+cpx,y-18,240+cpx,y-18,0xFFFF75,22,Fast RGB
-				if(!x)	;满破星星 240,446,0xFEFE62
+				PixelSearch, x,,240+cpx,y-18,240+cpx,y-18,0xFDFD80,22,Fast RGB
+				if(!x)	;满破星星 240,446,0xFDFD8D
 					continue
 			}
 		}
@@ -486,7 +486,7 @@ wstart(clc:=0)
 	{
 		sleep 200
 		;如果在编队界面，点击进本
-		if(pixc(1460,812,0xF1F1F1))
+		if(pixc(1460,812,0xF0F0F0))
 			sclick(1460,812)
 		;检测出击按钮
 		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
@@ -500,7 +500,7 @@ wstart(clc:=0)
 		if(pixc(153,69,0xE4B217) && pixc(1433,66,0x02B7F9))
 			return 0
 		;雷电模拟器防闪退专用
-		if(pixc(670,50,0x212121) && pixc(430,160,0xF4C51F))
+		if(pixc(800,50,0x212121) && pixc(430,160,0xF4C51F) && mnq=2)
 		{
 			ldres()
 			res:=1
@@ -525,10 +525,10 @@ ldres()
 	{
 		sclick(1111,66)
 		sleep 300
-		if(pixc(619,469,0xFF0000) && pixc(1019,472,0xFF0000))
+		if(pixc(619,469,0xFF0000) && pixc(1019,469,0xFF0000))
 		{
 			sleep 300
-			sclick(1052,685)
+			sclick(1100,690)
 			break
 		}
 	}
@@ -642,7 +642,7 @@ xjbd(n:=0)
 				break
 		}
 		;雷电模拟器防闪退专用
-		if(pixc(670,50,0x212121) && pixc(430,160,0xF4C51F))
+		if(pixc(800,50,0x212121) && pixc(430,160,0xF4C51F) && mnq=2)
 		{
 			ldres()
 			nn:=nn-1
@@ -666,7 +666,7 @@ return
 attack()
 {
 	;指令卡间隔 320,319,322,325
-	ccoord:=[ 213,533,852,1174,1499 ]
+	ccoord:=[ 223,543,862,1184,1509 ]
 	sclick(1400,760)
 	sleep 500
 	
@@ -674,8 +674,8 @@ attack()
 	ci:=1
 	loop,5
 	{
-		xard:=ccoord[ci] ;1175,770,0xFA3F00
-		PixelSearch,x,,xard+cpx,719+cpy,xard+cpx,719+cpy,0xFA3F00,10,Fast RGB
+		xard:=ccoord[ci] ;862,720,0xBD4221
+		PixelSearch,x,,xard+cpx,720+cpy,xard+cpx,720+cpy,0xBD4221,10,Fast RGB
 		if(x)
 		{
 			sclick(xard,630)
