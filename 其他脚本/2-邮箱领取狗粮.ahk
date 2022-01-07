@@ -21,7 +21,7 @@ SetBatchLines, -1 ; Make AHK run as fast as possible
 ;可调参数：
 SN:= 3	;金狗粮堆叠保留值，最高可设5（低于此值才领取）
 
-;偏量设置
+;偏量（必须精确设置）
 global cpx:= 0
 global cpy:= 0
 ;mumu模拟器为0和36
@@ -32,7 +32,7 @@ global cpy:= 0
 
 
 ;像素容差
-global wucha:= 2
+global wucha:= 3
 
 ; Ctrl + \ 退出脚本
 $~^\::ExitApp
@@ -45,7 +45,7 @@ $~]::Pause
 
 ; [ 键启动
 $~[::
-pixc(1285,626,0x930000,1)
+pixc(1276,626,0x940101,1)
 tot:=0
 loop
 {
@@ -58,14 +58,14 @@ loop
 		sclick(1380,470)
 		loop
 		{
-			if(pixc(1285,626,0x930000) && pixc(1281,276,0x0AD89E))
+			if(pixc(1276,626,0x940101) && pixc(1281,276,0x0AD89E))
 				break
 			sleep 100
 		}
 		tot:=0
 	}
 	sleep 100
-	if(pixc(1172,843,0xFFFFE8))
+	if(pixc(1172,843,0xFEFEEE))
 		break
 }
 sclick(1380,470)

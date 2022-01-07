@@ -15,7 +15,7 @@ SetMouseDelay, 1
 	推荐开启智能筛选，按稀有度，升序排列。
 */
 
-;偏量设置
+;偏量（必须精确设置）
 global cpx:= 0
 global cpy:= 0
 ;mumu模拟器为0和36
@@ -26,7 +26,7 @@ global cpy:= 0
 
 
 ;像素容差
-global wucha:= 2
+global wucha:= 3
 
 ; Ctrl + \ 退出脚本
 $~^\::ExitApp
@@ -42,7 +42,7 @@ $~[::
 loop
 {
 	;检测处于喂礼装界面
-	pixc(745,872,0xECD917,1)
+	pixc(745,871,0xF7DF19,1)
 	sleep 50
 	sclick(650,294)
 	sleep 200
@@ -68,7 +68,7 @@ loop
 	sclick(1360,840)
 	
 	;确认喂
-	pixc(745,872,0xECD917,1)
+	pixc(745,871,0xF7DF19,1)
 	sleep 50
 	sclick(1360,840)
 	sleep 300
@@ -78,7 +78,7 @@ loop
 	;连点直到出去。
 	loop
 	{
-		if(pixc(745,872,0xECD917))
+		if(pixc(745,871,0xF7DF19))
 			break
 		sclick(800,564)
 		sleep 100
