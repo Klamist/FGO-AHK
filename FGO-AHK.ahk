@@ -22,11 +22,10 @@ global supser:= 0 ;1斯2孔3呆4自定义
 global tskill:= [ 0,0,0 ] ;技能
 global noblel:= 0 ;宝具
 global scraft:= 0 ;1茶2贝拉3秉4私人5宝石6杯
-global obreak:= 0 ;满破
 
 ;附加功能
 global debug:= 0 ;调试
-global wucha:= 3 ;误差
+global wucha:= 5 ;误差
 
 ;模拟器
 global mnq:= 0 ;置顶0无1mumu2雷电
@@ -90,7 +89,7 @@ gosub,checkmnq
 gosub,himg
 
 ;如果在副本选择界面，点击第一位的副本
-if(pixc(1560,817,0xD1D2D3))
+if(pixc(1560,817,0xD2D3D4))
 	sclick(900,260)
 
 ;生成日志记录
@@ -246,7 +245,7 @@ eat:
 	if(pixc(750,711,0xF4ECDB) && capple)
 	{
 		sclick(750,711)
-		pixc(950,689,0xE5E5E5,1)
+		pixc(950,689,0xE4E4E4,1)
 		sleep 500
 		sclick(950,706)
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
@@ -255,7 +254,7 @@ eat:
 	else if(pixc(750,526,0xF4ECDB) && sapple)
 	{
 		sclick(750,526)
-		pixc(950,689,0xE5E5E5,1)
+		pixc(950,689,0xE4E4E4,1)
 		sleep 500
 		sclick(950,706)
 		FileAppend,吃了银苹果`n,fgo-ahk.log
@@ -264,7 +263,7 @@ eat:
 	else if(pixc(750,342,0xF4ECDB) && gapple)
 	{
 		sclick(750,342)
-		pixc(950,689,0xE5E5E5,1)
+		pixc(950,689,0xE4E4E4,1)
 		sleep 500
 		sclick(950,706)
 		FileAppend,吃了金苹果`n,fgo-ahk.log
@@ -273,7 +272,7 @@ eat:
 	else if(pixc(750,158,0xF4ECDB) && kstone)
 	{
 		sclick(750,158)
-		pixc(950,689,0xE5E5E5,1)
+		pixc(950,689,0xE4E4E4,1)
 		sleep 500
 		sclick(950,706)
 		FileAppend,吃了彩苹果`n,fgo-ahk.log
@@ -422,10 +421,9 @@ ncheck()
 					continue
 			}
 		}
-		;礼装种类与满破情况
+		;查找礼装（只找满破的）
 		if(scraft)
 		{
-			;礼装种类
 			if(scraft=1)
 			{
 				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *100 %A_WorkingDir%\H\c1.png
@@ -462,13 +460,6 @@ ncheck()
 				if(!x) ;黑杯
 					continue
 			}
-			;是否满破
-			if(obreak && scraft>4)
-			{
-				PixelSearch, x,,240+cpx,y-18,240+cpx,y-18,0xFDFD80,22,Fast RGB
-				if(!x)	;满破星星 240,446,0xFDFD8D
-					continue
-			}
 		}
 		y:=y-30-cpy
 		sclick(1000,y)
@@ -497,7 +488,7 @@ wstart(clc:=0)
 				return 0
 		}
 		;检测战利品结算界面
-		if(pixc(153,69,0xE4B217) && pixc(1433,66,0x02B7F9))
+		if(pixc(151,62,0xF3CE33) && pixc(1433,66,0x02B7F9))
 			return 0
 		;雷电模拟器防闪退专用
 		if(pixc(800,50,0x212121) && pixc(430,160,0xF4C51F) && mnq=2)
@@ -628,7 +619,7 @@ xjbd(n:=0)
 	{
 		sleep 200
 		;检测战利品结算界面
-		if(pixc(153,69,0xE4B217) && pixc(1433,66,0x02B7F9))
+		if(pixc(151,62,0xF3CE33) && pixc(1433,66,0x02B7F9))
 			return
 		;检测黑屏换面
 		if(pixc(500,834,0x000000) && n>0)
