@@ -201,12 +201,8 @@ pixc(x,y,kolor,pl:=0,lc:=0)
 			{
 				PixelGetColor,pix,x,y,RGB
 				;记录匹配到的颜色
-				if(dpix!=pix)
-				{
-					dpix:=pix
-					dpn:=Format("oooo,oooo,0x{3:06X}",dpix)
-					FileAppend,%dpn%`n,fgo-ahk.log
-				}
+				dpn:=Format("oooo,oooo,0x{3:06X}",x,y,pix)
+				FileAppend,%dpn%`n,fgo-ahk.log
 			}
 			return 1
 		}
@@ -217,7 +213,7 @@ pixc(x,y,kolor,pl:=0,lc:=0)
 			if(dpix!=pix)
 			{
 				dpix:=pix
-				dpn:=Format("----,----,0x{3:06X}",dpix)
+				dpn:=Format("----,----,0x{3:06X}",x,y,dpix)
 				FileAppend,%dpn%`n,fgo-ahk.log
 			}
 			sleep 450
