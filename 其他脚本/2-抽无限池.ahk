@@ -15,9 +15,9 @@ SetMouseDelay,0
 前10池最好别抽到没票，按整池抽，以防未抽完没票了但可以刷新。
 */
 
-cycle:= 2 ;自动抽取池数，想抽光就设置高一点，20池足以爆邮箱。
+cycle:= 5 ;自动抽取池数，想抽光就设置高一点，20池足以爆邮箱。
 
-;偏量设置
+;偏量（必须精确设置）
 global cpx:= 0
 global cpy:= 0
 ;mumu模拟器为0和36
@@ -28,7 +28,7 @@ global cpy:= 0
 
 
 ;像素容差
-global wucha:= 2
+global wucha:= 5
 
 ;口口口口口口口口口口口口口口口口口口口
 ;不建议修改之后的代码，除非你感觉自己懂
@@ -48,17 +48,17 @@ $~[::
 loop,%cycle%
 {
 	;等待检测处于无限池界面
-	pixc(750,175,0x6192F1,1)
+	pixc(770,171,0x61A1FA,1)
 	sleep 200
 	
 	;如果不能抽了，则停止
-	if(!pixc(409,554,0x0AB6EF))
+	if(!pixc(409,554,0x0CB7F1))
 		break
 	
 	;开始连抽，抽到光
 	loop
 	{
-		if(!pixc(750,175,0x6192F1))
+		if(!pixc(770,171,0x61A1FA))
 			break
 		sclick(428,540)
 		sleep 70
@@ -68,7 +68,7 @@ loop,%cycle%
 		;服务器断开010101
 		pixc(900,720,0xD9DADB,0,1)
 		;抽光这池了
-		if(pixc(750,175,0x6192F1))
+		if(pixc(770,171,0x61A1FA))
 			break
 		;爆仓了
 		if(pixc(1220,720,0xD9DADC))
@@ -81,8 +81,8 @@ loop,%cycle%
 	;检测是否可以刷新下一池
 	if(pixc(1320,304,0x8DB0E2,0,1))
 	{
-		pixc(940,703,0xD2D3D3,1,1)
-		pixc(690,703,0xD2D2D3,1,1)
+		pixc(940,703,0xD3D4D4,1,1)
+		pixc(690,703,0xD4D4D5,1,1)
 		pixc(1037,315,0xFFFFFF,1)
 	}
 }

@@ -13,7 +13,7 @@ SetMouseDelay, 0
 每日首次免费请先自己抽掉。
 */
 
-;偏量设置
+;偏量（必须精确设置）
 global cpx:= 0
 global cpy:= 0
 ;mumu模拟器为0和36
@@ -24,7 +24,7 @@ global cpy:= 0
 
 
 ;像素容差
-global wucha:= 2
+global wucha:= 5
 
 ; Ctrl + \ 退出脚本
 $~^\::ExitApp

@@ -22,8 +22,8 @@ SetBatchLines, -1 ; Make AHK run as fast as possible
 SN:= 3	;金狗粮堆叠保留值，最高可设5（低于此值才领取）
 
 ;偏量（必须精确设置）
-global cpx:= 0
-global cpy:= 0
+global cpx:= 1
+global cpy:= 51
 ;mumu模拟器为0和36
 ;雷电模拟器为1和34（4K屏请用1和51）
 ;夜神模拟器为2和32
@@ -32,7 +32,7 @@ global cpy:= 0
 
 
 ;像素容差
-global wucha:= 3
+global wucha:= 5
 
 ; Ctrl + \ 退出脚本
 $~^\::ExitApp
@@ -49,15 +49,21 @@ pixc(1276,626,0x940101,1)
 tot:=0
 loop
 {
+	;寻找本页狗粮
 	gosub,selexp
 	sleep 100
+	;向上拖动
 	gosub,droll
+	
+	;选中超过95个时领取
 	if(tot>95)
 	{
 		sleep 300
+		;点击领取
 		sclick(1380,470)
 		loop
 		{
+			;等待恢复初始邮箱界面
 			if(pixc(1276,626,0x940101) && pixc(1281,276,0x0AD89E))
 				break
 			sleep 100
@@ -65,6 +71,8 @@ loop
 		tot:=0
 	}
 	sleep 100
+	
+	;翻完了后领取退出
 	if(pixc(1172,843,0xFEFEEE))
 		break
 }
