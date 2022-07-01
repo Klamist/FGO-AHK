@@ -549,7 +549,7 @@ loop
 		temp:=skt[st]
 		sclick(temp,560)
 	}
-	sleep 500
+	sleep 300
 	;等待回到操作界面
 	if(wstart(1)=0)
 		break
@@ -592,7 +592,7 @@ loop
 		sleep 300
 		sclick(800,784)
 	}
-	sleep 500
+	sleep 300
 	;等待回到操作界面
 	if(wstart(1)=0)
 		break
