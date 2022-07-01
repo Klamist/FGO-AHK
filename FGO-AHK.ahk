@@ -165,7 +165,7 @@ loop
 		if(pixc(1040,350,0xFFFFFF))
 		{
 			sleep 200
-			sclick(950,714)
+			pixc(920,706,0xD1D2D2,1,1)
 			break
 		}
 	}
@@ -197,14 +197,18 @@ pixc(x,y,kolor,pl:=0,lc:=0)
 		{
 			if(lc)
 			{
-				loop
+				click,%x%,%y%
+				if(pl)
 				{
-					PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
-					if(xtmp)
-						click,%x%,%y%
-					else
-						break
-					sleep 500
+					loop
+					{
+						sleep 500
+						PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
+						if(xtmp)
+							click,%x%,%y%
+						else
+							break
+					}
 				}
 			}
 			if(debug)
