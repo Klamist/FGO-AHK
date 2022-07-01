@@ -101,7 +101,17 @@ pixc(x,y,color,pl:=0,lc:=0)
 		if(xtmp)
 		{
 			if(lc)
-				click,%x%,%y%
+			{
+				loop
+				{
+					PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
+					if(xtmp)
+						click,%x%,%y%
+					else
+						break
+					sleep 500
+				}
+			}
 			return 1
 		}
 		if(!pl)

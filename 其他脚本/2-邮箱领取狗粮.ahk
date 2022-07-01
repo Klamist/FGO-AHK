@@ -22,8 +22,8 @@ SetBatchLines, -1 ; Make AHK run as fast as possible
 SN:= 3	;金狗粮堆叠保留值，最高可设5（低于此值才领取）
 
 ;偏量（必须精确设置）
-global cpx:= 1
-global cpy:= 51
+global cpx:= 0
+global cpy:= 0
 ;mumu模拟器为0和36
 ;雷电模拟器为1和34（4K屏请用1和51）
 ;夜神模拟器为2和32
@@ -225,7 +225,17 @@ pixc(x,y,color,pl:=0,lc:=0)
 		if(xtmp)
 		{
 			if(lc)
-				click,%x%,%y%
+			{
+				loop
+				{
+					PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
+					if(xtmp)
+						click,%x%,%y%
+					else
+						break
+					sleep 500
+				}
+			}
 			return 1
 		}
 		if(!pl)
