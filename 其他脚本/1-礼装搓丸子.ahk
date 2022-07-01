@@ -102,14 +102,18 @@ pixc(x,y,color,pl:=0,lc:=0)
 		{
 			if(lc)
 			{
-				loop
+				click,%x%,%y%
+				if(pl)
 				{
-					PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
-					if(xtmp)
-						click,%x%,%y%
-					else
-						break
-					sleep 500
+					loop
+					{
+						sleep 500
+						PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
+						if(xtmp)
+							click,%x%,%y%
+						else
+							break
+					}
 				}
 			}
 			return 1
