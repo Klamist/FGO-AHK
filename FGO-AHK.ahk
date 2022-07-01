@@ -89,7 +89,7 @@ gosub,checkmnq
 gosub,himg
 
 ;如果在副本选择界面，点击第一位的副本
-if(pixc(1560,817,0xD2D3D4))
+if(pixc(1560,817,0xD1D3D3))
 	sclick(900,260)
 
 ;生成日志记录
@@ -131,7 +131,7 @@ loop
 			apok:=1
 			sleep 500
 		}
-		if((pixc(1000,162,0x08B5F7) && pixc(1055,275,0x656565)) || pixc(878,541,0xFFFFFF))
+		if((pixc(1000,162,0x05B6F4) && pixc(1055,275,0x656565)) || pixc(878,541,0xFFFFFF))
 			break
 	}
 	
@@ -196,7 +196,17 @@ pixc(x,y,kolor,pl:=0,lc:=0)
 		if(xtmp)
 		{
 			if(lc)
-				click,%x%,%y%
+			{
+				loop
+				{
+					PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
+					if(xtmp)
+						click,%x%,%y%
+					else
+						break
+					sleep 500
+				}
+			}
 			if(debug)
 			{
 				PixelGetColor,pix,x,y,RGB
@@ -241,36 +251,28 @@ eat:
 	if(pixc(750,711,0xF4ECDB) && capple)
 	{
 		sclick(750,711)
-		pixc(950,689,0xE4E4E4,1)
-		sleep 500
-		sclick(950,706)
+		pixc(950,689,0xE5E5E5,1,1)
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
 	}
 	else if(pixc(750,526,0xF4ECDB) && sapple)
 	{
 		sclick(750,526)
-		pixc(950,689,0xE4E4E4,1)
-		sleep 500
-		sclick(950,706)
+		pixc(950,689,0xE5E5E5,1,1)
 		FileAppend,吃了银苹果`n,fgo-ahk.log
 		return
 	}
 	else if(pixc(750,342,0xF4ECDB) && gapple)
 	{
 		sclick(750,342)
-		pixc(950,689,0xE4E4E4,1)
-		sleep 500
-		sclick(950,706)
+		pixc(950,689,0xE5E5E5,1,1)
 		FileAppend,吃了金苹果`n,fgo-ahk.log
 		return
 	}
 	else if(pixc(750,158,0xF4ECDB) && kstone)
 	{
 		sclick(750,158)
-		pixc(950,689,0xE4E4E4,1)
-		sleep 500
-		sclick(950,706)
+		pixc(950,689,0xE5E5E5,1,1)
 		FileAppend,吃了彩苹果`n,fgo-ahk.log
 		return
 	}
@@ -298,7 +300,7 @@ support:
 			if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
 				sclick(955,704)
 			
-			if((pixc(1000,162,0x08B5F7) && pixc(1055,275,0x656565)) || pixc(878,541,0xFFFFFF))
+			if((pixc(1000,162,0x05B6F4) && pixc(1055,275,0x656565)) || pixc(878,541,0xFFFFFF))
 				break
 			sleep 100
 		}
