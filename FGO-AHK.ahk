@@ -464,7 +464,11 @@ ncheck()
 			}
 		}
 		y:=y-30-cpy
-		sclick(1000,y)
+		loop,5
+		{
+			sclick(1000,y)
+			sleep 600
+		}
 		return 1
 	}
 }
@@ -681,7 +685,7 @@ attack()
 		ci:=5
 		sclick(1450,630)
 	}
-	sleep 150
+	sleep 200
 	
 	;补选其他两张卡
 	cj:=1
@@ -695,7 +699,7 @@ attack()
 		}
 		cj:=cj+1
 	}
-	sleep 150
+	sleep 200
 	
 	ck:=cj+1
 	loop,5
@@ -708,7 +712,7 @@ attack()
 		}
 		ck:=ck+1
 	}
-	sleep 150
+	sleep 200
 	
 	sleep 2000
 }
@@ -732,21 +736,21 @@ loop
 		npc(n1)
 	else
 		sclick(480,630)
-	sleep 150
+	sleep 200
 	
 	;第二张选卡
 	if(n2)
 		npc(n2)
 	else
 		sclick(800,630)
-	sleep 150
+	sleep 200
 	
 	;第三张选卡
 	if(n3)
 		npc(n3)
 	else 
 		sclick(1120,630)
-	sleep 150
+	sleep 200
 	
 	sleep 5000
 	
