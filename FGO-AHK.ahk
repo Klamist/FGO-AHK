@@ -465,7 +465,7 @@ ncheck()
 		}
 		y:=y-30-cpy
 		sclick(1000,y)
-		if(cyclist>1)
+		if(cyclist)
 		{
 			loop,4
 			{
