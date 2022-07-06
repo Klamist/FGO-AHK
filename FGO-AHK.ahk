@@ -464,10 +464,10 @@ ncheck()
 			}
 		}
 		y:=y-30-cpy
-		loop,5
+		loop,2
 		{
-			sclick(1000,y)
 			sleep 600
+			sclick(1000,y)
 		}
 		return 1
 	}
