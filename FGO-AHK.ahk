@@ -92,7 +92,7 @@ gosub,himg
 FormatTime,now,A_Now,yyyy-MM-dd HH:mm:ss
 FileAppend,`n%now%`n%A_ScriptName%`n,fgo-ahk.log
 ;刷本次数记录
-cyclist:=0
+global cyclist:=0
 
 ;如果在副本选择界面，点击第一位的副本
 if(pixc(1560,817,0xD1D3D3))
@@ -464,10 +464,14 @@ ncheck()
 			}
 		}
 		y:=y-30-cpy
-		loop,2
+		sclick(1000,y)
+		if(cyclist>1)
 		{
-			sleep 600
-			sclick(1000,y)
+			loop,4
+			{
+				sleep 500
+				sclick(1000,y)
+			}
 		}
 		return 1
 	}
