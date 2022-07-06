@@ -9,6 +9,7 @@ FGO-AHK只是充满逻辑的连点器罢了<br>
 - [GitHub下载](https://github.com/Klamist/FGO-AHK/archive/refs/heads/master.zip)<br>
 ### 问题反馈&交流：
 QQ群：1076324554<br>
+或者github提issue<br>
 ## 自动循环刷本功能
 1. 补充体力：<br>可设置刷多少局，允许吃哪种苹果，需要时自动补充体力<br>
 2. 寻找助战：<br>支持筛选助战英灵，并检测礼装、技能、宝具等级<br>
