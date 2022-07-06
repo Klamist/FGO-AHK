@@ -36,8 +36,7 @@ global cpy:= 0 ;窗口y偏量
 ;——————战斗流程——————
 order()
 {
-;战斗流程（为空则无限平砍）：
-
+;自定义区域：
 
 
 
@@ -45,6 +44,7 @@ order()
 
 
 ;自定义结束。
+;不要修改自定义以外的部分！
 
 xjbd() ;补刀+结算。若最后需要补刀，可以省略，用这句就行。
 }
@@ -88,16 +88,15 @@ sleep 300
 gosub,checkmnq
 gosub,himg
 
-;如果在副本选择界面，点击第一位的副本
-if(pixc(1560,817,0xD1D3D3))
-	sclick(900,260)
-
 ;生成日志记录
 FormatTime,now,A_Now,yyyy-MM-dd HH:mm:ss
 FileAppend,`n%now%`n%A_ScriptName%`n,fgo-ahk.log
 ;刷本次数记录
 cyclist:=0
 
+;如果在副本选择界面，点击第一位的副本
+if(pixc(1560,817,0xD1D3D3))
+	sclick(900,260)
 
 ;连续出击主循环内容
 loop
@@ -195,14 +194,22 @@ pixc(x,y,kolor,pl:=0,lc:=0)
 		PixelSearch,xtmp,,x,y,x,y,kolor,wucha,Fast RGB
 		if(xtmp)
 		{
+			if(debug)
+			{
+				PixelGetColor,pix,x,y,RGB
+				;记录匹配到的颜色
+				dpn:=Format("oooo,oooo,0x{3:06X}",x,y,pix)
+				FileAppend,%dpn%`n,fgo-ahk.log
+			}
 			if(lc)
 			{
+				sleep 300
 				click,%x%,%y%
 				if(pl)
 				{
 					loop
 					{
-						sleep 500
+						sleep 700
 						PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
 						if(xtmp)
 							click,%x%,%y%
@@ -210,13 +217,6 @@ pixc(x,y,kolor,pl:=0,lc:=0)
 							break
 					}
 				}
-			}
-			if(debug)
-			{
-				PixelGetColor,pix,x,y,RGB
-				;记录匹配到的颜色
-				dpn:=Format("oooo,oooo,0x{3:06X}",x,y,pix)
-				FileAppend,%dpn%`n,fgo-ahk.log
 			}
 			return 1
 		}
@@ -230,7 +230,7 @@ pixc(x,y,kolor,pl:=0,lc:=0)
 				dpn:=Format("----,----,0x{3:06X}",x,y,dpix)
 				FileAppend,%dpn%`n,fgo-ahk.log
 			}
-			sleep 450
+			sleep 400
 		}
 		if(!pl)
 			return 0
