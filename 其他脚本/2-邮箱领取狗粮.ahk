@@ -226,12 +226,13 @@ pixc(x,y,color,pl:=0,lc:=0)
 		{
 			if(lc)
 			{
+				sleep 300
 				click,%x%,%y%
 				if(pl)
 				{
 					loop
 					{
-						sleep 500
+						sleep 700
 						PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
 						if(xtmp)
 							click,%x%,%y%
