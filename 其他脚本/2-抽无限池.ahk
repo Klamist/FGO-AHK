@@ -3,7 +3,7 @@ SendMode Input ; Recommended for new scripts due to its superior speed and relia
 SetMouseDelay,0
 
 /*
-目前适用于2021国服迦尔纳圣诞。
+目前适用于2022国服尼禄祭。
 
 功能：
 自动抽无限池、刷新，抽到爆仓或指定池数后停止。
