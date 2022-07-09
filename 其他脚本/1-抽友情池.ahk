@@ -76,7 +76,7 @@ return
 ;========可调用子程序========
 
 ;循环探测指定像素点颜色，pl是否循环，lc=识别到后是否单击这个像素
-pixc(x,y,color,pl:=0,lc:=0)
+pixc(x,y,kolor,pl:=0,lc:=0)
 {
 	;加入偏量
 	x:=x+cpx
@@ -84,7 +84,7 @@ pixc(x,y,color,pl:=0,lc:=0)
 	
 	loop
 	{
-		PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
+		PixelSearch,xtmp,,x,y,x,y,kolor,wucha,Fast RGB
 		if(xtmp)
 		{
 			if(lc)
@@ -96,7 +96,7 @@ pixc(x,y,color,pl:=0,lc:=0)
 					loop
 					{
 						sleep 700
-						PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
+						PixelSearch,xtmp,,x,y,x,y,kolor,wucha,Fast RGB
 						if(xtmp)
 							click,%x%,%y%
 						else
