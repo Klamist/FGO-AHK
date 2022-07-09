@@ -210,7 +210,7 @@ pixc(x,y,kolor,pl:=0,lc:=0)
 					loop
 					{
 						sleep 700
-						PixelSearch,xtmp,,x,y,x,y,color,wucha,Fast RGB
+						PixelSearch,xtmp,,x,y,x,y,kolor,wucha,Fast RGB
 						if(xtmp)
 							click,%x%,%y%
 						else
