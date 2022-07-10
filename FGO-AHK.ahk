@@ -669,7 +669,7 @@ attack()
 	;指令卡间隔 320,319,322,325
 	ccoord:=[ 223,543,862,1184,1509 ]
 	sclick(1400,760)
-	sleep 500
+	sleep 600
 	
 	;选1张红卡，如果没有就选最后一张 
 	ci:=1
@@ -706,7 +706,7 @@ attack()
 	sleep 200
 	
 	ck:=cj+1
-	loop,5
+	loop,4
 	{
 		if(ck!=ci)
 		{
@@ -718,6 +718,19 @@ attack()
 	}
 	sleep 200
 	
+	;防止没点到某张卡，再点一次
+	sleep 500
+	cr:=ck+1
+	loop,3
+	{
+		if(cr!=ci)
+		{
+			temp:=ccoord[cr]
+			sclick(temp,630)
+			break
+		}
+		cr:=cr+1
+	}
 	sleep 2000
 }
 return
@@ -731,9 +744,9 @@ loop
 {
 	;打开选卡界面
 	sclick(1400,760)
-	sleep 1800
+	sleep 2000
 	if(mnq=1)
-		sleep 800
+		sleep 500
 	
 	;第一张选卡
 	if(n1)
@@ -756,7 +769,9 @@ loop
 		sclick(1120,630)
 	sleep 200
 	
-	sleep 5000
+	;防止没点到某张卡，再点一次
+	sleep 500
+	sclick(1440,630)
 	
 	;等待回到操作界面
 	if(wstart(1)=0)
