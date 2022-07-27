@@ -161,10 +161,10 @@ loop
 			sclick(955,704)
 		
 		;连续出击判定
-		if(pixc(1040,350,0xFFFFFF))
+		if(pixc(1040,290,0xFFFFFF))
 		{
 			sleep 200
-			pixc(920,706,0xD1D2D2,1,1)
+			pixc(930,708,0xD1D1D2,1,1)
 			break
 		}
 	}
@@ -485,6 +485,9 @@ wstart(clc:=0)
 	res:=0 ;重启标记
 	loop
 	{
+		;点击一下
+		if(clc)
+			sclick(1111,66)
 		sleep 200
 		;如果在编队界面，点击进本
 		if(pixc(1460,812,0xF0F0F0))
@@ -509,9 +512,6 @@ wstart(clc:=0)
 		;服务器断开010101自动重连
 		if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
 			sclick(955,704)
-		;点击一下
-		if(clc)
-			sclick(1111,66)
 	}
 }
 
@@ -557,7 +557,7 @@ loop
 		temp:=skt[st]
 		sclick(temp,560)
 	}
-	sleep 300
+	sleep 100
 	;等待回到操作界面
 	if(wstart(1)=0)
 		break
@@ -600,7 +600,7 @@ loop
 		sleep 300
 		sclick(800,784)
 	}
-	sleep 300
+	sleep 100
 	;等待回到操作界面
 	if(wstart(1)=0)
 		break
@@ -669,7 +669,7 @@ attack()
 	;指令卡间隔 320,319,322,325
 	ccoord:=[ 213,533,852,1174,1499 ]
 	sclick(1400,760)
-	sleep 600
+	sleep 500
 	
 	;选1张红卡，如果没有就选最后一张 
 	ci:=1
@@ -744,9 +744,9 @@ loop
 {
 	;打开选卡界面
 	sclick(1400,760)
-	sleep 2000
+	sleep 700
 	if(mnq=1)
-		sleep 500
+		sleep 300
 	
 	;第一张选卡
 	if(n1)
