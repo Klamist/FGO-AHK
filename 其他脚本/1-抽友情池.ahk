@@ -55,7 +55,7 @@ loop
 	loop
 	{
 		sclick(950,844)
-		if(pixc(1034,680,0xF3F3F3))
+		if(pixc(1034,680,0xF5F5F5))
 		{
 			loop,5
 			{

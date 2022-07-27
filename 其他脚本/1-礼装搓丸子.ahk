@@ -42,13 +42,13 @@ $~[::
 loop
 {
 	;检测处于喂礼装界面
-	pixc(745,871,0xF7DF19,1)
+	pixc(745,870,0xF9E80C,1)
 	sleep 50
 	sclick(650,294)
 	sleep 200
 	
 	;选择礼装
-	pixc(40,300,0xFFEFDE,1)
+	pixc(35,292,0xF7DFD6,1)
 	sleep 200
 	tx:=175+cpx
 	ty:=314+cpy
@@ -60,7 +60,7 @@ loop
 	sleep 100
 	Click,up
 	sleep 300
-	if(pixc(1360,840,0x6B6C6C))
+	if(pixc(1360,838,0x6B6C6C))
 	{
 		Msgbox 喂光了！
 		Exit
@@ -68,17 +68,17 @@ loop
 	sclick(1360,840)
 	
 	;确认喂
-	pixc(745,871,0xF7DF19,1)
+	pixc(745,870,0xF9E80C,1)
 	sleep 50
 	sclick(1360,840)
-	sleep 300
+	sleep 500
 	sclick(1050,740)
 	sleep 500
 	
 	;连点直到出去。
 	loop
 	{
-		if(pixc(745,871,0xF7DF19))
+		if(pixc(745,870,0xF9E80C))
 			break
 		sclick(800,564)
 		sleep 100
