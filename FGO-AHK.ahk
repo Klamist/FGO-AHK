@@ -163,7 +163,6 @@ loop
 		;连续出击判定
 		if(pixc(1040,290,0xFFFFFF))
 		{
-			sleep 200
 			pixc(930,708,0xD1D1D2,1,1)
 			break
 		}
@@ -744,9 +743,9 @@ loop
 {
 	;打开选卡界面
 	sclick(1400,760)
-	sleep 700
+	sleep 800
 	if(mnq=1)
-		sleep 300
+		sleep 200
 	
 	;第一张选卡
 	if(n1)
