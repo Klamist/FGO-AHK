@@ -18,10 +18,10 @@ kstone:= 0 ;彩
 
 ;助战
 global passby:= 0 ;好友
-global supser:= 0 ;1斯2孔3呆4自定义
+global supser:= 0 ;1斯卡蒂2杀狐3术呆4自定义
 global tskill:= [ 0,0,0 ] ;技能
 global noblel:= 0 ;宝具
-global scraft:= 0 ;1茶2贝拉3秉4私人5宝石6杯
+global scraft:= 0 ;1午茶2贝拉3秉持4私人5宝石6黑杯
 
 ;附加功能
 global debug:= 0 ;调试
@@ -95,7 +95,7 @@ FileAppend,`n%now%`n%A_ScriptName%`n,fgo-ahk.log
 global cyclist:=0
 
 ;如果在副本选择界面，点击第一位的副本
-if(pixc(1560,817,0xD1D3D3))
+if(pixc(1560,817,0xD2D3D4))
 	sclick(900,260)
 
 ;连续出击主循环内容
@@ -123,14 +123,14 @@ loop
 		;服务器断开010101自动重连
 		if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
 			sclick(955,704)
-		if(pixc(1269,480,0xEDEDF5) && !apok)
+		if(pixc(1269,480,0xECEDF5) && !apok)
 		{
 			sleep 200
 			gosub,eat
 			apok:=1
 			sleep 500
 		}
-		if((pixc(1000,162,0x05B6F4) && pixc(1055,275,0x656565)) || pixc(878,541,0xFFFFFF))
+		if((pixc(1000,161,0x02B7F1) && pixc(1063,271,0x626262)) || pixc(878,541,0xFFFFFF))
 			break
 	}
 	
@@ -255,28 +255,28 @@ eat:
 	if(pixc(750,711,0xF4ECDB) && capple)
 	{
 		sclick(750,711)
-		pixc(950,689,0xE5E5E5,1,1)
+		pixc(950,700,0xD4D5D5,1,1)
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
 	}
 	else if(pixc(750,526,0xF4ECDB) && sapple)
 	{
 		sclick(750,526)
-		pixc(950,689,0xE5E5E5,1,1)
+		pixc(950,700,0xD4D5D5,1,1)
 		FileAppend,吃了银苹果`n,fgo-ahk.log
 		return
 	}
 	else if(pixc(750,342,0xF4ECDB) && gapple)
 	{
 		sclick(750,342)
-		pixc(950,689,0xE5E5E5,1,1)
+		pixc(950,700,0xD4D5D5,1,1)
 		FileAppend,吃了金苹果`n,fgo-ahk.log
 		return
 	}
 	else if(pixc(750,158,0xF4ECDB) && kstone)
 	{
 		sclick(750,158)
-		pixc(950,689,0xE5E5E5,1,1)
+		pixc(950,700,0xD4D5D5,1,1)
 		FileAppend,吃了彩苹果`n,fgo-ahk.log
 		return
 	}
@@ -295,7 +295,7 @@ support:
 	;如果没有，刷新再找
 	loop
 	{
-		sclick(1065,166)
+		sclick(1160,170)
 		sleep 700
 		sclick(1047,709)
 		loop
@@ -304,7 +304,7 @@ support:
 			if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
 				sclick(955,704)
 			
-			if((pixc(1000,162,0x05B6F4) && pixc(1055,275,0x656565)) || pixc(878,541,0xFFFFFF))
+			if((pixc(1000,161,0x02B7F1) && pixc(1063,271,0x626262)) || pixc(878,541,0xFFFFFF))
 				break
 			sleep 100
 		}
@@ -344,13 +344,13 @@ ncheck()
 	{
 		y:=y+200
 		;扫描从者栏位
-		ImageSearch, ,y,1027+cpx,y,1033+cpx,940, *50 %A_WorkingDir%\H\0.png
+		ImageSearch, ,y,1025+cpx,y,1035+cpx,940, *50 %A_WorkingDir%\H\0.png
 		if(!y)
 			return 0
 		;检测是否好友
 		if(passby)
 		{
-			PixelSearch, x,,1433+cpx,y-44,1433+cpx,y-44,0xBCEE72,20,Fast RGB
+			PixelSearch, x,,1434+cpx,y-55,1434+cpx,y-55,0xE0F9A6,20,Fast RGB
 			if(!x) ;515, 1433,471,0xBCEE72
 				continue
 		}
@@ -366,7 +366,7 @@ ncheck()
 			else if(supser=2)
 			{
 				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s2.png
-				if(!x) ;孔明
+				if(!x) ;杀狐
 					continue
 			}
 			else if(supser=3)
@@ -386,19 +386,19 @@ ncheck()
 			{
 				if(tskill[1])
 				{
-					PixelSearch, x,,1079+cpx,y-25,1079+cpx,y-25,0XFFFFFF,10,Fast RGB
+					PixelSearch, x,,1073+cpx,y-20,1073+cpx,y-20,0XFFFFFF,10,Fast RGB
 					if(!x)	;一技能 108,469,0xFFFFFF
 						continue
 				}
 				if(tskill[2])
 				{
-					PixelSearch, x,,1176+cpx,y-25,1176+cpx,y-25,0XFFFFFF,10,Fast RGB
+					PixelSearch, x,,1129+cpx,y-20,1129+cpx,y-20,0XFFFFFF,10,Fast RGB
 					if(!x)	;二技能 1176,469,0xFFFFFF
 						continue
 				}
 				if(tskill[3])
 				{
-					PixelSearch, x,,1273+cpx,y-25,1273+cpx,y-25,0XFFFFFF,10,Fast RGB
+					PixelSearch, x,,1185+cpx,y-20,1185+cpx,y-20,0XFFFFFF,10,Fast RGB
 					if(!x)	;三技能 1273,469,0XFFFFFF
 						continue
 				}
@@ -498,7 +498,7 @@ wstart(clc:=0)
 				return 0
 		}
 		;检测战利品结算界面
-		if(pixc(151,62,0xF3CE33) && pixc(1433,66,0x02B7F9))
+		if(pixc(151,62,0xEEC529) && pixc(1433,66,0x02B7F9))
 			return 0
 		;雷电模拟器防闪退专用
 		if(pixc(800,50,0x212121) && pixc(430,160,0xF4C51F) && mnq=2)
@@ -629,7 +629,7 @@ xjbd(n:=0)
 	{
 		sleep 200
 		;检测战利品结算界面
-		if(pixc(151,62,0xF3CE33) && pixc(1433,66,0x02B7F9))
+		if(pixc(151,62,0xEEC529) && pixc(1433,66,0x02B7F9))
 			return
 		;检测黑屏换面
 		if(pixc(500,834,0x000000) && n>0)
@@ -667,7 +667,7 @@ return
 attack()
 {
 	;指令卡间隔 320,319,322,325
-	ccoord:=[ 223,543,862,1184,1509 ]
+	ccoord:=[ 213,533,852,1174,1499 ]
 	sclick(1400,760)
 	sleep 600
 	
@@ -675,8 +675,8 @@ attack()
 	ci:=1
 	loop,5
 	{
-		xard:=ccoord[ci] ;862,720,0xBD4221
-		PixelSearch,x,,xard+cpx,720+cpy,xard+cpx,720+cpy,0xBD4221,10,Fast RGB
+		xard:=ccoord[ci] ;1174,720,0xFA3F00
+		PixelSearch,x,,xard+cpx,720+cpy,xard+cpx,720+cpy,0xFA3F00,10,Fast RGB
 		if(x)
 		{
 			sclick(xard,630)
