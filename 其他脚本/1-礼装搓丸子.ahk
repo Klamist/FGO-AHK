@@ -49,7 +49,7 @@ loop
 	
 	;选择礼装
 	pixc(35,292,0xF7DFD6,1)
-	sleep 200
+	sleep 400
 	tx:=175+cpx
 	ty:=314+cpy
 	Click,%tx%,%ty%,down
@@ -59,7 +59,7 @@ loop
 	MouseMove,%tx%,%ty%,10
 	sleep 100
 	Click,up
-	sleep 300
+	sleep 500
 	if(pixc(1360,838,0x6B6C6C))
 	{
 		Msgbox 喂光了！
