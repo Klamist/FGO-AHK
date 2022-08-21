@@ -18,7 +18,7 @@ kstone:= 0 ;彩
 
 ;助战
 global passby:= 0 ;好友
-global supser:= 0 ;1斯卡蒂2杀狐3术呆4自定义
+global supser:= 0 ;1奥伯龙2杀狐3术呆4自定义
 global tskill:= [ 0,0,0 ] ;技能
 global noblel:= 0 ;宝具
 global scraft:= 0 ;1午茶2贝拉3秉持4私人5宝石6黑杯
