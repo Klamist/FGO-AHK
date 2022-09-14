@@ -76,12 +76,14 @@ loop
 	sleep 500
 	
 	;连点直到出去。
+	lt:=0
 	loop
 	{
-		if(pixc(745,870,0xF9E80C))
+		if(pixc(745,870,0xF9E80C) && lt>10)
 			break
 		sclick(800,564)
 		sleep 100
+		lt:=lt+1
 	}
 }
 return
