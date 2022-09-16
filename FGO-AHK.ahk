@@ -525,7 +525,7 @@ ldres()
 	{
 		sclick(1111,66)
 		sleep 300
-		if(pixc(619,469,0xFF0000) && pixc(1019,469,0xFF0000))
+		if(pixc(1067,470,0xFF0000) && pixc(1073,680,0x000000))
 		{
 			sleep 300
 			sclick(1100,690)
