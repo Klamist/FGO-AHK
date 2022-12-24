@@ -29,8 +29,8 @@ global wucha:= 5 ;误差
 
 ;模拟器
 global mnq:= 0 ;置顶0无1mumu2雷电
-global cpx:= 0 ;窗口x偏量
-global cpy:= 0 ;窗口y偏量
+global cpx:= 1 ;窗口x偏量
+global cpy:= 51 ;窗口y偏量
 
 
 ;——————战斗流程——————
@@ -71,6 +71,17 @@ return
 
 ; ] 键暂停(从当前操作暂停，再按一次从暂停处继续)
 $~]::Pause
+
+; Alt+T键测试
+$!t::
+{
+	target(4)
+	sleep 1000
+	target(2)
+	sleep 1000
+	target(6)
+}
+return
 
 ; [ 键启动(开始循环刷本)
 $~[::
@@ -611,11 +622,11 @@ return
 ;切换目标
 target(n)
 {
-	enemy:=[ 170,430,680 ]
+	enemy:=[ 170,430,680, 170,430,680 ]
 	temp:=enemy[n]
 	if(n<4)
 		sclick(temp,50)
-	else
+	if(n>3)
 		sclick(temp,160)
 	sleep 300
 }
