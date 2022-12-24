@@ -143,7 +143,7 @@ loop
 	FileAppend,%cyclist%/%cycle% %now%`n,fgo-ahk.log
 	
 	;按照设定好的刷本流程执行
-	wstart()
+	wstart(1)
 	order()
 	
 	;进入结算环节，连点直到出去。
@@ -611,9 +611,12 @@ return
 ;切换目标
 target(n)
 {
-	enemy:=[ 60,370,680 ]
+	enemy:=[ 170,430,680 ]
 	temp:=enemy[n]
-	sclick(temp,50)
+	if(n<4)
+		sclick(temp,50)
+	else
+		sclick(temp,160)
 	sleep 300
 }
 return
@@ -634,7 +637,7 @@ xjbd(n:=0)
 		if(pixc(500,834,0x000000) && n>0)
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1450,257,0x1A2333) && pixc(1514,251,0xD6EFF2))
+		if(pixc(1450,257,0x1A2333) && pixc(1513,259,0xEEFFFF))
 		{
 			nn:=nn+1
 			attack()
@@ -669,7 +672,7 @@ attack()
 	ccoord:=[ 213,533,852,1174,1499 ]
 	sclick(1400,760)
 	sleep 500
-	if(pixc(1450,257,0x1A2333) && pixc(1514,251,0xD6EFF2))
+	if(pixc(1450,257,0x1A2333) && pixc(1513,259,0xEEFFFF))
 	{
 		sclick(1400,760)
 		sleep 500
