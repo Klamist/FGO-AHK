@@ -29,8 +29,8 @@ global wucha:= 5 ;误差
 
 ;模拟器
 global mnq:= 0 ;置顶0无1mumu2雷电
-global cpx:= 1 ;窗口x偏量
-global cpy:= 51 ;窗口y偏量
+global cpx:= 0 ;窗口x偏量
+global cpy:= 0 ;窗口y偏量
 
 
 ;——————战斗流程——————
@@ -75,11 +75,11 @@ $~]::Pause
 ; Alt+T键测试
 $!t::
 {
+global cpx:= 1 ;窗口x偏量
+global cpy:= 51 ;窗口y偏量
 	target(4)
 	sleep 1000
 	target(2)
-	sleep 1000
-	target(6)
 }
 return
 
