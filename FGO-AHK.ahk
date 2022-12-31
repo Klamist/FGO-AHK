@@ -12,6 +12,7 @@ overap:= 1 ;是否清完剩余AP
 
 ;允许吃苹果
 capple:= 0 ;铜
+qapple:= 0 ;青
 sapple:= 0 ;银
 gapple:= 0 ;金
 kstone:= 0 ;彩
@@ -72,14 +73,12 @@ return
 ; ] 键暂停(从当前操作暂停，再按一次从暂停处继续)
 $~]::Pause
 
-; Alt+T键测试
+; Alt+T键测试（不懂的请勿使用）
 $!t::
 {
 global cpx:= 1 ;窗口x偏量
 global cpy:= 51 ;窗口y偏量
-	target(4)
-	sleep 1000
-	target(2)
+
 }
 return
 
@@ -131,10 +130,7 @@ loop
 	loop
 	{
 		sleep 100
-		;服务器断开010101自动重连
-		if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
-			sclick(955,704)
-		if(pixc(1269,480,0xECEDF5) && !apok)
+		if(pixc(1269,479,0xEFF7F7) && !apok)
 		{
 			sleep 200
 			gosub,eat
@@ -166,10 +162,6 @@ loop
 		;加好友提示已满点确认
 		pixc(870,704,0xD3D4D4,0,1)
 		pixc(303,767,0xD4D4D4,0,1)
-		
-		;服务器断开010101自动重连
-		if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
-			sclick(955,704)
 		
 		;连续出击判定
 		if(pixc(1040,290,0xFFFFFF))
@@ -259,37 +251,54 @@ sclick(x,y)
 
 ;================================================================================================
 
-;按铜银金彩，依次尝试吃苹果
+;按青铜银金彩，依次尝试吃苹果
 eat:
 {
-	if(pixc(750,711,0xF4ECDB) && capple)
+	;往下翻页
+	sclick(1270,630)
+	sleep 300
+	;铜青银顺序检测
+	if(pixc(750,570,0xF5EDDC) && capple)
 	{
-		sclick(750,711)
+		sclick(750,570)
 		pixc(950,700,0xD4D5D5,1,1)
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
 	}
-	else if(pixc(750,526,0xF4ECDB) && sapple)
+	if(pixc(750,380,0xF5EDDC) && qapple)
 	{
-		sclick(750,526)
+		sclick(750,380)
+		pixc(950,700,0xD4D5D5,1,1)
+		FileAppend,吃了青苹果`n,fgo-ahk.log
+		return
+	}
+	if(pixc(750,200,0xF5EDDC) && sapple)
+	{
+		sclick(750,200)
 		pixc(950,700,0xD4D5D5,1,1)
 		FileAppend,吃了银苹果`n,fgo-ahk.log
 		return
 	}
-	else if(pixc(750,342,0xF4ECDB) && gapple)
+	
+	;往上翻页
+	sclick(1270,220)
+	sleep 300
+	;金彩顺序检测
+	if(pixc(750,350,0xF5EDDC) && gapple)
 	{
-		sclick(750,342)
+		sclick(750,350)
 		pixc(950,700,0xD4D5D5,1,1)
 		FileAppend,吃了金苹果`n,fgo-ahk.log
 		return
 	}
-	else if(pixc(750,158,0xF4ECDB) && kstone)
+	if(pixc(750,170,0xF5EDDC) && kstone)
 	{
-		sclick(750,158)
+		sclick(750,170)
 		pixc(950,700,0xD4D5D5,1,1)
 		FileAppend,吃了彩苹果`n,fgo-ahk.log
 		return
 	}
+	
 	MsgBox 你没AP了！
 	Exit
 }
@@ -310,10 +319,6 @@ support:
 		sclick(1047,709)
 		loop
 		{
-			;服务器断开010101自动重连
-			if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
-				sclick(955,704)
-			
 			if((pixc(1000,161,0x02B7F1) && pixc(1063,271,0x626262)) || pixc(878,541,0xFFFFFF))
 				break
 			sleep 100
@@ -370,7 +375,7 @@ ncheck()
 			if(supser=1)
 			{
 				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s1.png
-				if(!x) ;CBA
+				if(!x) ;奥伯龙
 					continue
 			}
 			else if(supser=2)
@@ -519,9 +524,6 @@ wstart(clc:=0)
 			ldres()
 			res:=1
 		}
-		;服务器断开010101自动重连
-		if(pixc(955,704,0xD1D1D2) && pixc(1204,500,0xFFFFFF))
-			sclick(955,704)
 	}
 }
 
@@ -648,7 +650,7 @@ xjbd(n:=0)
 		if(pixc(500,834,0x000000) && n>0)
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1450,257,0x1A2333) && pixc(1513,259,0xEEFFFF))
+		if(pixc(1450,257,0x1A2333) && pixc(1513,255,0xEDFFFF))
 		{
 			nn:=nn+1
 			attack()
@@ -683,7 +685,7 @@ attack()
 	ccoord:=[ 213,533,852,1174,1499 ]
 	sclick(1400,760)
 	sleep 500
-	if(pixc(1450,257,0x1A2333) && pixc(1513,259,0xEEFFFF))
+	if(pixc(1450,257,0x1A2333) && pixc(1513,255,0xEDFFFF))
 	{
 		sclick(1400,760)
 		sleep 500
