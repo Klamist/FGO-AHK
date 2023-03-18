@@ -65,6 +65,7 @@ $~\::Reload
 ; Ctrl + 0 键 禁用吃苹果
 $^0::
 capple:= 0
+qapple:= 0
 sapple:= 0
 gapple:= 0
 kstone:= 0
@@ -556,7 +557,10 @@ ssk(si,st:=0)
 loop
 {
 	if(si>9 || si<0)
+	{
 		MsgBox 从者技能参数异常,请检查ssk(%si%...)
+		Exit
+	}
 	skc:=[ 80,200,320, 480,600,720, 880,1000,1120 ]
 	skt:=[ 400,800,1200 ]
 	;技能位置
@@ -584,7 +588,10 @@ msk(sk,st:=0,sm:=0,sn:=0)
 loop
 {
 	if(sk>4 || sk<0)
+	{
 		MsgBox 御主技能参数异常,请检查msk(%sk%...)
+		Exit
+	}
 	skc:=[ 1130,1240,1350 ]
 	skt:=[ 400,800,1200 ]
 	change:=[ 170,420,670, 920,1170,1420 ]
@@ -603,13 +610,13 @@ loop
 	}
 	else if(st=4)
 	{
-		sleep 200
+		sleep 300
 		temp:=change[sm]
 		sclick(temp,464)
-		sleep 300
+		sleep 400
 		temp:=change[sn]
 		sclick(temp,464)
-		sleep 300
+		sleep 400
 		sclick(800,784)
 	}
 	sleep 100
@@ -684,7 +691,7 @@ attack()
 	;指令卡间隔 320,319,322,325
 	ccoord:=[ 213,533,852,1174,1499 ]
 	sclick(1400,760)
-	sleep 500
+	sleep 600
 	if(pixc(1450,257,0x1A2333) && pixc(1513,255,0xEDFFFF))
 	{
 		sclick(1400,760)
