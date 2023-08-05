@@ -39,7 +39,7 @@ $~]::Pause
 $~[::
 
 ;检测处于友情池界面
-pixc(840,40,0xE0FD9E,1)
+pixc(979,39,0xE5FFA3,1)
 sleep 50
 sclick(1030,694)
 sleep 300
@@ -59,11 +59,11 @@ loop
 		{
 			loop,5
 			{
-				sleep 100
+				sleep 200
 				sclick(950,700)
 			}
 		}
-		if(pixc(565,594,0xCFD0D0))
+		if(pixc(564,594,0xD2D2D2))
 		{
 			msgbox 抽爆了
 			exit
