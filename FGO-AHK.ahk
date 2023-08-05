@@ -131,7 +131,7 @@ loop
 	loop
 	{
 		sleep 100
-		if(pixc(1269,479,0xEFF7F7) && !apok)
+		if(pixc(1269,479,0xF2F6F6) && !apok)
 		{
 			sleep 200
 			gosub,eat
@@ -262,21 +262,21 @@ eat:
 	if(pixc(750,570,0xF5EDDC) && capple)
 	{
 		sclick(750,570)
-		pixc(950,700,0xD4D5D5,1,1)
+		pixc(950,726,0xD4D5D5,1,1)
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
 	}
 	if(pixc(750,380,0xF5EDDC) && qapple)
 	{
 		sclick(750,380)
-		pixc(950,700,0xD4D5D5,1,1)
+		pixc(950,726,0xD4D5D5,1,1)
 		FileAppend,吃了青苹果`n,fgo-ahk.log
 		return
 	}
 	if(pixc(750,200,0xF5EDDC) && sapple)
 	{
 		sclick(750,200)
-		pixc(950,700,0xD4D5D5,1,1)
+		pixc(950,726,0xD4D5D5,1,1)
 		FileAppend,吃了银苹果`n,fgo-ahk.log
 		return
 	}
@@ -509,7 +509,7 @@ wstart(clc:=0)
 		if(pixc(1460,812,0xF0F0F0))
 			sclick(1460,812)
 		;检测出击按钮
-		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2333))
+		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1B2333))
 		{
 			if(res)
 				return 1
@@ -517,37 +517,11 @@ wstart(clc:=0)
 				return 0
 		}
 		;检测战利品结算界面
-		if(pixc(151,62,0xEEC529) && pixc(1433,66,0x02B7F9))
+		if(pixc(151,62,0xEFC629) && pixc(1433,66,0x02B7F9))
 			return 0
-		;雷电模拟器防闪退专用
-		if(pixc(800,50,0x212121) && pixc(430,160,0xF4C51F) && mnq=2)
-		{
-			ldres()
-			res:=1
-		}
 	}
 }
 
-;雷电模拟器闪退后重启
-ldres()
-{
-	sleep 500
-	ImageSearch, x,y,130,110,1440,450, *50 %A_WorkingDir%\H\fgo.png
-	click,%x%,%y%
-	sleep 1000
-	loop
-	{
-		sclick(1111,66)
-		sleep 300
-		if(pixc(1067,470,0xFF0000) && pixc(1073,680,0x000000))
-		{
-			sleep 300
-			sclick(1100,690)
-			break
-		}
-	}
-}
-return
 
 ;================================================================================================
 
@@ -651,24 +625,18 @@ xjbd(n:=0)
 	{
 		sleep 200
 		;检测战利品结算界面
-		if(pixc(151,62,0xEEC529) && pixc(1433,66,0x02B7F9))
+		if(pixc(151,62,0xEFC629) && pixc(1433,66,0x02B7F9))
 			return
 		;检测黑屏换面
 		if(pixc(500,834,0x000000) && n>0)
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1450,257,0x1A2333) && pixc(1513,255,0xEDFFFF))
+		if(pixc(1450,257,0x1B2333) && pixc(1513,255,0xEEFFFF))
 		{
 			nn:=nn+1
 			attack()
 			if(nn=n)
 				break
-		}
-		;雷电模拟器防闪退专用
-		if(pixc(800,50,0x212121) && pixc(430,160,0xF4C51F) && mnq=2)
-		{
-			ldres()
-			nn:=nn-1
 		}
 		;点击一下
 		sclick(1111,66)
@@ -692,7 +660,7 @@ attack()
 	ccoord:=[ 213,533,852,1174,1499 ]
 	sclick(1400,760)
 	sleep 600
-	if(pixc(1450,257,0x1A2333) && pixc(1513,255,0xEDFFFF))
+	if(pixc(1450,257,0x1B2333) && pixc(1513,255,0xEEFFFF))
 	{
 		sclick(1400,760)
 		sleep 500
