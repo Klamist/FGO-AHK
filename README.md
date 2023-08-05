@@ -6,7 +6,7 @@ AHK宏编写的FGO自动脚本，简单易用难封号<br>
 FGO-AHK只是充满逻辑的连点器罢了<br>
 ### 下载方法：
 - [蓝奏云(密码ahk)](https://wwa.lanzoui.com/b0a45c0yb)<br>
-- [GitHub下载](https://github.com/Klamist/FGO-AHK/archive/refs/heads/master.zip)<br>
+- [GitHub下载](https://github.com/Klamist/FGO-AHK/archive/refs/heads/master.zip) 其实就是源码zip包<br>
 ### 问题反馈&交流：
 QQ群：1076324554<br>
 或者github提issue<br>
