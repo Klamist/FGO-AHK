@@ -29,7 +29,7 @@ global debug:= 0 ;调试
 global wucha:= 5 ;误差
 
 ;模拟器
-global mnq:= 0 ;置顶0无1mumu2雷电
+global mnq:= 0 ;自动置顶窗口，0无1mumu2雷电
 global cpx:= 0 ;窗口x偏量
 global cpy:= 0 ;窗口y偏量
 
@@ -77,8 +77,6 @@ $~]::Pause
 ; Alt+T键测试（不懂的请勿使用）
 $!t::
 {
-global cpx:= 1 ;窗口x偏量
-global cpy:= 51 ;窗口y偏量
 
 }
 return
@@ -93,7 +91,7 @@ $~[::
 ;口口口口口口口口口口口口口口口口
 
 
-;确认mumu窗口
+;确认模拟器窗口
 mup()
 sleep 300
 gosub,checkmnq
@@ -794,7 +792,7 @@ checkmnq:
 	{
 		if(!WinActive("ahk_exe NemuPlayer.exe"))
 		{
-			msgbox 未发现mumu窗口
+			msgbox 未发现mumu窗口，若不需要自动置顶窗口请将mnq:=0
 			exit
 		}
 	}
@@ -802,7 +800,7 @@ checkmnq:
 	{
 		if(!WinActive("ahk_exe dnplayer.exe"))
 		{
-			msgbox 未发现雷电窗口
+			msgbox 未发现雷电窗口，若不需要自动置顶窗口请将mnq:=0
 			exit
 		}
 	}
