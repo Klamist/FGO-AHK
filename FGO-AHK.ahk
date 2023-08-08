@@ -115,6 +115,7 @@ loop
 	{
 		;次数达标后禁用吃苹果
 		capple:= 0
+		qapple:= 0
 		sapple:= 0
 		gapple:= 0
 		kstone:= 0
