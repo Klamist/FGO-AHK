@@ -18,10 +18,10 @@ gapple:= 0 ;金
 kstone:= 0 ;彩
 
 ;助战
-global passby:= 0 ;好友
+global passby:= 0 ;必须好友
 global supser:= 0 ;1奥伯龙2杀狐3术呆4自定义
-global tskill:= [ 0,0,0 ] ;技能
-global noblel:= 0 ;宝具
+global tskill:= [ 0,0,0 ] ;必须满级某技能
+global noblel:= 0 ;最低宝具等级
 global scraft:= 0 ;1午茶2贝拉3秉持4私人5宝石6黑杯
 
 ;附加功能
@@ -166,7 +166,7 @@ loop
 		;连续出击判定
 		if(pixc(1040,290,0xFFFFFF))
 		{
-			pixc(930,708,0xD1D1D2,1,1)
+			pixc(930,708,0xD3D3D3,1,1)
 			break
 		}
 	}
@@ -791,7 +791,7 @@ checkmnq:
 {
 	if(mnq=1)
 	{
-		if(!WinActive("ahk_exe NemuPlayer.exe"))
+		if(!WinActive("ahk_exe NemuPlayer.exe") and !WinActive("ahk_exe MuMuPlayer.exe"))
 		{
 			msgbox 未发现mumu窗口，若不需要自动置顶窗口请将mnq:=0
 			exit
@@ -826,6 +826,8 @@ mup()
 	{
 		if(!WinActive("ahk_exe NemuPlayer.exe"))
 		WinActivate, ahk_class Qt5QWindowIcon
+		else if(!WinActive("ahk_exe MuMuPlayer.exe"))
+		WinActivate, ahk_class Qt5156QWindowIcon
 	}
 	else if(mnq=2)
 	{
