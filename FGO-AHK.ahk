@@ -137,7 +137,7 @@ loop
 			apok:=1
 			sleep 500
 		}
-		if((pixc(1000,161,0x02B7F1) && pixc(1063,271,0x626262)) || pixc(878,541,0xFFFFFF))
+		if((pixc(1000,161,0x05BAFC) && pixc(1063,271,0x626262)) || pixc(878,541,0xFFFFFF))
 			break
 	}
 	
@@ -164,7 +164,7 @@ loop
 		pixc(303,767,0xD4D4D4,0,1)
 		
 		;连续出击判定
-		if(pixc(1040,290,0xFFFFFF))
+		if(pixc(1040,290,0xFFFFFF) && pixc(881,327,0xFFFFFF))
 		{
 			pixc(930,708,0xD3D3D3,1,1)
 			break
@@ -319,7 +319,7 @@ support:
 		sclick(1047,709)
 		loop
 		{
-			if((pixc(1000,161,0x02B7F1) && pixc(1063,271,0x626262)) || pixc(878,541,0xFFFFFF))
+			if((pixc(1000,161,0x05BAFC) && pixc(1063,271,0x626262)) || pixc(878,541,0xFFFFFF))
 				break
 			sleep 100
 		}
@@ -362,12 +362,22 @@ ncheck()
 		ImageSearch, ,y,1025+cpx,y,1035+cpx,940, *50 %A_WorkingDir%\H\0.png
 		if(!y)
 			return 0
+		if(debug)
+		{
+			dpn:=Format("栏位ok，{1:d}",y)
+			FileAppend,%dpn%`n,fgo-ahk.log
+		}
 		;检测是否好友
 		if(passby)
 		{
 			PixelSearch, x,,1434+cpx,y-55,1434+cpx,y-55,0xE0F9A6,20,Fast RGB
 			if(!x) ;515, 1433,471,0xBCEE72
 				continue
+		}
+		if(debug)
+		{
+			dpn:=Format("好友ok，{1:d}",y)
+			FileAppend,%dpn%`n,fgo-ahk.log
 		}
 		;匹配英灵
 		if(supser)
@@ -396,27 +406,37 @@ ncheck()
 				if(!x) ;自定义英灵，请将某人.png挪到H文件夹并改名s4.png
 					continue
 			}
+			if(debug)
+			{
+				dpn:=Format("英灵ok，{1:d}",y)
+				FileAppend,%dpn%`n,fgo-ahk.log
+			}
 			;检测技能等级
 			if(tskill[1] || tskill[2] || tskill[3]) ;1020,489,0xEECC99
 			{
 				if(tskill[1])
 				{
-					PixelSearch, x,,1073+cpx,y-20,1073+cpx,y-20,0XFFFFFF,10,Fast RGB
-					if(!x)	;一技能 108,469,0xFFFFFF
+					PixelSearch, x,,1064+cpx,y-20,1064+cpx,y-20,0XFFFFFF,10,Fast RGB
+					if(!x)	;一技能 1064,444,0xFFFFFF
 						continue
 				}
 				if(tskill[2])
 				{
-					PixelSearch, x,,1129+cpx,y-20,1129+cpx,y-20,0XFFFFFF,10,Fast RGB
-					if(!x)	;二技能 1176,469,0xFFFFFF
+					PixelSearch, x,,1121+cpx,y-20,1121+cpx,y-20,0XFFFFFF,10,Fast RGB
+					if(!x)	;二技能 1121,444,0xFFFFFF
 						continue
 				}
 				if(tskill[3])
 				{
-					PixelSearch, x,,1185+cpx,y-20,1185+cpx,y-20,0XFFFFFF,10,Fast RGB
-					if(!x)	;三技能 1273,469,0XFFFFFF
+					PixelSearch, x,,1177+cpx,y-20,1177+cpx,y-20,0XFFFFFF,10,Fast RGB
+					if(!x)	;三技能 1177,444,0xFFFFFF
 						continue
 				}
+			}
+			if(debug)
+			{
+				dpn:=Format("技能ok，{1:d}",y)
+				FileAppend,%dpn%`n,fgo-ahk.log
 			}
 			;检测宝具等级
 			if(noblel && passby)
@@ -436,6 +456,11 @@ ncheck()
 				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_WorkingDir%\H\n5.png
 				if(x && noblel>5)
 					continue
+			}
+			if(debug)
+			{
+				dpn:=Format("宝具ok，{1:d}",y)
+				FileAppend,%dpn%`n,fgo-ahk.log
 			}
 		}
 		;查找礼装（只找满破的）
@@ -478,6 +503,11 @@ ncheck()
 					continue
 			}
 		}
+		if(debug)
+		{
+			dpn:=Format("礼装ok，{1:d}",y)
+			FileAppend,%dpn%`n,fgo-ahk.log
+		}
 		y:=y-30-cpy
 		sclick(1000,y)
 		if(cyclist)
@@ -508,7 +538,7 @@ wstart(clc:=0)
 		if(pixc(1460,812,0xF0F0F0))
 			sclick(1460,812)
 		;检测出击按钮
-		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1B2333))
+		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2232))
 		{
 			if(res)
 				return 1
@@ -630,7 +660,7 @@ xjbd(n:=0)
 		if(pixc(500,834,0x000000) && n>0)
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1450,257,0x1B2333) && pixc(1513,255,0xEEFFFF))
+		if(pixc(1450,257,0x1A2232) && pixc(1513,255,0xEEFFFF))
 		{
 			nn:=nn+1
 			attack()
@@ -659,7 +689,7 @@ attack()
 	ccoord:=[ 213,533,852,1174,1499 ]
 	sclick(1400,760)
 	sleep 600
-	if(pixc(1450,257,0x1B2333) && pixc(1513,255,0xEEFFFF))
+	if(pixc(1450,257,0x1A2232) && pixc(1513,255,0xEEFFFF))
 	{
 		sclick(1400,760)
 		sleep 500
