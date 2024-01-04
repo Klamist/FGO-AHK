@@ -42,13 +42,13 @@ $~[::
 loop
 {
 	;检测处于喂礼装界面
-	pixc(745,870,0xFCE60B,1)
+	pixc(745,870,0xFCDF06,1)
 	sleep 50
 	sclick(650,294)
 	sleep 200
 	
 	;选择礼装
-	pixc(34,292,0xF6DDD5,1)
+	pixc(35,290,0xF7DFD6,1)
 	sleep 400
 	tx:=175+cpx
 	ty:=314+cpy
@@ -68,7 +68,7 @@ loop
 	sclick(1360,840)
 	
 	;确认喂
-	pixc(745,870,0xFCE60B,1)
+	pixc(745,870,0xFCDF06,1)
 	sleep 50
 	sclick(1360,840)
 	sleep 500
@@ -79,7 +79,7 @@ loop
 	lt:=0
 	loop
 	{
-		if(pixc(745,870,0xFCE60B) && lt>10)
+		if(pixc(745,870,0xFCDF06) && lt>10)
 			break
 		sclick(800,564)
 		sleep 100
