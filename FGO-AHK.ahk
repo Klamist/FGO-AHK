@@ -104,7 +104,7 @@ FileAppend,`n%now%`n%A_ScriptName%`n,fgo-ahk.log
 global cyclist:=0
 
 ;如果在副本选择界面，点击第一位的副本
-if(pixc(1560,817,0xD2D3D4))
+if(pixc(1560,817,0xD1D3D4))
 	sclick(900,260)
 
 ;连续出击主循环内容
@@ -130,14 +130,14 @@ loop
 	loop
 	{
 		sleep 100
-		if(pixc(1269,479,0xF2F6F6) && !apok)
+		if(pixc(1269,479,0xF2F3F7) && !apok)
 		{
 			sleep 200
 			gosub,eat
 			apok:=1
 			sleep 500
 		}
-		if((pixc(1000,161,0x05BAFC) && pixc(1063,271,0x626262)) || pixc(878,541,0xFFFFFF))
+		if((pixc(1000,161,0x08B8F7) && pixc(1063,271,0x636262)) || pixc(878,541,0xFFFFFF))
 			break
 	}
 	
@@ -258,21 +258,21 @@ eat:
 	sclick(1270,630)
 	sleep 300
 	;铜青银顺序检测
-	if(pixc(750,570,0xF5EDDC) && capple)
+	if(pixc(750,570,0xF3EDDD) && capple)
 	{
 		sclick(750,570)
 		pixc(950,726,0xD4D5D5,1,1)
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
 	}
-	if(pixc(750,380,0xF5EDDC) && qapple)
+	if(pixc(750,380,0xF3EDDD) && qapple)
 	{
 		sclick(750,380)
 		pixc(950,726,0xD4D5D5,1,1)
 		FileAppend,吃了青苹果`n,fgo-ahk.log
 		return
 	}
-	if(pixc(750,200,0xF5EDDC) && sapple)
+	if(pixc(750,200,0xF3EDDD) && sapple)
 	{
 		sclick(750,200)
 		pixc(950,726,0xD4D5D5,1,1)
@@ -284,14 +284,14 @@ eat:
 	sclick(1270,220)
 	sleep 300
 	;金彩顺序检测
-	if(pixc(750,350,0xF5EDDC) && gapple)
+	if(pixc(750,350,0xF3EDDD) && gapple)
 	{
 		sclick(750,350)
 		pixc(950,700,0xD4D5D5,1,1)
 		FileAppend,吃了金苹果`n,fgo-ahk.log
 		return
 	}
-	if(pixc(750,170,0xF5EDDC) && kstone)
+	if(pixc(750,170,0xF3EDDD) && kstone)
 	{
 		sclick(750,170)
 		pixc(950,700,0xD4D5D5,1,1)
@@ -319,7 +319,7 @@ support:
 		sclick(1047,709)
 		loop
 		{
-			if((pixc(1000,161,0x05BAFC) && pixc(1063,271,0x626262)) || pixc(878,541,0xFFFFFF))
+			if((pixc(1000,161,0x08B8F7) && pixc(1063,271,0x636262)) || pixc(878,541,0xFFFFFF))
 				break
 			sleep 100
 		}
@@ -535,10 +535,9 @@ wstart(clc:=0)
 			sclick(1111,66)
 		sleep 200
 		;如果在编队界面，点击进本
-		if(pixc(1460,812,0xF0F0F0))
-			sclick(1460,812)
+		pixc(1460,812,0xEFEFEF,0,1)
 		;检测出击按钮
-		if(pixc(1400,681,0x02E9F9) && pixc(1450,257,0x1A2232))
+		if(pixc(1400,681,0x00E9FB) && pixc(1450,257,0x1A2233))
 		{
 			if(res)
 				return 1
@@ -546,7 +545,7 @@ wstart(clc:=0)
 				return 0
 		}
 		;检测战利品结算界面
-		if(pixc(151,62,0xEFC629) && pixc(1433,66,0x02B7F9))
+		if(pixc(151,62,0xEEC529) && pixc(1433,66,0x08B3F5))
 			return 0
 	}
 }
@@ -654,13 +653,13 @@ xjbd(n:=0)
 	{
 		sleep 200
 		;检测战利品结算界面
-		if(pixc(151,62,0xEFC629) && pixc(1433,66,0x02B7F9))
+		if(pixc(151,62,0xEEC529) && pixc(1433,66,0x08B3F5))
 			return
 		;检测黑屏换面
 		if(pixc(500,834,0x000000) && n>0)
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1450,257,0x1A2232) && pixc(1513,255,0xEEFFFF))
+		if(pixc(1450,257,0x1A2233) && pixc(1513,255,0xE6FEFF))
 		{
 			nn:=nn+1
 			attack()
@@ -689,7 +688,7 @@ attack()
 	ccoord:=[ 213,533,852,1174,1499 ]
 	sclick(1400,760)
 	sleep 600
-	if(pixc(1450,257,0x1A2232) && pixc(1513,255,0xEEFFFF))
+	if(pixc(1450,257,0x1A2233) && pixc(1513,255,0xE6FEFF))
 	{
 		sclick(1400,760)
 		sleep 500
