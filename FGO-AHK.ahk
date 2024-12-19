@@ -10,7 +10,7 @@ SetBatchLines, -1 ; Make AHK run as fast as possible
 cycle:= 10 ;刷几次本
 overap:= 1 ;是否清完剩余AP
 
-;允许吃苹果
+;0=不吃，1=允许吃苹果
 capple:= 0 ;铜
 qapple:= 0 ;青
 sapple:= 0 ;银
@@ -18,11 +18,11 @@ gapple:= 0 ;金
 kstone:= 0 ;彩
 
 ;助战
-global passby:= 0 ;必须好友
+global passby:= 0 ;0随意1必须好友
 global supser:= 0 ;1奥伯龙2杀狐3术呆4自定义
-global tskill:= [ 0,0,0 ] ;必须满级某技能
-global noblel:= 0 ;最低宝具等级
-global scraft:= 0 ;1午茶2贝拉3秉持4私人5宝石6黑杯
+global tskill:= [ 0,0,0 ] ;三个技能0随意1必须满级
+global noblel:= 0 ;最低可用宝具等级
+global scraft:= 0 ;0随意1午茶2贝拉3秉持4私人5宝石6黑杯
 
 ;附加功能
 global debug:= 0 ;调试
@@ -53,16 +53,16 @@ return
 
 
 ;——————脚本快捷键——————
-;可修改热键为F1~12，a~z，0~9等，请修改“$~”与“::”之间的部分
+;可修改热键为F1~F12，a~z，0~9等，请修改“$~”与“::”之间的部分
 ;若想前置Ctrl需前置加“^”，Shift前置加“+”，Alt前置加“!”
 
-; Ctrl + \ 退出脚本(任何时候都可以一键结束进程)
+; Ctrl + \ 退出脚本(任何时候都可以一键结束)
 $~^\::ExitApp
 
 ; \ 键重置(相当于关闭脚本再打开)
 $~\::Reload
 
-; Ctrl + 0 键 禁用吃苹果
+; Ctrl + 0 禁用吃一切苹果 (字母P上面的数字0)
 $^0::
 capple:= 0
 qapple:= 0
@@ -74,7 +74,7 @@ return
 ; ] 键暂停(从当前操作暂停，再按一次从暂停处继续)
 $~]::Pause
 
-; Alt+T键测试（不懂的请勿使用）
+; Alt+T键测试（请勿使用）
 $!t::
 {
 
@@ -240,6 +240,51 @@ pixc(x,y,kolor,pl:=0,lc:=0)
 	}
 }
 
+;图片识别，在指定区域内寻找是否存在对应图片。
+;pl是否循环检测，lc=1识别到后点击，lc=2循环点击直到识别不到
+imgc(x1,y1,x2,y2,pimg,pl:=0,lc:=0)
+{
+	mup()
+	;加入偏量
+	x1:=x1+cpx
+	y1:=y1+cpy
+	x2:=x2+cpx
+	y2:=y2+cpy
+	
+	;图片文件路径完善
+	pimg := "%A_WorkingDir%\H\" . pimg . ".png"
+	
+	loop
+	{
+		ImageSearch, xtmp,, x1,y1,x2,y2, *60 pimg
+		if(xtmp)
+		{
+			; 识别到后是否点击图片正中心位置
+			if(lc)
+			{
+				sleep 200
+				sclick( (x1+x2)//2 , (y1+y2)//2 )
+				if(lc=2)
+				{
+					loop
+					{
+						sleep 600
+						ImageSearch, xtmp,, x1,y1,x2,y2, *60 pimg
+						if(xtmp)
+							sclick( (x1+x2)//2 , (y1+y2)//2 )
+						else
+							break
+					}
+				}
+			}
+			return 1
+		}
+		if(!pl)
+			return 0
+		sleep 100
+	}
+}
+
 ;带偏移量的click，输入FGO区域相对坐标，点击加偏量后的
 sclick(x,y)
 {
@@ -384,25 +429,25 @@ ncheck()
 		{
 			if(supser=1)
 			{
-				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s1.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *60 %A_WorkingDir%\H\s1.png
 				if(!x) ;奥伯龙
 					continue
 			}
 			else if(supser=2)
 			{
-				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s2.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *60 %A_WorkingDir%\H\s2.png
 				if(!x) ;杀狐
 					continue
 			}
 			else if(supser=3)
 			{
-				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s3.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *60 %A_WorkingDir%\H\s3.png
 				if(!x) ;术呆
 					continue
 			}
 			else if(supser=4)
 			{
-				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *100 %A_WorkingDir%\H\s4.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *60 %A_WorkingDir%\H\s4.png
 				if(!x) ;自定义英灵，请将某人.png挪到H文件夹并改名s4.png
 					continue
 			}
@@ -468,37 +513,37 @@ ncheck()
 		{
 			if(scraft=1)
 			{
-				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *100 %A_WorkingDir%\H\c1.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_WorkingDir%\H\c1.png
 				if(!x) ;下午茶
 					continue
 			}
 			else if(scraft=2)
 			{
-				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *100 %A_WorkingDir%\H\c2.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_WorkingDir%\H\c2.png
 				if(!x) ;贝拉丽莎
 					continue
 			}
 			else if(scraft=3)
 			{
-				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *100 %A_WorkingDir%\H\c3.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_WorkingDir%\H\c3.png
 				if(!x) ;秉持风雅
 					continue
 			}
 			else if(scraft=4)
 			{
-				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *100 %A_WorkingDir%\H\c4.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_WorkingDir%\H\c4.png
 				if(!x) ;私人指导
 					continue
 			}
 			else if(scraft=5)
 			{
-				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *100 %A_WorkingDir%\H\c5.png
+				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *60 %A_WorkingDir%\H\c5.png
 				if(!x) ;万华镜
 					continue
 			}
 			else if(scraft=6)
 			{
-				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *100 %A_WorkingDir%\H\c6.png
+				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *60 %A_WorkingDir%\H\c6.png
 				if(!x) ;黑杯
 					continue
 			}
@@ -527,7 +572,6 @@ ncheck()
 ;检测可以开始行动，clc是否自动连点
 wstart(clc:=0)
 {
-	res:=0 ;重启标记
 	loop
 	{
 		;点击一下
@@ -535,15 +579,11 @@ wstart(clc:=0)
 			sclick(1111,66)
 		sleep 200
 		;如果在编队界面，点击进本
-		pixc(1460,812,0xEFEFEF,0,1)
+		if(pixc(1460,812,0xF0F0F0) && pixc(1570,837,0x05DEFC) && cyclist=1)
+			sclick(1460,812)
 		;检测出击按钮
 		if(pixc(1400,681,0x00E9FB) && pixc(1450,257,0x1A2233))
-		{
-			if(res)
-				return 1
-			else
-				return 0
-		}
+			return 0
 		;检测战利品结算界面
 		if(pixc(151,62,0xEEC529) && pixc(1433,66,0x08B3F5))
 			return 0
@@ -656,7 +696,7 @@ xjbd(n:=0)
 		if(pixc(151,62,0xEEC529) && pixc(1433,66,0x08B3F5))
 			return
 		;检测黑屏换面
-		if(pixc(500,834,0x000000) && n>0)
+		if(pixc(500,834,0x000000) && pixc(1500,80,0x000000) && n>0)
 			break
 		;检测战斗界面是否又出现
 		if(pixc(1450,257,0x1A2233) && pixc(1513,255,0xE6FEFF))
