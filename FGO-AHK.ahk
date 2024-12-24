@@ -484,7 +484,7 @@ ncheck()
 				FileAppend,%dpn%`n,fgo-ahk.log
 			}
 			;检测宝具等级
-			if(noblel && passby)
+			if(noblel)
 			{
 				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_WorkingDir%\H\n1.png
 				if(x && noblel>1)
