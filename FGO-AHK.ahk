@@ -104,7 +104,7 @@ FileAppend,`n%now%`n%A_ScriptName%`n,fgo-ahk.log
 global cyclist:=0
 
 ;如果在副本选择界面，点击第一位的副本
-if(pixc(1560,817,0xD1D3D4))
+if(pixc(1560,817,0xD2D4D6))
 	sclick(900,260)
 
 ;连续出击主循环内容
@@ -130,14 +130,14 @@ loop
 	loop
 	{
 		sleep 100
-		if(pixc(1269,479,0xF2F3F7) && !apok)
+		if(pixc(1269,479,0xF1F7FA) && !apok)
 		{
 			sleep 200
 			gosub,eat
 			apok:=1
 			sleep 500
 		}
-		if((pixc(1000,161,0x08B8F7) && pixc(1063,271,0x636262)) || pixc(878,541,0xFFFFFF))
+		if((pixc(1000,161,0x07B7F7) && pixc(1063,271,0x646464)) || pixc(878,541,0xFFFFFF))
 			break
 	}
 	
@@ -160,13 +160,13 @@ loop
 		sleep 200
 		
 		;加好友提示已满点确认
-		pixc(870,704,0xD3D4D4,0,1)
-		pixc(303,767,0xD4D4D4,0,1)
+		pixc(870,704,0xD6D6D6,0,1)
+		pixc(303,767,0xD5D5D5,0,1)
 		
 		;连续出击判定
 		if(pixc(1040,290,0xFFFFFF) && pixc(881,327,0xFFFFFF))
 		{
-			pixc(930,708,0xD3D3D3,1,1)
+			pixc(930,708,0xD2D3D3,1,1)
 			break
 		}
 	}
@@ -306,21 +306,21 @@ eat:
 	if(pixc(750,570,0xF3EDDD) && capple)
 	{
 		sclick(750,570)
-		pixc(950,726,0xD4D5D5,1,1)
+		pixc(950,726,0xD5D6D6,1,1)
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
 	}
 	if(pixc(750,380,0xF3EDDD) && qapple)
 	{
 		sclick(750,380)
-		pixc(950,726,0xD4D5D5,1,1)
+		pixc(950,726,0xD5D6D6,1,1)
 		FileAppend,吃了青苹果`n,fgo-ahk.log
 		return
 	}
 	if(pixc(750,200,0xF3EDDD) && sapple)
 	{
 		sclick(750,200)
-		pixc(950,726,0xD4D5D5,1,1)
+		pixc(950,726,0xD5D6D6,1,1)
 		FileAppend,吃了银苹果`n,fgo-ahk.log
 		return
 	}
@@ -332,14 +332,14 @@ eat:
 	if(pixc(750,350,0xF3EDDD) && gapple)
 	{
 		sclick(750,350)
-		pixc(950,700,0xD4D5D5,1,1)
+		pixc(950,700,0xD6D6D6,1,1)
 		FileAppend,吃了金苹果`n,fgo-ahk.log
 		return
 	}
 	if(pixc(750,170,0xF3EDDD) && kstone)
 	{
 		sclick(750,170)
-		pixc(950,700,0xD4D5D5,1,1)
+		pixc(950,700,0xD6D6D6,1,1)
 		FileAppend,吃了彩苹果`n,fgo-ahk.log
 		return
 	}
@@ -364,13 +364,13 @@ support:
 		sclick(1047,709)
 		loop
 		{
-			if((pixc(1000,161,0x08B8F7) && pixc(1063,271,0x636262)) || pixc(878,541,0xFFFFFF))
+			if((pixc(1000,161,0x07B7F7) && pixc(1063,271,0x646464)) || pixc(878,541,0xFFFFFF))
 				break
 			sleep 100
 		}
 		if(supcheck())
 			return
-		sleep 10000
+		sleep 8000
 	}
 	MsgBox 助战丢了！
 	Exit
@@ -582,10 +582,10 @@ wstart(clc:=0)
 		if(pixc(1460,812,0xF0F0F0) && pixc(1570,837,0x05DEFC) && cyclist=1)
 			sclick(1460,812)
 		;检测出击按钮
-		if(pixc(1400,681,0x00E9FB) && pixc(1450,257,0x1A2233))
+		if(pixc(1400,681,0x00E9FB) && pixc(1450,257,0x1B2234))
 			return 0
 		;检测战利品结算界面
-		if(pixc(151,62,0xEEC529) && pixc(1433,66,0x08B3F5))
+		if(pixc(151,62,0xEEC62D) && pixc(1433,66,0x08B7F1))
 			return 0
 	}
 }
@@ -693,13 +693,13 @@ xjbd(n:=0)
 	{
 		sleep 200
 		;检测战利品结算界面
-		if(pixc(151,62,0xEEC529) && pixc(1433,66,0x08B3F5))
+		if(pixc(151,62,0xEEC62D) && pixc(1433,66,0x08B7F1))
 			return
 		;检测黑屏换面
 		if(pixc(500,834,0x000000) && pixc(1500,80,0x000000) && n>0)
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1450,257,0x1A2233) && pixc(1513,255,0xE6FEFF))
+		if(pixc(1450,257,0x1B2234) && pixc(1513,255,0xE6FEFF))
 		{
 			nn:=nn+1
 			attack()
@@ -728,7 +728,7 @@ attack()
 	ccoord:=[ 213,533,852,1174,1499 ]
 	sclick(1400,760)
 	sleep 600
-	if(pixc(1450,257,0x1A2233) && pixc(1513,255,0xE6FEFF))
+	if(pixc(1450,257,0x1B2234) && pixc(1513,255,0xE6FEFF))
 	{
 		sclick(1400,760)
 		sleep 500
@@ -739,7 +739,7 @@ attack()
 	loop,5
 	{
 		xard:=ccoord[ci] ;1174,720,0xFA3F00
-		PixelSearch,x,,xard+cpx,720+cpy,xard+cpx,720+cpy,0xFA3F00,10,Fast RGB
+		PixelSearch,x,,xard+cpx,720+cpy,xard+cpx,720+cpy,0xFA3F10,20,Fast RGB
 		if(x)
 		{
 			sclick(xard,630)
