@@ -10,7 +10,7 @@ SetBatchLines, -1 ; Make AHK run as fast as possible
 cycle:= 10 ;刷几次本
 overap:= 1 ;是否清完剩余AP
 
-;0=不吃，1=允许吃苹果
+;0=不吃，1=可以吃苹果
 capple:= 0 ;铜
 qapple:= 0 ;青
 sapple:= 0 ;银
@@ -21,17 +21,22 @@ kstone:= 0 ;彩
 global passby:= 0 ;0随意1必须好友
 global supser:= 0 ;1奥伯龙2杀狐3术呆4自定义
 global tskill:= [ 0,0,0 ] ;三个技能0随意1必须满级
-global noblel:= 0 ;最低可用宝具等级
+global noblel:= 0 ;最低宝具等级
 global scraft:= 0 ;0随意1午茶2贝拉3秉持4私人5宝石6黑杯
 
-;附加功能
-global debug:= 0 ;调试
-global wucha:= 5 ;误差
+;选普通卡时优先颜色，1红2绿3蓝
+global xcol:= 1 ;xjbd时
+global bcol:= 1 ;baoju时
 
 ;模拟器
 global mnq:= 0 ;自动置顶窗口，0无1mumu2雷电
 global cpx:= 0 ;窗口x偏量
 global cpy:= 0 ;窗口y偏量
+
+;调试
+global debug:= 0 ;输出详细日志
+global wucha:= 5 ;误差
+
 
 
 ;——————战斗流程——————
@@ -45,7 +50,6 @@ order()
 
 
 ;自定义结束。
-;不要修改自定义以外的部分！
 
 xjbd() ;补刀+结算。若最后需要补刀，可以省略，用这句就行。
 }
@@ -77,7 +81,10 @@ $~]::Pause
 ; Alt+T键测试（请勿使用）
 $!t::
 {
-
+	;global cpx:= 1
+	;global cpy:= 51
+	;global debug:= 1
+	;what
 }
 return
 
@@ -104,7 +111,7 @@ FileAppend,`n%now%`n%A_ScriptName%`n,fgo-ahk.log
 global cyclist:=0
 
 ;如果在副本选择界面，点击第一位的副本
-if(pixc(1560,817,0xD2D4D6))
+if(pixc(1560,817,0xD2D3D4))
 	sclick(900,260)
 
 ;连续出击主循环内容
@@ -137,7 +144,7 @@ loop
 			apok:=1
 			sleep 500
 		}
-		if((pixc(1000,161,0x07B7F7) && pixc(1063,271,0x646464)) || pixc(878,541,0xFFFFFF))
+		if((pixc(1000,161,0x07B8F8) && pixc(1063,271,0x646464)) || pixc(878,541,0xFFFFFF))
 			break
 	}
 	
@@ -164,9 +171,10 @@ loop
 		pixc(303,767,0xD5D5D5,0,1)
 		
 		;连续出击判定
-		if(pixc(1040,290,0xFFFFFF) && pixc(881,327,0xFFFFFF))
+		;imgc(985,691,1109,763,"wconti",0,2)
+		if(pixc(1040,280,0xFFFFFF) && pixc(881,320,0xFFFFFF))
 		{
-			pixc(930,708,0xD2D3D3,1,1)
+			pixc(930,730,0xD2D2D3,1,1)
 			break
 		}
 	}
@@ -241,8 +249,9 @@ pixc(x,y,kolor,pl:=0,lc:=0)
 }
 
 ;图片识别，在指定区域内寻找是否存在对应图片。
+;pimg文件名为H文件夹内的png图片名（不含后缀）
 ;pl是否循环检测，lc=1识别到后点击，lc=2循环点击直到识别不到
-imgc(x1,y1,x2,y2,pimg,pl:=0,lc:=0)
+imgc(x1,y1,x2,y2,pimg,pl:=0,lc:=0,dv:=50)
 {
 	mup()
 	;加入偏量
@@ -250,13 +259,15 @@ imgc(x1,y1,x2,y2,pimg,pl:=0,lc:=0)
 	y1:=y1+cpy
 	x2:=x2+cpx
 	y2:=y2+cpy
+	debug_m:=1
 	
 	;图片文件路径完善
-	pimg := "%A_WorkingDir%\H\" . pimg . ".png"
+	pimg := A_ScriptDir . "\H\" . pimg . ".png"
+	debu := Format("{1:d},{2:d},{3:d},{4:d},{5:s}",x1,y1,x2,y2,pimg)
 	
 	loop
 	{
-		ImageSearch, xtmp,, x1,y1,x2,y2, *60 pimg
+		ImageSearch, xtmp,, x1,y1,x2,y2, *%dv% %pimg%
 		if(xtmp)
 		{
 			; 识别到后是否点击图片正中心位置
@@ -269,15 +280,25 @@ imgc(x1,y1,x2,y2,pimg,pl:=0,lc:=0)
 					loop
 					{
 						sleep 600
-						ImageSearch, xtmp,, x1,y1,x2,y2, *60 pimg
+						ImageSearch, xtmp,, x1,y1,x2,y2, *%dv% %pimg%
 						if(xtmp)
 							sclick( (x1+x2)//2 , (y1+y2)//2 )
 						else
 							break
 					}
+					if(debug)
+						FileAppend, 点击 %debu%`n,fgo-ahk.log
+					return 2
 				}
 			}
+			if(debug)
+				FileAppend, 找到 %debu%`n,fgo-ahk.log
 			return 1
+		}
+		else if(debug && debug_m)
+		{
+			FileAppend, 丢了 %debu%`n,fgo-ahk.log
+			debug_m:=0
 		}
 		if(!pl)
 			return 0
@@ -306,21 +327,21 @@ eat:
 	if(pixc(750,570,0xF3EDDD) && capple)
 	{
 		sclick(750,570)
-		pixc(950,726,0xD5D6D6,1,1)
+		pixc(950,720,0xDADADA,1,1)
 		FileAppend,吃了铜苹果`n,fgo-ahk.log
 		return
 	}
 	if(pixc(750,380,0xF3EDDD) && qapple)
 	{
 		sclick(750,380)
-		pixc(950,726,0xD5D6D6,1,1)
+		pixc(950,720,0xDADADA,1,1)
 		FileAppend,吃了青苹果`n,fgo-ahk.log
 		return
 	}
 	if(pixc(750,200,0xF3EDDD) && sapple)
 	{
 		sclick(750,200)
-		pixc(950,726,0xD5D6D6,1,1)
+		pixc(950,720,0xDADADA,1,1)
 		FileAppend,吃了银苹果`n,fgo-ahk.log
 		return
 	}
@@ -332,19 +353,19 @@ eat:
 	if(pixc(750,350,0xF3EDDD) && gapple)
 	{
 		sclick(750,350)
-		pixc(950,700,0xD6D6D6,1,1)
+		pixc(950,700,0xD5D5D5,1,1)
 		FileAppend,吃了金苹果`n,fgo-ahk.log
 		return
 	}
 	if(pixc(750,170,0xF3EDDD) && kstone)
 	{
 		sclick(750,170)
-		pixc(950,700,0xD6D6D6,1,1)
+		pixc(950,700,0xD5D5D5,1,1)
 		FileAppend,吃了彩苹果`n,fgo-ahk.log
 		return
 	}
 	
-	MsgBox 你没AP了！
+	MsgBox 你没AP了
 	Exit
 }
 return
@@ -364,7 +385,7 @@ support:
 		sclick(1047,709)
 		loop
 		{
-			if((pixc(1000,161,0x07B7F7) && pixc(1063,271,0x646464)) || pixc(878,541,0xFFFFFF))
+			if((pixc(1000,161,0x07B8F8) && pixc(1063,271,0x646464)) || pixc(878,541,0xFFFFFF))
 				break
 			sleep 100
 		}
@@ -404,14 +425,9 @@ ncheck()
 	{
 		y:=y+200
 		;扫描从者栏位
-		ImageSearch, ,y,1025+cpx,y,1035+cpx,940, *50 %A_WorkingDir%\H\0.png
+		ImageSearch, ,y,1025+cpx,y,1035+cpx,940, *50 %A_ScriptDir%\H\0.png
 		if(!y)
 			return 0
-		if(debug)
-		{
-			dpn:=Format("栏位ok，{1:d}",y)
-			FileAppend,%dpn%`n,fgo-ahk.log
-		}
 		;检测是否好友
 		if(passby)
 		{
@@ -419,42 +435,32 @@ ncheck()
 			if(!x) ;515, 1433,471,0xBCEE72
 				continue
 		}
-		if(debug)
-		{
-			dpn:=Format("好友ok，{1:d}",y)
-			FileAppend,%dpn%`n,fgo-ahk.log
-		}
 		;匹配英灵
 		if(supser)
 		{
 			if(supser=1)
 			{
-				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *60 %A_WorkingDir%\H\s1.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *60 %A_ScriptDir%\H\s1.png
 				if(!x) ;奥伯龙
 					continue
 			}
 			else if(supser=2)
 			{
-				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *60 %A_WorkingDir%\H\s2.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *60 %A_ScriptDir%\H\s2.png
 				if(!x) ;杀狐
 					continue
 			}
 			else if(supser=3)
 			{
-				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *60 %A_WorkingDir%\H\s3.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *60 %A_ScriptDir%\H\s3.png
 				if(!x) ;术呆
 					continue
 			}
 			else if(supser=4)
 			{
-				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *60 %A_WorkingDir%\H\s4.png
+				ImageSearch, x,, 450+cpx,y-113,900+cpx,y-63, *60 %A_ScriptDir%\H\s4.png
 				if(!x) ;自定义英灵，请将某人.png挪到H文件夹并改名s4.png
 					continue
-			}
-			if(debug)
-			{
-				dpn:=Format("英灵ok，{1:d}",y)
-				FileAppend,%dpn%`n,fgo-ahk.log
 			}
 			;检测技能等级
 			if(tskill[1] || tskill[2] || tskill[3]) ;1020,489,0xEECC99
@@ -478,34 +484,24 @@ ncheck()
 						continue
 				}
 			}
-			if(debug)
-			{
-				dpn:=Format("技能ok，{1:d}",y)
-				FileAppend,%dpn%`n,fgo-ahk.log
-			}
 			;检测宝具等级
 			if(noblel)
 			{
-				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_WorkingDir%\H\n1.png
+				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_ScriptDir%\H\n1.png
 				if(x && noblel>1)
 					continue
-				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_WorkingDir%\H\n2.png
+				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_ScriptDir%\H\n2.png
 				if(x && noblel>2)
 					continue
-				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_WorkingDir%\H\n3.png
+				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_ScriptDir%\H\n3.png
 				if(x && noblel>3)
 					continue
-				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_WorkingDir%\H\n4.png
+				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_ScriptDir%\H\n4.png
 				if(x && noblel>4)
 					continue
-				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_WorkingDir%\H\n5.png
+				ImageSearch, x,, 450+cpx,y-68,900+cpx,y-18, *100 %A_ScriptDir%\H\n5.png
 				if(x && noblel>5)
 					continue
-			}
-			if(debug)
-			{
-				dpn:=Format("宝具ok，{1:d}",y)
-				FileAppend,%dpn%`n,fgo-ahk.log
 			}
 		}
 		;查找礼装（只找满破的）
@@ -513,45 +509,40 @@ ncheck()
 		{
 			if(scraft=1)
 			{
-				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_WorkingDir%\H\c1.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_ScriptDir%\H\c1.png
 				if(!x) ;下午茶
 					continue
 			}
 			else if(scraft=2)
 			{
-				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_WorkingDir%\H\c2.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_ScriptDir%\H\c2.png
 				if(!x) ;贝拉丽莎
 					continue
 			}
 			else if(scraft=3)
 			{
-				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_WorkingDir%\H\c3.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_ScriptDir%\H\c3.png
 				if(!x) ;秉持风雅
 					continue
 			}
 			else if(scraft=4)
 			{
-				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_WorkingDir%\H\c4.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_ScriptDir%\H\c4.png
 				if(!x) ;私人指导
 					continue
 			}
 			else if(scraft=5)
 			{
-				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *60 %A_WorkingDir%\H\c5.png
+				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *60 %A_ScriptDir%\H\c5.png
 				if(!x) ;万华镜
 					continue
 			}
 			else if(scraft=6)
 			{
-				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *60 %A_WorkingDir%\H\c6.png
+				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *60 %A_ScriptDir%\H\c6.png
 				if(!x) ;黑杯
 					continue
 			}
-		}
-		if(debug)
-		{
-			dpn:=Format("礼装ok，{1:d}",y)
-			FileAppend,%dpn%`n,fgo-ahk.log
 		}
 		y:=y-30-cpy
 		sclick(1000,y)
@@ -579,14 +570,14 @@ wstart(clc:=0)
 			sclick(1111,66)
 		sleep 200
 		;如果在编队界面，点击进本
-		if(pixc(1460,812,0xF0F0F0) && pixc(1570,837,0x05DEFC) && cyclist=1)
+		if(pixc(1460,810,0xF4F4F3) && pixc(1570,837,0x06DFFC) && cyclist=1)
 			sclick(1460,812)
 		;检测出击按钮
-		if(pixc(1400,681,0x00E9FB) && pixc(1450,257,0x1B2234))
-			return 0
+		if(pixc(1400,681,0x00E9FA) && pixc(1450,257,0x1B2234) && pixc(1513,255,0xE3FFFF))
+			return
 		;检测战利品结算界面
-		if(pixc(151,62,0xEEC62D) && pixc(1433,66,0x08B7F1))
-			return 0
+		if(pixc(151,62,0xECBD2A) && pixc(1433,66,0x08B4F5))
+			return
 	}
 }
 
@@ -595,8 +586,6 @@ wstart(clc:=0)
 
 ;从者放技能
 ssk(si,st:=0)
-{
-loop
 {
 	if(si>9 || si<0)
 	{
@@ -616,18 +605,15 @@ loop
 		sclick(temp,560)
 	}
 	sleep 100
+	
 	;等待回到操作界面
-	if(wstart(1)=0)
-		break
-}
+	wstart(1)
 sleep 100
 }
 return
 
 ;御主放技能
 msk(sk,st:=0,sm:=0,sn:=0)
-{
-loop
 {
 	if(sk>4 || sk<0)
 	{
@@ -662,10 +648,9 @@ loop
 		sclick(800,784)
 	}
 	sleep 100
+	
 	;等待回到操作界面
-	if(wstart(1)=0)
-		break
-}
+	wstart(1)
 sleep 100
 }
 return
@@ -686,7 +671,8 @@ return
 ;================================================================================================
 
 ;平砍n回合，直到换下一面，或战斗结束。可用于监测战斗结束状态。
-xjbd(n:=0)
+;col，优先选什么色卡
+xjbd(n:=0,col:=1)
 {
 	nn:=0
 	loop
@@ -699,10 +685,20 @@ xjbd(n:=0)
 		if(pixc(500,834,0x000000) && pixc(1500,80,0x000000) && n>0)
 			break
 		;检测战斗界面是否又出现
-		if(pixc(1450,257,0x1B2234) && pixc(1513,255,0xE6FEFF))
+		if(pixc(1400,681,0x00E9FA) && pixc(1450,257,0x1B2234) && pixc(1513,255,0xE3FFFF))
 		{
+			;点击攻击按钮
+			sclick(1400,760)
+			sleep 600
+			if(pixc(1400,681,0x00E9FA) && pixc(1450,257,0x1B2234) && pixc(1513,255,0xE3FFFF))
+			{
+				sclick(1400,760)
+				sleep 600
+			}
+			attack(xcol,3,1)
+			sleep 2000
+			
 			nn:=nn+1
-			attack()
 			if(nn=n)
 				break
 		}
@@ -710,148 +706,125 @@ xjbd(n:=0)
 		sclick(1111,66)
 	}
 	;等待回到操作界面
-	loop
-	{
-		if(wstart(1))
-			attack()
-		else
-			break
-	}
+	wstart(1)
 	sleep 600
 }
 return
 
-;出3卡平砍(尽量首红)
-attack()
+;出cn张卡平砍(优先卡色，1=红，2=绿，3=蓝)
+attack(col,cn:=1,rep:=0)
+{
+	;尽量选对应颜色卡
+	scard:=[ 0,0,0,0,0 ]
+	ccoord:=[ 200,500,800,1100,1400 ]
+	selnum:=0
+	loop
+	{
+		ctmp:= acard(col,1)
+		if(ctmp)
+		{
+			selnum:= selnum + 1
+			scard[ctmp]:= 1
+		}
+		else
+		{
+			col:=col+1
+			if(col>3)
+				col:=1
+		}
+		if(selnum=cn)
+			break
+	}
+
+	;以防漏选，补一张
+	if(rep)
+	{
+		ci:=1
+		loop
+		{
+			if(scard[ci])
+			{
+				sclick(ccoord[ci],700)
+				break
+			}
+		}
+	}
+
+	return
+}
+
+;查找普攻色卡，1红2绿3蓝。找到该色卡返回位置(1~5)，没选到返回0。clc是否点击
+acard(col:=1,clc:=0)
 {
 	;指令卡间隔 320,319,322,325
-	ccoord:=[ 213,533,852,1174,1499 ]
-	sclick(1400,760)
-	sleep 600
-	if(pixc(1450,257,0x1B2234) && pixc(1513,255,0xE6FEFF))
-	{
-		sclick(1400,760)
-		sleep 500
-	}
+	ccoord:=[]
+	ccoord[1]:=[ 213,533,852,1174,1499 ] ;红
+	ccoord[2]:=[ 216,536,855,1177,1502 ] ;绿
+	ccoord[3]:=[ 215,535,854,1176,1501 ] ;蓝
+	cardcolor:=[ 0xF4420B,0x9AE11A,0x27A1D9 ]
 	
-	;选1张红卡，如果没有就选最后一张 
 	ci:=1
 	loop,5
 	{
-		xard:=ccoord[ci] ;1174,720,0xFA3F00
-		PixelSearch,x,,xard+cpx,720+cpy,xard+cpx,720+cpy,0xFA3F10,20,Fast RGB
+		xard:=ccoord[col][ci]
+		PixelSearch,x,,xard+cpx,722+cpy,xard+cpx,722+cpy,cardcolor[col],20,Fast RGB
 		if(x)
 		{
-			sclick(xard,630)
-			break
+			if(clc)
+			{
+				sclick(xard,700)
+				sleep 200
+			}
+			return ci
 		}
 		ci:=ci+1
 	}
-	if(ci=6)
-	{
-		ci:=5
-		sclick(1450,630)
-	}
-	sleep 200
-	
-	;补选其他两张卡
-	cj:=1
-	loop,5
-	{
-		if(cj!=ci)
-		{
-			temp:=ccoord[cj]
-			sclick(temp,630)
-			break
-		}
-		cj:=cj+1
-	}
-	sleep 200
-	
-	ck:=cj+1
-	loop,4
-	{
-		if(ck!=ci)
-		{
-			temp:=ccoord[ck]
-			sclick(temp,630)
-			break
-		}
-		ck:=ck+1
-	}
-	sleep 200
-	
-	;防止没点到某张卡，再点一次
-	sleep 500
-	cr:=ck+1
-	loop,3
-	{
-		if(cr!=ci)
-		{
-			temp:=ccoord[cr]
-			sclick(temp,630)
-			break
-		}
-		cr:=cr+1
-	}
-	sleep 2000
+	return 0
 }
-return
 
 ;================================================================================================
 
 ;宝具回合出卡
 baoju(n1,n2:=0,n3:=0)
 {
-loop
-{
+	npcard:=[ 480,800,1120 ]
+
 	;打开选卡界面
 	sclick(1400,760)
-	sleep 800
-	if(mnq=1)
-		sleep 200
+	sleep 1000
 	
 	;第一张选卡
 	if(n1)
-		npc(n1)
+	{
+		sclick(npcard[n1],250)
+		sleep 200
+	}
 	else
-		sclick(480,630)
-	sleep 200
+		attack(bcol,1)
 	
 	;第二张选卡
 	if(n2)
-		npc(n2)
+	{
+		sclick(npcard[n2],250)
+		sleep 200
+	}
 	else
-		sclick(800,630)
-	sleep 200
+		attack(bcol,1)
 	
 	;第三张选卡
 	if(n3)
-		npc(n3)
+	{
+		sclick(npcard[n3],250)
+		sleep 200
+	}
 	else 
-		sclick(1120,630)
-	sleep 200
-	
-	;防止没点到某张卡，再点一次
-	sleep 500
-	sclick(1440,630)
+		attack(bcol,1)
 	
 	;等待回到操作界面
-	if(wstart(1)=0)
-		break
+	wstart(1)
+	sleep 100
+	return
 }
-sleep 100
-}
-return
-
-;选一个宝具卡
-npc(n)
-{
-	npcard:=[ 480,800,1120 ]
-	temp:=npcard[n]
-	sclick(temp,270)
-}
-return
 
 ;================================================================================================
 
