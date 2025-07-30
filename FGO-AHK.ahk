@@ -78,7 +78,7 @@ return
 ; ] 键暂停(从当前操作暂停，再按一次从暂停处继续)
 $~]::Pause
 
-; Alt+T键测试（请勿使用）
+; Alt+T键测试test（请勿使用）
 $!t::
 {
 	;global cpx:= 1
@@ -833,7 +833,7 @@ checkmnq:
 {
 	if(mnq=1)
 	{
-		if(!WinActive("ahk_exe NemuPlayer.exe") and !WinActive("ahk_exe MuMuPlayer.exe"))
+		if(!WinActive("ahk_exe NemuPlayer.exe") and !WinActive("ahk_exe MuMuPlayer.exe") and !WinActive("ahk_exe MuMuNxDevice.exe"))
 		{
 			msgbox 未发现mumu窗口，若不需要自动置顶窗口请将mnq:=0
 			exit
@@ -861,20 +861,30 @@ himg:
 }
 return
 
-;置顶mumu窗口
+;置顶模拟器窗口
 mup()
 {
-	if(mnq=1)
+    if (mnq = 1)
 	{
-		if(!WinActive("ahk_exe NemuPlayer.exe"))
-		WinActivate, ahk_class Qt5QWindowIcon
-		else if(!WinActive("ahk_exe MuMuPlayer.exe"))
-		WinActivate, ahk_class Qt5156QWindowIcon
-	}
-	else if(mnq=2)
+        WinGet, hwnd1, ID, ahk_exe NemuPlayer.exe
+        if (hwnd1 && !WinActive("ahk_id " hwnd1))
+            WinActivate, ahk_id %hwnd1%
+        else {
+            WinGet, hwnd2, ID, ahk_exe MuMuPlayer.exe
+            if (hwnd2 && !WinActive("ahk_id " hwnd2))
+                WinActivate, ahk_id %hwnd2%
+            else {
+                WinGet, hwnd3, ID, ahk_exe MuMuNxDevice.exe
+                if (hwnd3 && !WinActive("ahk_id " hwnd3))
+                    WinActivate, ahk_id %hwnd3%
+            }
+        }
+    }
+	else if (mnq = 2)
 	{
-		if(!WinActive("ahk_exe dnplayer.exe"))
-		WinActivate, ahk_class LDPlayerMainFrame
-	}
+        WinGet, hwndLD, ID, ahk_exe dnplayer.exe
+        if (hwndLD && !WinActive("ahk_id " hwndLD))
+            WinActivate, ahk_id %hwndLD%
+    }
 }
 return
