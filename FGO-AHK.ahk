@@ -608,7 +608,7 @@ ssk(si,st:=0)
 	
 	;等待回到操作界面
 	wstart(1)
-sleep 100
+	sleep 100
 }
 return
 
@@ -651,7 +651,7 @@ msk(sk,st:=0,sm:=0,sn:=0)
 	
 	;等待回到操作界面
 	wstart(1)
-sleep 100
+	sleep 100
 }
 return
 
@@ -679,7 +679,7 @@ xjbd(n:=0,col:=1)
 	{
 		sleep 200
 		;检测战利品结算界面
-		if(pixc(151,62,0xEEC62D) && pixc(1433,66,0x08B7F1))
+		if(pixc(155,69,0xE5B321) && pixc(1433,66,0x09B4F2))
 			return
 		;检测黑屏换面
 		if(pixc(500,834,0x000000) && pixc(1500,80,0x000000) && n>0)
@@ -690,7 +690,7 @@ xjbd(n:=0,col:=1)
 			;点击攻击按钮
 			sclick(1400,760)
 			sleep 600
-			if(pixc(1400,681,0x00E9FA) && pixc(1450,257,0x1B2234) && pixc(1513,255,0xE3FFFF))
+			if(pixc(1400,681,0x00E9FA))
 			{
 				sclick(1400,760)
 				sleep 600
@@ -864,27 +864,23 @@ return
 ;置顶模拟器窗口
 mup()
 {
-    if (mnq = 1)
+	if(mnq=1)
 	{
-        WinGet, hwnd1, ID, ahk_exe NemuPlayer.exe
-        if (hwnd1 && !WinActive("ahk_id " hwnd1))
-            WinActivate, ahk_id %hwnd1%
-        else {
-            WinGet, hwnd2, ID, ahk_exe MuMuPlayer.exe
-            if (hwnd2 && !WinActive("ahk_id " hwnd2))
-                WinActivate, ahk_id %hwnd2%
-            else {
-                WinGet, hwnd3, ID, ahk_exe MuMuNxDevice.exe
-                if (hwnd3 && !WinActive("ahk_id " hwnd3))
-                    WinActivate, ahk_id %hwnd3%
-            }
-        }
-    }
-	else if (mnq = 2)
+		if(!WinActive("ahk_exe NemuPlayer.exe"))
+		WinActivate, ahk_class Qt5QWindowIcon
+		else if(!WinActive("ahk_exe MuMuPlayer.exe"))
+		WinActivate, ahk_class Qt5156QWindowIcon
+		else
+		{
+			WinGet, hwnd3, ID, ahk_exe MuMuNxDevice.exe
+			if (hwnd3 && !WinActive("ahk_exe MuMuNxDevice.exe"))
+				WinActivate, ahk_id %hwnd3%
+		}
+	}
+	else if(mnq=2)
 	{
-        WinGet, hwndLD, ID, ahk_exe dnplayer.exe
-        if (hwndLD && !WinActive("ahk_id " hwndLD))
-            WinActivate, ahk_id %hwndLD%
-    }
+		if(!WinActive("ahk_exe dnplayer.exe"))
+		WinActivate, ahk_class LDPlayerMainFrame
+	}
 }
 return
