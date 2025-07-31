@@ -868,14 +868,13 @@ mup()
 	{
 		if(!WinActive("ahk_exe NemuPlayer.exe"))
 		WinActivate, ahk_class Qt5QWindowIcon
-		else if(!WinActive("ahk_exe MuMuPlayer.exe"))
+		
+		if(!WinActive("ahk_exe MuMuPlayer.exe"))
 		WinActivate, ahk_class Qt5156QWindowIcon
-		else
-		{
-			WinGet, hwnd3, ID, ahk_exe MuMuNxDevice.exe
-			if (hwnd3 && !WinActive("ahk_exe MuMuNxDevice.exe"))
-				WinActivate, ahk_id %hwnd3%
-		}
+		
+		WinGet, hwnd3, ID, ahk_exe MuMuNxDevice.exe
+		if (hwnd3 && !WinActive("ahk_exe MuMuNxDevice.exe"))
+			WinActivate, ahk_id %hwnd3%
 	}
 	else if(mnq=2)
 	{
