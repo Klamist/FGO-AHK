@@ -592,7 +592,7 @@ wstart(clc:=0)
 ;================================================================================================
 
 ;从者放技能
-ssk(si,st:=0)
+ssk(si,st:=1)
 {
 	if(si>9 || si<0)
 	{
@@ -606,11 +606,8 @@ ssk(si,st:=0)
 	sclick(temp,720)
 	sleep 250
 	;指向位置
-	if(st)
-	{
-		temp:=skt[st]
-		sclick(temp,560)
-	}
+	temp:=skt[st]
+	sclick(temp,560)
 	sleep 100
 	
 	;等待回到操作界面
@@ -678,8 +675,7 @@ return
 ;================================================================================================
 
 ;平砍n回合，直到换下一面，或战斗结束。可用于监测战斗结束状态。
-;col，优先选什么色卡
-xjbd(n:=0,col:=1)
+xjbd(n:=0)
 {
 	nn:=0
 	loop
@@ -873,15 +869,17 @@ mup()
 {
 	if(mnq=1)
 	{
-		if(!WinActive("ahk_exe NemuPlayer.exe"))
+		Process, Exist, NemuPlayer.exe
+		if (ErrorLevel && !WinActive("ahk_exe NemuPlayer.exe"))
 			WinActivate, ahk_class Qt5QWindowIcon
-		
-		if(!WinActive("ahk_exe MuMuPlayer.exe"))
+
+		Process, Exist, MuMuPlayer.exe
+		if (ErrorLevel && !WinActive("ahk_exe MuMuPlayer.exe"))
 			WinActivate, ahk_class Qt5156QWindowIcon
-		
-		WinGet, hwnd3, ID, ahk_exe MuMuNxDevice.exe
-		if (hwnd3 && !WinActive("ahk_exe MuMuNxDevice.exe"))
-			WinActivate, ahk_id %hwnd3%
+
+		Process, Exist, MuMuNxDevice.exe
+		if (ErrorLevel && !WinActive("ahk_exe MuMuNxDevice.exe"))
+			WinActivate, ahk_exe MuMuNxDevice.exe
 	}
 	else if(mnq=2)
 	{
