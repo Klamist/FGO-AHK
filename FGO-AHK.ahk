@@ -24,7 +24,7 @@ global tskill:= [ 0,0,0 ] ;三个技能0随意1必须满级
 global noblel:= 0 ;最低宝具等级
 global scraft:= 0 ;0随意1午茶2贝拉3秉持4私人5宝石6黑杯
 
-;选普通卡时优先颜色，1红2绿3蓝
+;选普通卡优先颜色，1红2绿3蓝
 global xcol:= 1 ;xjbd时
 global bcol:= 1 ;baoju时
 
@@ -132,7 +132,7 @@ loop
 			break
 	}
 	
-	;检测吃苹果界面，或助战选择界面
+	;检测吃苹果、助战选择、白纸地球本
 	apok:=0
 	loop
 	{
@@ -146,6 +146,13 @@ loop
 		}
 		if((pixc(1000,161,0x07B8F8) && pixc(1063,271,0x646464)) || pixc(878,541,0xFFFFFF))
 			break
+		if(pixc(900,720,0xDEDFE0) && pixc(852,430,0xFFFFFF))
+		{
+			MsgBox, 没罐子了
+			Exit
+		}
+		if(pixc(781,278,0xF7F702) && pixc(1029,468,0xFFFFFF))
+			pixc(1160,700,0xD8D9D9,0,1)
 	}
 	
 	;挑选助战，进本等待开始
@@ -179,7 +186,7 @@ loop
 		}
 	}
 }
-MsgBox 打完了！
+MsgBox 打完了
 }
 return
 
@@ -835,7 +842,7 @@ checkmnq:
 	{
 		if(!WinActive("ahk_exe NemuPlayer.exe") and !WinActive("ahk_exe MuMuPlayer.exe") and !WinActive("ahk_exe MuMuNxDevice.exe"))
 		{
-			msgbox 未发现mumu窗口，若不需要自动置顶窗口请将mnq:=0
+			MsgBox 未发现mumu窗口，若不需要自动置顶窗口请将mnq:=0
 			exit
 		}
 	}
@@ -843,7 +850,7 @@ checkmnq:
 	{
 		if(!WinActive("ahk_exe dnplayer.exe"))
 		{
-			msgbox 未发现雷电窗口，若不需要自动置顶窗口请将mnq:=0
+			MsgBox 未发现雷电窗口，若不需要自动置顶窗口请将mnq:=0
 			exit
 		}
 	}
@@ -855,7 +862,7 @@ himg:
 {
 	if !FileExist("H\0.png")
 	{
-		msgbox 无法识别《H》的文件
+		MsgBox 无法识别《H》的文件
 		exit
 	}
 }
@@ -867,10 +874,10 @@ mup()
 	if(mnq=1)
 	{
 		if(!WinActive("ahk_exe NemuPlayer.exe"))
-		WinActivate, ahk_class Qt5QWindowIcon
+			WinActivate, ahk_class Qt5QWindowIcon
 		
 		if(!WinActive("ahk_exe MuMuPlayer.exe"))
-		WinActivate, ahk_class Qt5156QWindowIcon
+			WinActivate, ahk_class Qt5156QWindowIcon
 		
 		WinGet, hwnd3, ID, ahk_exe MuMuNxDevice.exe
 		if (hwnd3 && !WinActive("ahk_exe MuMuNxDevice.exe"))
