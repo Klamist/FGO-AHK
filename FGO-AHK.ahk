@@ -132,7 +132,7 @@ loop
 			break
 	}
 	
-	;检测吃苹果、助战选择、白纸地球本
+	;检测吃苹果、助战选择、白纸UI
 	apok:=0
 	loop
 	{
@@ -144,13 +144,13 @@ loop
 			apok:=1
 			sleep 500
 		}
+		;助战选择界面
 		if((pixc(1000,161,0x07B8F8) && pixc(1063,271,0x646464)) || pixc(878,541,0xFFFFFF))
 			break
+		;白纸本罐子空了
 		if(pixc(900,720,0xDEDFE0) && pixc(852,430,0xFFFFFF))
-		{
-			MsgBox, 没罐子了
-			Exit
-		}
+			break
+		;白纸本罐子确认
 		if(pixc(781,278,0xF7F702) && pixc(1029,468,0xFFFFFF))
 			pixc(1160,700,0xD8D9D9,0,1)
 	}
@@ -173,17 +173,17 @@ loop
 		sclick(1300,780)
 		sleep 200
 		
+		;白纸本罐子没了
+		if(pixc(900,720,0xDEDFE0) && pixc(852,430,0xFFFFFF))
+			break
+		
 		;加好友提示已满点确认
 		pixc(870,704,0xD6D6D6,0,1)
 		pixc(303,767,0xD5D5D5,0,1)
 		
 		;连续出击判定
-		;imgc(985,691,1109,763,"wconti",0,2)
-		if(pixc(1040,280,0xFFFFFF) && pixc(881,320,0xFFFFFF))
-		{
-			pixc(930,730,0xD2D2D3,1,1)
+		if(imgc(1000,680,1050,750,"wconti",0,2))
 			break
-		}
 	}
 }
 MsgBox 打完了
@@ -266,6 +266,8 @@ imgc(x1,y1,x2,y2,pimg,pl:=0,lc:=0,dv:=50)
 	y1:=y1+cpy
 	x2:=x2+cpx
 	y2:=y2+cpy
+	lcx:=(x1+x2)//2-cpx
+	lcy:=(y1+y2)//2-cpy
 	debug_m:=1
 	
 	;图片文件路径完善
@@ -281,7 +283,7 @@ imgc(x1,y1,x2,y2,pimg,pl:=0,lc:=0,dv:=50)
 			if(lc)
 			{
 				sleep 200
-				sclick( (x1+x2)//2 , (y1+y2)//2 )
+				sclick(lcx,lcy)
 				if(lc=2)
 				{
 					loop
@@ -289,7 +291,7 @@ imgc(x1,y1,x2,y2,pimg,pl:=0,lc:=0,dv:=50)
 						sleep 600
 						ImageSearch, xtmp,, x1,y1,x2,y2, *%dv% %pimg%
 						if(xtmp)
-							sclick( (x1+x2)//2 , (y1+y2)//2 )
+							sclick(lcx,lcy)
 						else
 							break
 					}
@@ -577,7 +579,7 @@ wstart(clc:=0)
 			sclick(1111,66)
 		sleep 200
 		;如果在编队界面，点击进本
-		if(pixc(1460,810,0xF4F4F3) && pixc(1570,837,0x06DFFC) && cyclist=1)
+		if(pixc(1460,810,0xF4F4F3) && pixc(1570,837,0x06DFFC) && cyclist<2)
 			sclick(1460,812)
 		;检测出击按钮
 		if(pixc(1400,681,0x00E9FA) && pixc(1450,257,0x1B2234) && pixc(1513,255,0xE3FFFF))
@@ -715,7 +717,7 @@ xjbd(n:=0)
 return
 
 ;出cn张卡平砍(优先卡色，1=红，2=绿，3=蓝)
-attack(col,cn:=1,rep:=0)
+attack(col,cnum:=1,rep:=0)
 {
 	;尽量选对应颜色卡
 	scard:=[ 0,0,0,0,0 ]
@@ -735,7 +737,7 @@ attack(col,cn:=1,rep:=0)
 			if(col>3)
 				col:=1
 		}
-		if(selnum=cn)
+		if(selnum=cnum)
 			break
 	}
 
@@ -743,13 +745,14 @@ attack(col,cn:=1,rep:=0)
 	if(rep)
 	{
 		ci:=1
-		loop
+		loop,5
 		{
-			if(scard[ci])
+			if(!scard[ci])
 			{
 				sclick(ccoord[ci],700)
 				break
 			}
+			ci:=ci+1
 		}
 	}
 
@@ -821,7 +824,7 @@ baoju(n1,n2:=0,n3:=0)
 		sleep 200
 	}
 	else 
-		attack(bcol,1)
+		attack(bcol,1,1)
 	
 	;等待回到操作界面
 	wstart(1)
