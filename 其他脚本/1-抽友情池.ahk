@@ -39,23 +39,23 @@ $~]::Pause
 $~[::
 
 ;检测处于友情池界面
-pixc(979,39,0xDDFF99,1)
+pixc(980,50,0xA4E74B,1)
 sleep 50
-sclick(1030,694)
+sclick(1100,690)
 sleep 300
-sclick(1030,694)
+sclick(1100,690)
 sleep 200
 
 ;循环抽卡
 loop
 {
 	;寻找黑屏
-	pixc(970,667,0X000000,1)
+	pixc(970,667,0x000000,1)
 	
 	loop
 	{
 		sclick(950,844)
-		if(pixc(1040,678,0xF9F9F9))
+		if(pixc(1040,678,0xFAF9F9))
 		{
 			loop,5
 			{

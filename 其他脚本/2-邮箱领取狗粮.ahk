@@ -45,7 +45,7 @@ $~]::Pause
 
 ; [ 键启动
 $~[::
-pixc(1276,628,0x980000,1)
+pixc(1276,628,0x9A0001,1)
 tot:=0
 loop
 {
@@ -64,7 +64,7 @@ loop
 		loop
 		{
 			;等待恢复初始邮箱界面
-			if(pixc(1276,628,0x980000) && pixc(1280,270,0x0BD49D))
+			if(pixc(1276,628,0x9A0001) && pixc(1280,270,0x0CD59D))
 				break
 			sleep 100
 		}
@@ -73,7 +73,7 @@ loop
 	sleep 100
 	
 	;翻完了后领取退出
-	if(pixc(1170,843,0xFFFEE3))
+	if(pixc(1170,843,0xFAF8F2))
 		break
 }
 sclick(1380,470)
