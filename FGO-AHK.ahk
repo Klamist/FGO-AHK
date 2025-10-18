@@ -22,7 +22,7 @@ global passby:= 0 ;0随意1必须好友
 global supser:= 0 ;0随意1奥伯龙2杀狐3术呆4自定义
 global tskill:= [ 0,0,0 ] ;三个技能0随意1必须满级
 global noblel:= 0 ;最低宝具等级
-global scraft:= 0 ;0随意1午茶2贝拉3秉持4私人5宝石6黑杯
+global scraft:= 0 ;0随意1午茶2贝拉3NFF爱4检报5宝石6黑杯
 
 ;选普通卡优先颜色，1红2绿3蓝
 global xcol:= 1 ;xjbd时
@@ -258,7 +258,7 @@ pixc(x,y,kolor,pl:=0,lc:=0)
 ;图片识别，在指定区域内寻找是否存在对应图片。
 ;pimg文件名为H文件夹内的png图片名（不含后缀）
 ;pl是否循环检测，lc=1识别到后点击，lc=2循环点击直到识别不到
-imgc(x1,y1,x2,y2,pimg,pl:=0,lc:=0,dv:=50)
+imgc(x1,y1,x2,y2,pimg,pl:=0,lc:=0,dv:=50,xdif:=0,ydif:=0)
 {
 	mup()
 	;加入偏量
@@ -266,8 +266,6 @@ imgc(x1,y1,x2,y2,pimg,pl:=0,lc:=0,dv:=50)
 	y1:=y1+cpy
 	x2:=x2+cpx
 	y2:=y2+cpy
-	lcx:=(x1+x2)//2-cpx
-	lcy:=(y1+y2)//2-cpy
 	debug_m:=1
 	
 	;图片文件路径完善
@@ -276,22 +274,22 @@ imgc(x1,y1,x2,y2,pimg,pl:=0,lc:=0,dv:=50)
 	
 	loop
 	{
-		ImageSearch, xtmp,, x1,y1,x2,y2, *%dv% %pimg%
+		ImageSearch, xtmp,ytmp, x1,y1,x2,y2, *%dv% %pimg%
 		if(xtmp)
 		{
 			; 识别到后是否点击图片正中心位置
 			if(lc)
 			{
 				sleep 200
-				sclick(lcx,lcy)
+				sclick(xtmp-cpx+xdif,ytmp-cpy+ydif)
 				if(lc=2)
 				{
 					loop
 					{
 						sleep 600
-						ImageSearch, xtmp,, x1,y1,x2,y2, *%dv% %pimg%
+						ImageSearch, xtmp,ytmp, x1,y1,x2,y2, *%dv% %pimg%
 						if(xtmp)
-							sclick(lcx,lcy)
+							sclick(xtmp-cpx+xdif,ytmp-cpy+ydif)
 						else
 							break
 					}
@@ -518,37 +516,37 @@ ncheck()
 		{
 			if(scraft=1)
 			{
-				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_ScriptDir%\H\c1.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *70 %A_ScriptDir%\H\c1.png
 				if(!x) ;下午茶
 					continue
 			}
 			else if(scraft=2)
 			{
-				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_ScriptDir%\H\c2.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *70 %A_ScriptDir%\H\c2.png
 				if(!x) ;贝拉丽莎
 					continue
 			}
 			else if(scraft=3)
 			{
-				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_ScriptDir%\H\c3.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *70 %A_ScriptDir%\H\c3.png
 				if(!x) ;秉持风雅
 					continue
 			}
 			else if(scraft=4)
 			{
-				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *60 %A_ScriptDir%\H\c4.png
+				ImageSearch, x,, 200+cpx,y-40,280+cpx,y-5, *70 %A_ScriptDir%\H\c4.png
 				if(!x) ;私人指导
 					continue
 			}
 			else if(scraft=5)
 			{
-				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *60 %A_ScriptDir%\H\c5.png
+				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *70 %A_ScriptDir%\H\c5.png
 				if(!x) ;万华镜
 					continue
 			}
 			else if(scraft=6)
 			{
-				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *60 %A_ScriptDir%\H\c6.png
+				ImageSearch, x,, 150+cpx,y-50,250+cpx,y-10, *70 %A_ScriptDir%\H\c6.png
 				if(!x) ;黑杯
 					continue
 			}
@@ -697,7 +695,7 @@ xjbd(n:=0)
 			sleep 600
 			if(pixc(1400,681,0x00E9FA))
 			{
-				sclick(1400,760)
+				sclick(1400,780)
 				sleep 600
 			}
 			attack(xcol,3,1)
