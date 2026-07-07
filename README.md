@@ -21,5 +21,4 @@ QQ群：1076324554<br>
 ### 若需要更强大的自动化工具：
 [BBchannel](https://www.bilibili.com/opus/1097501608897413124)：能后台操作模拟器内的fgo进行自动化刷本、抽池等<br>
 [FGO-py](https://github.com/hgjazhgj/FGO-py)：需要一定电脑水平搭建python和调节<br>
-[FGO天雾科技端](https://pd.qq.com/s/67q6snpot)：含倍速、倍卡等外挂类功能<br>
 #### 2019-9102 @ Klamist, All Rights Shared
